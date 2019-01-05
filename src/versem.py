@@ -16,29 +16,31 @@ nelm_z = 10
 velocity_model = '../input/vel_mod.npy'
 dim = 2
 
-#The lambda and mu flattened matrices
-lmd = np.ones(len(gll_coords_el))
-mu = np.ones(len(gll_coords_el))
 
 ngll_el = ngll_x*ngll_y*ngll_z
 el_no = nelm_x*nelm_y*nelm_z
 X,Y,Z,connect = mesh.readEx('../input/RectMesh.e')
+
 #--------------------------------------------------------------------
-#Obtaining the gll_coordinates and gll indices
+# Obtaining the gll_coordinates and gll indices
 gll_coordinates, gll_connect = mesh.mesh_interp2D(X,Y,Z,connect,ngll_x,ngll_z)
 
-#takes in global flattened density matrix. 1D matrix of length = total number of gll points in the mesh.
+# takes in global flattened density matrix. 1D matrix of length = total
+# number of gll points in the mesh.
 [rho,vp,vs] = mesh.assignSeismicProperties(velocity_model,gll_coordinates)
+
+# Conversion from rho vp vs to lambda and mu
+lmd,mu = velocity_conversion(rho,vp,vs)
 
 xi,w_xi = gll.gll_pw(ngll_x-1)
 #zi,w_zi = gll.gll_pw(ngll_y-1)
 eta,w_eta = gll.gll_pw(ngll_z-1)
 
-#To store the weights for all the gll points in an element.
+# To store the weights for all the gll points in an element.
 W = gll.flattened_weights2D(w_xi,w_eta)
 
-#derivative of the shape functions with respect to the local coords.
-#array of [no of gll points in an element]x[dim]x[no of gll points in an element]
+# derivative of the shape functions with respect to the local coords.
+# array of [no of gll points in an element]x[dim]x[no of gll points in an element]
 dN_local = gll.dN_local_2D(xi,eta)
 
 #The mass matrix => Computed only once if rho is constant in time.
