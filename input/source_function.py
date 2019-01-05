@@ -24,6 +24,6 @@ def gaussian(t,a,b,c):
     """
     
     # General definition of the Gaussian Pulse
-    f = a*np.exp**(-(t-b)^2/(2*c**2))
+    f = a*np.exp( - ( (t-b)**2) / (2*c**2) )
 
     return f

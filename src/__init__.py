@@ -8,5 +8,5 @@ from . import el_stiffness_matrix
 from . import force
 from . import loc2glob
 from . import model_parameters
-
+from . import tscheme
 

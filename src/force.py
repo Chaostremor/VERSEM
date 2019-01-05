@@ -1,5 +1,6 @@
 """implementation of the force-term"""
 import numpy as np
+from scipy import interpolate
 
 
 def genforce(force_term,force_location,gll_coordinates):
@@ -36,5 +37,27 @@ def genforce(force_term,force_location,gll_coordinates):
 
     return Fx,Fy
 
+
+
+def F(tp,source_time,Fx):
+    """.. function:: F(t)
+
+    """
+    
+    # Length of the function 
+    N = len(source_time)
+    
+    # Create repeat matrix
+    repF = np.repeat(Fx.reshape([len(Fx),1]),N,axis=1)
+
+    # repeat vector
+    fp = repF*source_time
+    
+    return interpolate.interp1d(tp,fp)
+
+
+
+
+
 if __name__ == "__main__":
-    print('assbutt')
+    pass

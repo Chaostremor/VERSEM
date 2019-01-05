@@ -1,5 +1,5 @@
 import numpy as np
-import tsolver
+from . import tsolver
 import os
 
 class Tscheme:
