@@ -77,12 +77,17 @@ def main():
     comp = 0
     Mglob_A,Mglob_B,Mglob_C = el_stiff.glob_el_stiff_mat(gll_coordinates,
                                     gll_connect,dN_local,W,comp,dim,lmd,mu)
-
-    # 
+ 
     # Force term
     Fx,Fy = src.force.genforce(force_term,force_location,gll_coordinates)
     
+    # Force vector interpolators
+    fx = src.force.F(t,source_time_function,Fx)
+    fy = src.force.F(t,source_time_function,Fy)
+    
+
     # Time Stepping with tscheme 
+    
 
 
 if __name__ == "__main__":
