@@ -45,7 +45,9 @@ def el_stiff(gll_coords_el,dim,ngll_el,dN_local,comp,W,lmd,mu):
 
         # Computing the global derivatives
         global_der[j,:,:] = gll.global_derivative(Jacob,dN_local[j,:,:])
+    
 
+    # Sum following the Notation in the documentation strictly
     for l in range(ngll_el):
         for m in range(ngll_el):
             for r in range(dim):
