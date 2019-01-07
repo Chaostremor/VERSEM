@@ -19,6 +19,14 @@ class Tscheme:
         self.outdir = outdir
         self.interval = interval
 
+        self.K = tsolver.normalize2(self.M,self.K,self.dim)
+        self.M0 = self.M
+        self.x0[0,:] = tsolver.diagmul_M(self.M0,self.x0[0,:],self.dim)
+        self.x0[1,:] = tsolver.diagmul_M(self.M0,self.x0[1,:],self.dim)
+
+        self.M = np.eye(self.dim)
+
+
         ## self.cache (multiple steps) ; self.x(store result at certain time)
 
     def process(self):
@@ -35,15 +43,18 @@ class Tscheme:
                 # print(un,vn)
             elif self.order == 2:
                 if self.nstep == 0:
+                    #pass
                     np.save(self.outdir+'u'+str(self.t[0]),self.u0)
-                    np.save(self.outdir + 'v' + str(self.t[0]), self.v0)
-                    np.save(self.outdir + 'a' + str(self.t[0]), self.a0)
+                    #np.save(self.outdir + 'v' + str(self.t[0]), self.v0)
+                    #np.save(self.outdir + 'a' + str(self.t[0]), self.a0)
                 un,vn,an = self.step()
                 if self.nstep % self.interval == 0:
+                    #pass
                     np.save(self.outdir+'u'+str(self.t[self.nstep]),un)
-                    np.save(self.outdir + 'v' + str(self.t[self.nstep]), vn)
-                    np.save(self.outdir + 'a' + str(self.t[self.nstep]), an)
-                print(self.nstep,un,vn,an)
+                    #np.save(self.outdir + 'v' + str(self.t[self.nstep]), vn)
+                    #np.save(self.outdir + 'a' + str(self.t[self.nstep]), an)
+                if self.nstep % 50 == 49:
+                    print('Timestep: %d of %d' % (i,self.allstep), 'Max. Displ.: %f ' % np.max(np.abs(un)))
 
 
     def _preprocess(self):
@@ -148,6 +159,10 @@ class Tscheme:
         if self.order == 1:
             un = result
             vn = self.f(un,tn+dt)
+
+            un = tsolver.normalize_f(self.M0, un, self.dim)
+            vn = tsolver.normalize_f(self.M0, vn, self.dim)
+
             return un,vn
 
         elif self.order ==2:
@@ -161,6 +176,10 @@ class Tscheme:
                 un = result
                 vn = cache[0,:]
                 an = cache[1,:]
+
+            un = tsolver.normalize_f(self.M0,un,len(un))
+            vn = tsolver.normalize_f(self.M0, vn, len(vn))
+            an = tsolver.normalize_f(self.M0, an, len(an))
             return un,vn,an
 
     def _getorder_(self):
@@ -196,6 +215,9 @@ class Tscheme:
         fn = self.f1(t)
         fxn = tsolver.normalize_f(self.M,fn,len(fn)) - np.dot(self._MK,x)
         return fxn
+
+
+
 
 
 

@@ -47,7 +47,7 @@ def glob_force_mat(gll_coordinates,gll_connect,f,dN_local,W):
 
     :param gll_connect: ``numpy`` array of size [el_no]x[ngll_el]. Contains the global indexing of gll nodes.
 
-    :param rho: flattened density matrix [1]x[ngll_el]
+    :param f: flattened density matrix [1]x[ngll_el]
               (``numpy``)
 
     :param dN_local: Local derivative of shape functions at each gll point in an element. `numpy`` array of size [total ngll]x[2]x[total ngll]
@@ -73,7 +73,7 @@ def glob_force_mat(gll_coordinates,gll_connect,f,dN_local,W):
     	    J_el[j] = np.linalg.det(gll.Jacobian2D(dN_local[j,:,:],gll_coords_el))
 	
         #We are now ready to construct the element matrices
-        Fe = el_mass_mat(rho[gll_connect[i]],J_el,W)
+        Fe = force_mat(f[gll_connect[i]],J_el,W)
         #Constructing global mass matrix
         Fg += l2g.local2global(Fe,Fg,gll_connect,[i])
 

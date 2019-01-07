@@ -454,6 +454,7 @@ def flattened_weights2D(w_xi,w_eta):
 
     # Flattening the Weights
     counter = 0
+    
     for j in range(len(w_eta)):
         for i in range(len(w_xi)):
             W[counter] = w_xi[i]*w_eta[j]

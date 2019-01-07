@@ -20,9 +20,9 @@ def el_stiff(gll_coords_el,dim,ngll_el,dN_local,comp,W,lmd,mu):
 
     :param W: flattened weight matrix [1]x[total Number of GLL points] (``numpy``)
 
-    :param lmd: the flattened $\lambda$ array [1]x[total Number of GLL points] (``numpy``)
+    :param lmd: the flattened $lambda$ array [1]x[total Number of GLL points] (``numpy``)
 
-    :param mu: the flattened $\mu$ array [1]x[total Number of GLL points] (``numpy``)
+    :param mu: the flattened $mu$ array [1]x[total Number of GLL points] (``numpy``)
     
     :rtype: A and B are ``numpy`` [dim]x[ngll_el]x[ngll_el] array and C is ``numpy`` [ngll_el]x[ngll_el] array
 
@@ -34,10 +34,27 @@ def el_stiff(gll_coords_el,dim,ngll_el,dN_local,comp,W,lmd,mu):
     C = np.zeros([ngll_el,ngll_el])
 
     J_el = np.zeros(len(gll_coords_el))	#for storing the determinant of the Jacobian at each gll point in an element
+    
+    # Global Derivative
+    global_der = np.zeros(np.shape(dN_local))
+
     for j in range(len(gll_coords_el)):
         #Jacobian for the nodes in a specific element
-        J_el[j] = np.linalg.det(gll.Jacobian2D(dN_local[j,:,:],gll_coords_el))
+        Jacob = gll.Jacobian2D(dN_local[j,:,:],gll_coords_el)
+        J_el[j] = np.linalg.det(Jacob)
 
+        # Computing the global derivatives
+        global_der[j,:,:] = gll.global_derivative(Jacob,dN_local[j,:,:])
+
+    for l in range(ngll_el):
+        for m in range(ngll_el):
+            for r in range(dim):
+                for k in range(ngll_el):
+                    A[r,l,m] += -(global_der[k,comp,l]*lmd[k]*global_der[k,r,m]*(J_el[k])*W[k])
+                    B[r,l,m] += -(global_der[k,r,l]*mu[k]*global_der[k,comp,m]*(J_el[k])*W[k])
+                    C[l,m] += -(global_der[k,r,l]*mu[k]*global_der[k,r,m]*(J_el[k])*W[k])
+
+    '''
     for l in range(ngll_el):
         for m in range(ngll_el):
             for r in range(dim):
@@ -45,6 +62,7 @@ def el_stiff(gll_coords_el,dim,ngll_el,dN_local,comp,W,lmd,mu):
                     A[r,l,m] += -(dN_local[k,comp,l]*lmd[k]*dN_local[k,r,m]*(1.0/J_el[k])*W[k])
                     B[r,l,m] += -(dN_local[k,r,l]*mu[k]*dN_local[k,comp,m]*(1.0/J_el[k])*W[k])
                     C[l,m] += -(dN_local[k,r,l]*mu[k]*dN_local[k,r,m]*(1.0/J_el[k])*W[k])
+    '''
 
     return A,B,C
 
@@ -66,10 +84,9 @@ def glob_el_stiff_mat(gll_coordinates,gll_connect,dN_local,W,comp,dim,lmd,mu):
 
     :param dim: the dimensionality of our system. For now its 2.
     
-    :param lmd: the flattened $\lambda$ array [1]x[total Number of GLL points] (``numpy``)
+    :param lmd: the flattened $lambda$ array [1]x[total Number of GLL points] (``numpy``)
 
-    :param mu: the flattened $\mu$ array [1]x[total Number of GLL points] (``numpy``)
-    
+    :param mu: the flattened $mu$ array [1]x[total Number of GLL points] (``numpy``)
 
     :rtype: Ag and Bg are ``numpy`` [dim]x[ngll_total]x[ngll_total] array and C is ``numpy`` [ngll_total]x[ngll_total] array
 
@@ -104,8 +121,8 @@ def glob_el_stiff_mat(gll_coordinates,gll_connect,dN_local,W,comp,dim,lmd,mu):
 
         Cg += l2g.local2global(C,Cg,gll_connect,[i])
          
+    
     return Ag,Bg,Cg
-
 
 
 

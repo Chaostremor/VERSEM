@@ -1,6 +1,6 @@
 import numpy as np
 
-#import numba as nb
+import numba as nb
 
 
 def euler_explicit(xn, dt, f, t):
@@ -72,11 +72,29 @@ def newmark(M ,K ,f,t ,dt ,un, nstep ,cache, gamma):
         cache = np.concatenate(([vn1],[an1]))
         return un1, cache
 
+def newmark2(K,f,t,dt,un,nstep,cache):
+
+    if nstep == 0:
+        un1 = un + cache*dt
+        cache = un
+        return un1, cache
+    else:
+        un = un
+        un_1 = cache
+        fn = f(t)
+        ff = np.dot(K,un)
+        un1 = (dt*dt)*(fn-ff) + 2*un - un_1
+        cache = un
+        return un1, cache
+
+
+
+
 
 def reshape(M, C, K, dim):
     if dim == 1:
         M_out = np.array([[1,0],[0,M]])
-        K_out = np.array([[0,-1],[K,C]])
+        K_out = np.array([[0,-1],[K,0]])
     else:
         I = np.eye(dim)
         O = np.zeros([dim,dim])
@@ -85,7 +103,7 @@ def reshape(M, C, K, dim):
         M_out = np.concatenate((M1,M2))
 
         K1 = np.concatenate((O,-I),axis=1)
-        K2 = np.concatenate((K, C), axis=1)
+        K2 = np.concatenate((K, O), axis=1)
         K_out = np.concatenate((K1,K2))
 
     return M_out, K_out
@@ -100,19 +118,40 @@ def reshape_f(fn,dim):
 
 
 def normalize(M, K, dim):
+    kk = np.zeros([dim,dim])
     if dim == 1:
         return K / M
     for i in range(dim):
-        K[i,:] /= M[i,i]
+        kk[i,:] = K[i,:] / M[i,i]
     return K
 
 
 def normalize_f(M, fn, dim):
+    p = np.zeros(dim)
     if dim == 1:
         return fn / M
     for i in range(dim):
-        fn[i] /= M[i,i]
-    return fn
+        p[i] = fn[i] / M[i,i]
+    return p
+
+
+def diagmul_M(M,f,dim):
+    p = np.zeros(dim)
+    if dim == 1:
+        return M * f
+    for i in range(dim):
+        p[i] = f[i]*M[i,i]
+    return p
+
+def normalize2(M,K,dim):
+    kk = np.zeros([dim,dim])
+    if dim == 1:
+        return K / M
+    for i in range(dim):
+        kk[:,i] = K[:,i] / M[i,i]
+    return kk
+
+
 
 
 

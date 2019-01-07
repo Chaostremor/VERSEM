@@ -20,7 +20,10 @@ docs:
 
 # Cleaning up
 clean:
-	cd docs
-	make clean
+	rm -rf results/timesteps
+	rm -f results/gll_coordinates.npy
+	#cd docs 
+	#make clean
+	
 
 .PHONY: init test
