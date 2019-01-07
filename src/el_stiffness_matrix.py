@@ -45,7 +45,9 @@ def el_stiff(gll_coords_el,dim,ngll_el,dN_local,comp,W,lmd,mu):
 
         # Computing the global derivatives
         global_der[j,:,:] = gll.global_derivative(Jacob,dN_local[j,:,:])
+    
 
+    # Sum following the Notation in the documentation strictly
     for l in range(ngll_el):
         for m in range(ngll_el):
             for r in range(dim):
@@ -53,16 +55,6 @@ def el_stiff(gll_coords_el,dim,ngll_el,dN_local,comp,W,lmd,mu):
                     A[r,l,m] += -(global_der[k,comp,l]*lmd[k]*global_der[k,r,m]*(J_el[k])*W[k])
                     B[r,l,m] += -(global_der[k,r,l]*mu[k]*global_der[k,comp,m]*(J_el[k])*W[k])
                     C[l,m] += -(global_der[k,r,l]*mu[k]*global_der[k,r,m]*(J_el[k])*W[k])
-
-    '''
-    for l in range(ngll_el):
-        for m in range(ngll_el):
-            for r in range(dim):
-                for k in range(ngll_el):
-                    A[r,l,m] += -(dN_local[k,comp,l]*lmd[k]*dN_local[k,r,m]*(1.0/J_el[k])*W[k])
-                    B[r,l,m] += -(dN_local[k,r,l]*mu[k]*dN_local[k,comp,m]*(1.0/J_el[k])*W[k])
-                    C[l,m] += -(dN_local[k,r,l]*mu[k]*dN_local[k,r,m]*(1.0/J_el[k])*W[k])
-    '''
 
     return A,B,C
 
@@ -112,9 +104,11 @@ def glob_el_stiff_mat(gll_coordinates,gll_connect,dN_local,W,comp,dim,lmd,mu):
         gll_coords_el = gll_coordinates[gll_connect[i]]
         mu_el = mu[gll_connect[i]]
         lmd_el = lmd[gll_connect[i]]
+
         #Obtaining the local matrices
         A,B,C = el_stiff(gll_coords_el,dim,ngll_el,dN_local,comp,W,lmd_el,mu_el)
 
+        
         for j in range(dim):
             Ag[j,:,:] += l2g.local2global(A[j,:,:],Ag[j,:,:],gll_connect,[i])
             Bg[j,:,:] += l2g.local2global(B[j,:,:],Bg[j,:,:],gll_connect,[i])
