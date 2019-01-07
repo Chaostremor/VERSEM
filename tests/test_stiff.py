@@ -34,34 +34,31 @@ class testGlobMassMat(unittest.TestCase):
         #Mglob_A,Mglob_B,Mglob_C = src.el_stiffness_matrix.glob_el_stiff_mat(el_no,ngll_el,gll_coordinates,gll_connect,dN_local,W,comp,dim)
         A,B,C = src.el_stiffness_matrix.el_stiff(gll_coords_el,dim,ngll_el,dN_local,comp,W,lmd,mu)
 
-        A_sol = [[[-2.,  2.,  0.,  0.],
-                  [ 2., -2.,  0.,  0.],
-                  [ 0.,  0., -2.,  2.],
-                  [ 0.,  0.,  2., -2.]],
+        A_sol = np.array([[-0.5 ,  0.5,  0  ,  0   ],
+                           [0.5 , -0.5,  0  ,  0   ],
+                           [0   ,  0,  -0.5 ,  0.5 ],  
+                           [0   ,  0,   0.5 , -0.5]])
 
-                 [[-1., -1.,  1.,  1.],
-                  [ 1.,  1., -1., -1.],
-                  [-1., -1.,  1.,  1.],
-                  [ 1.,  1., -1., -1.]]]
+        A_sol1 = np.array([[-0.25, -0.25, 0.25,   0.25],  
+                            [0.25,  0.25, -0.25, -0.25], 
+                           [-0.25, -0.25,  0.25,  0.25],  
+                            [0.25,  0.25, -0.25, -0.25]])
 
-        B_sol = [[[-2.,  2.,  0.,  0.],
-                  [ 2., -2.,  0.,  0.],
-                  [ 0.,  0., -2.,  2.],
-                  [ 0.,  0.,  2., -2.]],
+            
 
-                 [[-1.,  1., -1.,  1.],
-                  [-1.,  1., -1.,  1.],
-                  [ 1., -1.,  1., -1.],
-                  [ 1., -1.,  1., -1.]]]
+        B_sol = np.array([[-0.5 ,  0.5,  0  ,  0   ],
+                           [0.5 , -0.5,  0  ,  0   ],
+                           [0   ,  0,  -0.5 ,  0.5 ],  
+                           [0   ,  0,   0.5 , -0.5]])
 
 
-        C_sol = [[-4.,  2.,  2.,  0.],
-                 [ 2., -4.,  0.,  2.],
-                 [ 2.,  0., -4.,  2.],
-                 [ 0.,  2.,  2., -4.]]
+        C_sol = np.array([[-1.,  0.5,  0.5,   0  ],
+                          [0.5, -1.,  0,     0.5],  
+                          [0.5,  0,  -1.,    0.5],  
+                          [0,    0.5,  0.5, -1. ]])
 
-        np.testing.assert_array_almost_equal(A,A_sol)
-        np.testing.assert_array_almost_equal(B,B_sol)
+        np.testing.assert_array_almost_equal(A[0,:,:],A_sol)
+        np.testing.assert_array_almost_equal(B[0,:,:],B_sol)
         np.testing.assert_array_almost_equal(C,C_sol)
 
 

@@ -60,6 +60,8 @@ def glob_el_mass_mat(gll_coordinates,gll_connect,rho,dN_local,W):
     ngll_el = len(gll_connect[0])	#Assuming number of gll points per element in constant
 
     Mg = np.zeros([len(gll_coordinates),len(gll_coordinates)])
+
+    M = np.zeros([2*len(gll_coordinates),2*len(gll_coordinates)])
     
     for i in range(el_no):    #el_no is the total number of elements
         gll_coords_el = gll_coordinates[gll_connect[i]]
@@ -72,5 +74,9 @@ def glob_el_mass_mat(gll_coordinates,gll_connect,rho,dN_local,W):
         Me = el_mass_mat(rho[gll_connect[i]],J_el,W)
         #Constructing global mass matrix
         Mg += l2g.local2global(Me,Mg,gll_connect,[i])
-    return Mg
+
+    M[0:len(gll_coordinates),0:len(gll_coordinates)] = Mg
+    M[len(gll_coordinates):2*len(gll_coordinates),len(gll_coordinates):2*len(gll_coordinates)] = Mg
+
+    return M
     

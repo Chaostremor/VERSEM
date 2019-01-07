@@ -34,6 +34,23 @@ class testForce(unittest.TestCase):
         np.testing.assert_array_almost_equal(Fx,Fx_sol)
         np.testing.assert_array_almost_equal(Fy,Fy_sol)
         
+    
+    def testF(self):
+        """Testing force vector interpolator"""
         
+        # Create interpolating values
+        tp = np.linspace(0,4,10000)
+        fp = tp**2
+
+        # Force vector
+        Fx = np.array([0.,2.,0.])
+        
+        # Compute interpolator
+        f = src.force.F(tp,fp,Fx)
+        
+        # Checking solution
+        np.testing.assert_array_almost_equal(f(2),np.array([0,8,0]))
+
+
 if __name__ == "__main__":
     unittest.main()

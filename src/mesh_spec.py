@@ -25,9 +25,10 @@ def readUniformVelocity(input_mesh,outfilename):
     X,Y,Z,connect = readEx(input_mesh)
 
     # Uniform material for test
-    rho = 2700  # kg/m^3
-    vp  = 6500  # m/s 
-    vs  = 3750  # m/s
+    rho = 2000  # kg/m^3
+    vs  = 2500  # m/s
+    vp  = vs*1.7  # m/s 
+    
 
     # Initialize empty array
     prop = np.zeros([len(X),6])
@@ -347,6 +348,7 @@ def mesh_interp2D(X,Y,Z,connect,ngllx,nglly):
 
                 temp = np.where(xbool)
                 ind = temp[0]
+                
                 # if it doesnt exist
                 if ind.size==0:
                     # append new coordinates to global data set 

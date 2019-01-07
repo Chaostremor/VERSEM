@@ -1,6 +1,6 @@
 ## Requirements without version specifiers:
 numpy
-
+scipy
 
 # Documetation
 sphinx

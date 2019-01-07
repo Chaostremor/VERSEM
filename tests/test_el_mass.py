@@ -39,7 +39,11 @@ class testGlobMassMat(unittest.TestCase):
                         [0.  , 0.  , 0.  , 0.  , 0.25, 0.  ],
                         [0.  , 0.  , 0.  , 0.  , 0.  , 0.25]])
 
-        np.testing.assert_array_almost_equal(Mglob_mass,Mg_sol)
+        Mg_sol_big = np.zeros([2*len(gll_coordinates),2*len(gll_coordinates)])
+        Mg_sol_big[0:len(gll_coordinates),0:len(gll_coordinates)] = Mg_sol
+        Mg_sol_big[len(gll_coordinates):2*len(gll_coordinates),len(gll_coordinates):2*len(gll_coordinates)] = Mg_sol
+
+        np.testing.assert_array_almost_equal(Mglob_mass,Mg_sol_big)
 
 if __name__ == "__main__":
     unittest.main()
