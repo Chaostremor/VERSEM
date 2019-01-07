@@ -27,6 +27,12 @@ def lagrange(i, x, xi):
 
     """
 
+    # Necessary for generic dimensional code
+    """
+    if len(xi)==1:
+        return 1.
+    """
+
     fac = 1
     
     for j in range(0, len(xi)):

@@ -104,9 +104,11 @@ def glob_el_stiff_mat(gll_coordinates,gll_connect,dN_local,W,comp,dim,lmd,mu):
         gll_coords_el = gll_coordinates[gll_connect[i]]
         mu_el = mu[gll_connect[i]]
         lmd_el = lmd[gll_connect[i]]
+
         #Obtaining the local matrices
         A,B,C = el_stiff(gll_coords_el,dim,ngll_el,dN_local,comp,W,lmd_el,mu_el)
 
+        
         for j in range(dim):
             Ag[j,:,:] += l2g.local2global(A[j,:,:],Ag[j,:,:],gll_connect,[i])
             Bg[j,:,:] += l2g.local2global(B[j,:,:],Bg[j,:,:],gll_connect,[i])
