@@ -48,17 +48,17 @@ def main():
 
     ke = np.array([])
 
-    for i in range(100,N,50):
+    for i in range(150,N,10):
         plt.clf()
         # print(file_list[i])
         
         # X
-        U = interpolate.griddata(gll_coordinates,ux[:,i],(x,y),fill_value=9999)
-        plt.pcolormesh(x,y,U,vmin=uxmin,vmax=uxmax)
+        #U = interpolate.griddata(gll_coordinates,ux[:,i],(x,y),fill_value=9999)
+        #plt.pcolormesh(x,y,U,vmin=uxmin,vmax=uxmax)
         
         # Y
-        #U = interpolate.griddata(gll_coordinates,uy[:,i],(x,y),fill_value=9999)
-        #plt.pcolormesh(x,y,U,vmin=uxmin,vmax=uxmax)
+        U = interpolate.griddata(gll_coordinates,uy[:,i],(x,y),fill_value=9999)
+        plt.pcolormesh(x,y,U,vmin=uxmin,vmax=uxmax)
 
         # Total displacement:
         #U = interpolate.griddata(gll_coordinates,np.sqrt(ux[:,i]**2+uy[:,i]**2),(x,y),fill_value=9999)
@@ -76,4 +76,4 @@ def main():
 
 
 if __name__ == "__main__":
-    pass
+    main()

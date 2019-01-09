@@ -24,23 +24,36 @@ def readUniformVelocity(input_mesh,outfilename):
     # Get XYZ coordinates of the mesh
     X,Y,Z,connect = readEx(input_mesh)
 
-    # Uniform material for test
-    rho = 2000  # kg/m^3
-    vs  = 2500  # m/s
-    vp  = vs*1.7  # m/s 
-    
+    # Two layered material for test
+    rho1 = 2000  # kg/m^3
+    vs1  = 1600  # m/s.
+    vp1  = vs1*1.7  # m/s 
+
+    rho2 = 2000  # kg/m^3
+    vs2  = 1800  # m/s
+    vp2  = vs2*1.7  # m/s 
 
     # Initialize empty array
     prop = np.zeros([len(X),6])
 
     # Populate property matrix
-    prop[:,0] = X
-    prop[:,1] = Y
-    prop[:,2] = Z
-    prop[:,3] = rho
-    prop[:,4] = vp
-    prop[:,5] = vs
-    
+    prop[:,0] = X*1000
+    prop[:,1] = Y*1000
+    prop[:,2] = Z*1000
+
+    index1 = np.where(prop[:,2]>=-5000)
+    print(index1)
+    index2 = np.where(prop[:,2]<-5000)
+    print(index2)
+
+    prop[index1,3] = rho1
+    prop[index1,4] = vp1
+    prop[index1,5] = vs1
+
+    prop[index2,3] = rho2
+    prop[index2,4] = vp2
+    prop[index2,5] = vs2
+
     # Save materials to .npy file
     np.save(outfilename,prop)
 
