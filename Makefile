@@ -13,10 +13,10 @@ test:
 	py.test tests
 
 # Make Documentation
-docs:
-	cd docs
-	make latexpdf
-	make html
+docs: *.rst
+	sphinx-apidoc -o ./docs/source/ ./ [*.npy]
+	make latexpdf -C docs
+	make html -C docs
 
 # Cleaning up
 clean:

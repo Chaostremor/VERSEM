@@ -1,6 +1,7 @@
 import numpy as np
 from . import tsolver
 import os
+import time
 
 class Tscheme:
     def __init__(self, M, K, f, x0, t,outdir, C=None, gamma=0.5, solver='euler_explicit',solver2='rk4',interval=1):
@@ -33,6 +34,10 @@ class Tscheme:
         self._preprocess()
         if os.path.exists(self.outdir) == False:
             os.makedirs(self.outdir)
+        
+        # Start timer
+        start_time = time.time()
+
         for i in range(self.allstep):
             if self.order == 1:
                 if self.nstep == 0:
@@ -53,8 +58,13 @@ class Tscheme:
                     np.save(self.outdir+'u'+str(self.t[self.nstep]),un)
                     #np.save(self.outdir + 'v' + str(self.t[self.nstep]), vn)
                     #np.save(self.outdir + 'a' + str(self.t[self.nstep]), an)
-                if self.nstep % 50 == 49:
-                    print('Timestep: %d of %d' % (i,self.allstep), 'Max. Displ.: %f ' % np.max(np.abs(un)))
+                if self.nstep % 50 == 1:
+                    #     Printing Time statement ,
+                    #       Printing Timestep,
+                    #           Printing max displacement  
+                    print("Time: {:10.2f} sec -- ".format(time.time() - start_time), 
+                            "Timestep: {0:>6} of {1:} -- ".format(i,self.allstep), 
+                                "Max. Displ.: {0:e} ".format(np.max(np.abs(un))))
 
 
     def _preprocess(self):

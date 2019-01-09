@@ -54,8 +54,10 @@ def ricker(t,t0,p0):
     return s
 
 
-def rickerSEM(dt,pt):
+def notrickerSEM(dt,pt):
     """.. function:: rickerSEM(dt,pt)
+
+    Not the ricker wavelet, I don't know why they called it ricker wavelet...
 
     Taken from seismolive
 
@@ -73,3 +75,20 @@ def rickerSEM(dt,pt):
         c[it] = -2 * a_ricker * t[it] * np.exp(-(a_ricker * t[it]) ** 2)
 
     return t+t[int(t0)],c
+
+def rickerSEM(f,length,dt):
+    """.. function:: Computing the ricker
+
+    :param f: dominant frequency
+    :param length: width of time 
+    :param dt: sampling time
+    :rtype: (t,y) tuple, where t is a time vector and y the wavelet 
+            vector
+
+    Computes ricker wavelet and corresponding time vector.
+    """
+
+    t = np.arange(-length/2, (length-dt)/2, dt)
+    y = (1.0 - 2.0*(np.pi**2)*(f**2)*(t**2)) * np.exp(-(np.pi**2)*(f**2)*(t**2))
+    
+    return t-t[0],y
