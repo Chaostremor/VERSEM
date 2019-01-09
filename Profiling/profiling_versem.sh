@@ -1,5 +1,7 @@
 #!/bin/bash
 
+
+
 # Outputs psstat file that contains Profiling content
 python ./Profiling/profiling_versem.py
 

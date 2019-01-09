@@ -1,6 +1,8 @@
 import numpy as np
 import src.gll_library as gll
 import src.loc2glob as l2g
+import src.time_decorator as time
+
 #######################################################################
 ###            Constructing Element Stiffness Matrices             ####
 #######################################################################
@@ -57,6 +59,9 @@ def el_stiff(gll_coords_el,dim,ngll_el,dN_local,comp,W,lmd,mu):
                     C[l,m] += -(global_der[k,r,l]*mu[k]*global_der[k,r,m]*(J_el[k])*W[k])
 
     return A,B,C
+
+
+
 
 def glob_el_stiff_mat(gll_coordinates,gll_connect,dN_local,W,comp,dim,lmd,mu):
     """.. function:: glob_el_stiff_mat(gll_coordinates,gll_connect,dN_local,W,comp,dim,lmd,mu)

@@ -6,20 +6,14 @@
 Welcome to VERSEM's documentation!
 ==================================
 
-.. toctree::
-   :maxdepth: 4
-   :caption: Contents:
-   
-Source Code
-===================
-.. automodule:: src.gll_library
-    :members:
 
-Unit Testing
-=================
+.. include:: modules.rst
 
-GLL Library
-++++++++++++++++++
+.. include:: versem.rst
+.. include:: src.rst
+.. include:: test.rst
+.. include:: plot.rst
+
 
 
 

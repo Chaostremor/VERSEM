@@ -1,6 +1,7 @@
 import numpy as np
 import src.gll_library as gll
 import src.loc2glob as l2g
+
 #######################################################################
 ###            Constructing Element Mass Matrices                  ####
 #######################################################################
@@ -33,6 +34,8 @@ def el_mass_mat(rho,J,W):
         M[i,i] = rho[i]*J[i]*W[i]	#basically a diagonal matrix because of the nature of Shape Functions
 
     return M
+
+
 
 def glob_el_mass_mat(gll_coordinates,gll_connect,rho,dN_local,W):
     """.. function:: glob_el_mass_mat(gll_coordinates,gll_connect,rho,dN_local,W)
