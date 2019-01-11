@@ -3,26 +3,21 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to VERSEM's documentation!
-==================================
 
+VERSEM
++++++++++++++++++++++++++++++++
 
-.. include:: modules.rst
-
-.. include:: versem.rst
-.. include:: src.rst
-.. include:: test.rst
-.. include:: plot.rst
-
-
+.. toctree::
+    :maxdepth: 5
+    
+    chapterIntroduction/introduction.rst
+    chapterTheory/theory.rst
+    chapterModules/modules.rst
 
 
 Indices and tables
-==================
++++++++++++++++++++++++++++++++
 
+* :ref:`search`
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search`
-
-
-

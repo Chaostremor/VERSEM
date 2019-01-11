@@ -1,4 +1,5 @@
 """implementation of the force-term"""
+
 import numpy as np
 from scipy import interpolate
 import src.gll_library as gll
@@ -8,24 +9,22 @@ import src.loc2glob as l2g
 ###            Constructing Element Force Matrices                  ###
 #######################################################################
 
-def force_mat(f,J,W):
-    """.. function:: el_mass_mat(ngll_total,rho,J,W)
+def element_force_mat(f,J,W):
+    """Computes the Force Vector for each element
 
-    Computes the Elemetal Mass Matrix M_e for each element
+    :param f:  [ngll_el] ``numpy`` array
 
-    :param rho: flattened density matrix [1]x[ngll_el]
-              (``numpy``)
+    :param J: flattened Jacobian determinant vector [ngll_el]
+              ``numpy``  corresponding to nodes numbers
 
-    :param J: flattened Jacobian determinant matrix [1]x[ngll_el]
-              (``numpy``)
-
-    :param W: flattened weight matrix [1]x[ngll_el]
-              (``numpy``)
+    :param W: weight vector [ngll_el] ``numpy``  corresponding to 
+              nodes numbers
     
-    :rtype: ``numpy`` [ngll_total]x[ngll_total] array
+    :rtype: ``numpy`` [ngll_total] 
 
     The description of the Jacobian can be found on the theory
     documentation.
+
     """
 
     #Retrieves the number of gll points in an element
@@ -38,22 +37,22 @@ def force_mat(f,J,W):
 
     return fe
 
-def glob_force_mat(gll_coordinates,gll_connect,f,dN_local,W):
-    """.. function:: glob_el_mass_mat(gll_coordinates,gll_connect,rho,dN_local,W)
+def global_force_vector(gll_coordinates,gll_connect,f,dN_local,W):
+    """ Computes the Global Force Vector
 
-    Computes the Global Mass Matrix Mg
+    :param gll_coordinates: ``numpy`` array of size [ngll_total]x[2] 
+                            containing the coordinates of all the gll points
 
-    :param gll_coordinates: ``numpy`` array of size [ngll_total]x[2] containing the coordinates of all the gll points
+    :param gll_connect: ``numpy`` array of size [el_no]x[ngll_el]. Contains 
+                        the global indexing of gll nodes.
 
-    :param gll_connect: ``numpy`` array of size [el_no]x[ngll_el]. Contains the global indexing of gll nodes.
+    :param f: force  vector [ngll_el] ``numpy``
 
-    :param f: flattened density matrix [1]x[ngll_el]
-              (``numpy``)
+    :param dN_local: Local derivative of shape functions at each gll point 
+                     in an element. `numpy`` array of size 
+                     [total ngll]x[2]x[total ngll]
 
-    :param dN_local: Local derivative of shape functions at each gll point in an element. `numpy`` array of size [total ngll]x[2]x[total ngll]
-
-    :param W: flattened weight matrix [1]x[ngll_el]
-              (``numpy``)
+    :param W: Weight matrix [ngll_el] ``numpy`` corresponding to nodes numbers
     
     :rtype: ``numpy`` [ngll_total]x[ngll_total] array
 
@@ -120,7 +119,7 @@ def genforce(force_term,force_location,gll_coordinates):
 
 
 def F(tp,source_time,Fx):
-    """.. function:: F(t)
+    """dfnalskdnjflakjsdf lkjc fasdlkj
 
     """
     

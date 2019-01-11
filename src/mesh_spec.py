@@ -29,21 +29,21 @@ def readUniformVelocity(input_mesh,outfilename):
     vs1  = 1600  # m/s.
     vp1  = vs1*1.7  # m/s 
 
-    rho2 = 2000  # kg/m^3
-    vs2  = 1800  # m/s
+    rho2 = 2300  # kg/m^3
+    vs2  = 2200  # m/s
     vp2  = vs2*1.7  # m/s 
 
     # Initialize empty array
     prop = np.zeros([len(X),6])
 
     # Populate property matrix
-    prop[:,0] = X*1000
-    prop[:,1] = Y*1000
-    prop[:,2] = Z*1000
+    prop[:,0] = X*125
+    prop[:,1] = Y*125
+    prop[:,2] = Z*125
 
-    index1 = np.where(prop[:,2]>=-5000)
+    index1 = np.where(prop[:,2]>=-5*125)
     print(index1)
-    index2 = np.where(prop[:,2]<-5000)
+    index2 = np.where(prop[:,2]<-5*125)
     print(index2)
 
     prop[index1,3] = rho1
@@ -74,30 +74,31 @@ def assProp():
 
 
 def assignSeismicProperties(velocity_model,gll_coordinates):
-    """.. function:: assignSeismicProperties(name)
-    
-    Reads an ``.npy`` file that contains a ``numpy`` array with velocity 
+    """Reads an ``.npy`` file that contains a ``numpy`` array with velocity 
     model of the format
     
     ::
     
-        Columns:    X Y Z rho vp vs
+        Columns: X, Y, Z, rho, vp ,vs
+
 
     Then, it assigns the properties to the interpolated mesh using the 
     nearest neighbour principle.
 
     :param v_name: velocity model array specified as above.
+
     :param gll_coordinates: coordinate matrix of the interpolated GLL
                             points using the original matrix.
         
     :rtype: Nx3 ``numpy`` array with the seismic properties for each 
             node in gll_coordinates
+
     ::
         
-        Columns     rho vp vs
+        Columns: rho,vp,vs
     
-    I think this should be correct.
 
+    I think this should be correct.
 
     """
     

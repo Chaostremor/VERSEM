@@ -4,15 +4,14 @@ a certain time vector and parameters necessary."""
 import numpy as np
 
 def gaussian(t,a,b,c):
-    """.. function ::
-    
-    This function computes a gaussian pulse given the parameters a,b,c 
+    """This function computes a gaussian pulse given the parameters a,b,c 
     and a time vector t
 
     :param t: 1D ``numpy`` array
     :param a: ``float``
     :param b: ``float``
     :param c: ``float``
+
     :rtype: 1D ``numpy`` array of the same size as t
 
 
@@ -20,7 +19,8 @@ def gaussian(t,a,b,c):
 
     .. math::
         
-        f(x)=ae^{-{\frac {(x-b)^{2}}{2c^{2}}}}
+        f(x)=ae^{-{\\frac {(x-b)^{2}}{2c^{2}}}}
+
 
     """
     
@@ -31,9 +31,7 @@ def gaussian(t,a,b,c):
 
 
 def ricker(t,t0,p0):
-    """.. function:: ricker(t,t0,p0)
-
-    This function computes the Ricker Wavelet given a dominant period p0,
+    """This function computes the Ricker Wavelet given a dominant period p0,
     time vector t and origin t0
 
     :param t: time vector
@@ -55,9 +53,7 @@ def ricker(t,t0,p0):
 
 
 def rickerSEM(dt,pt):
-    """.. function:: rickerSEM(dt,pt)
-
-    Taken from seismolive
+    """Taken from seismolive
 
     """
 

@@ -4,7 +4,7 @@
 import numpy as np
 
 # imports from mesh_spec.py
-from .mesh_spec import *
+from src.mesh_spec import *
 
 
 # Plotting
@@ -15,32 +15,30 @@ import matplotlib
 
 # Import GLL library to get the lagrange polynomials for interpolation
 # of the grid
-from . import gll_library as gll
+from src import gll_library as gll
 
 
 
 def plot_elements(X,Y,connect,gll_coordinates,gll_connect,\
                     num_o_el="all",plot_el_num="no",plot_node_num="no",\
                     plot_axis="yes"):
-    """plot_elements(X,Y,connect,gll_coordinates,gll_connect,
-                    num_o_el="all",plot_el_num="no",plot_node_num="no"):
-    
-    This function plots the GLL points as well as control points in 2D
+    """This function plots the GLL points as well as control points in 2D
 
     INPUT:
-        X,Y      = 1xN vectors with node coordinates
-        connect  = connectivity matrix depending on the number of GLL 
+    X,Y      = 1xN vectors with node coordinates
+    connect  = connectivity matrix depending on the number of GLL 
                    points, ([total number of elements] X [GLL^2])
-        num_o_el = number of elements to be plotted, default is string 
+    num_o_el = number of elements to be plotted, default is string 
                    valued 'all', set to number small
-        plot_el_num = default is "no", change to "yes" if element numbers 
+    plot_el_num = default is "no", change to "yes" if element numbers 
                       should be plotted
-        plot_node_num = default is "no", change to "yes" if node numbers 
+    plot_node_num = default is "no", change to "yes" if node numbers 
                       should be plotted
-        plot_axis = default is "yes", if you want to omit axes 
+    plot_axis = default is "yes", if you want to omit axes 
                     set to "no" 
+
     OUTPUT:
-        A figure plotting the 'num_o_el' 2D elements
+    A figure plotting the 'num_o_el' 2D elements
 
 
     """
@@ -150,7 +148,7 @@ def test_interp():
     ngllz = 5
 
 
-    X,Y,Z,connect = readEx('../input/RectMesh.e')
+    X,Y,Z,connect = readEx('input/RectMesh.e')
     gll_coordinates, gll_connect = mesh_interp2D(X,Y,Z,connect,ngllx,ngllz)
 
     # Plotting 1 element
@@ -158,8 +156,8 @@ def test_interp():
                                 plot_el_num="yes",plot_node_num="yes")
 
     # Plotting 2 elements
-    plot_elements(X,Z,connect,gll_coordinates,gll_connect,num_o_el=2,\
-                                plot_el_num="yes",plot_node_num="yes",\
+    plot_elements(X,Z,connect,gll_coordinates,gll_connect,num_o_el="all",\
+                                plot_el_num="yes",plot_node_num="no",\
                                 plot_axis = "no")
                            
 
@@ -171,7 +169,7 @@ def test_interp():
     plt.show()
 
 if __name__ == "__main__":
-    #test_interp()
+    test_interp()
     
 
 

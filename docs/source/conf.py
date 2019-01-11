@@ -15,6 +15,10 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('../..'))
+# sys.path.insert(0, os.path.abspath('../../src'))
+# sys.path.insert(0, os.path.abspath('../../tests'))
+# sys.path.insert(0, os.path.abspath('../../input'))
+
 
 
 # -- Project information -----------------------------------------------------
@@ -40,7 +44,6 @@ release = 'alpha'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.autosummary',
     'sphinx.ext.doctest',
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
@@ -53,7 +56,7 @@ extensions = [
 #]
 
 # AUTO GENERATE SUMMARY
-autosummary_generate = True
+autosummary_generate = False
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -77,7 +80,7 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path .
-exclude_patterns = ['_build','_templates']
+exclude_patterns = ['_build','_templates','docs']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
@@ -128,7 +131,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'VERSEMdoc'
+htmlhelp_basename = 'VERSEM'
 
 
 # -- Options for LaTeX output ------------------------------------------------
