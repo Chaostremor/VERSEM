@@ -1,16 +1,14 @@
 import numpy as np
 import src.gll_library as gll
 import src.loc2glob as l2g
-import src.time_decorator as time
+
 
 #######################################################################
 ###            Constructing Element Stiffness Matrices             ####
 #######################################################################
 
-def el_stiff(gll_coords_el,dim,ngll_el,dN_local,comp,W,lmd,mu):
-    """.. function:: el_stiff(gll_coords_el,dim,ngll_el,dN_local,comp,W,lmd,mu)
-
-    Computes the Elemetal Stiffness Matrix in three parts A,B,C for each element.
+def element_stiffness_matrix(gll_coords_el,dim,ngll_el,dN_local,comp,W,lmd,mu):
+    """Computes the Elemetal Stiffness Matrix in three parts A,B,C for each element.
 
     :param gll_coords: the global coordinates for the gll points in a particular element.
 
@@ -63,10 +61,8 @@ def el_stiff(gll_coords_el,dim,ngll_el,dN_local,comp,W,lmd,mu):
 
 
 
-def glob_el_stiff_mat(gll_coordinates,gll_connect,dN_local,W,comp,dim,lmd,mu):
-    """.. function:: glob_el_stiff_mat(gll_coordinates,gll_connect,dN_local,W,comp,dim,lmd,mu)
-
-    Computes the Global Mass Matrix Mg
+def global_stiffness_matrix(gll_coordinates,gll_connect,dN_local,W,comp,dim,lmd,mu):
+    """Computes the Global Mass Matrix Mg
 
     :param gll_coordinates: ``numpy`` array of size [ngll_total]x[dim] containing the coordinates of all the gll points
 

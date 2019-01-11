@@ -48,7 +48,7 @@ def main():
 
     ke = np.array([])
 
-    for i in range(100,N,50):
+    for i in range(100,N,10):
         plt.clf()
         # print(file_list[i])
         
@@ -76,4 +76,4 @@ def main():
 
 
 if __name__ == "__main__":
-    pass
+    main()

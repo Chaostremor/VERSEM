@@ -31,8 +31,8 @@ class testGlobMassMat(unittest.TestCase):
         lmd = np.ones(len(gll_coords_el))
         mu = np.ones(len(gll_coords_el))
 
-        #Mglob_A,Mglob_B,Mglob_C = src.el_stiffness_matrix.glob_el_stiff_mat(el_no,ngll_el,gll_coordinates,gll_connect,dN_local,W,comp,dim)
-        A,B,C = src.el_stiffness_matrix.el_stiff(gll_coords_el,dim,ngll_el,dN_local,comp,W,lmd,mu)
+        #Mglob_A,Mglob_B,Mglob_C = src.stiffness_matrix.glob_el_stiff_mat(el_no,ngll_el,gll_coordinates,gll_connect,dN_local,W,comp,dim)
+        A,B,C = src.stiffness_matrix.element_stiffness_matrix(gll_coords_el,dim,ngll_el,dN_local,comp,W,lmd,mu)
 
         A_sol = np.array([[-0.5 ,  0.5,  0  ,  0   ],
                            [0.5 , -0.5,  0  ,  0   ],
@@ -52,7 +52,7 @@ class testGlobMassMat(unittest.TestCase):
                            [0   ,  0,   0.5 , -0.5]])
 
 
-        C_sol = np.array([[-1.,  0.5,  0.5,   0  ],
+        C_sol = np.array([[-1.,  0.5,  0.5,  0  ],
                           [0.5, -1.,  0,     0.5],  
                           [0.5,  0,  -1.,    0.5],  
                           [0,    0.5,  0.5, -1. ]])

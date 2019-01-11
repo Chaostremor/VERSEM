@@ -4,15 +4,14 @@ a certain time vector and parameters necessary."""
 import numpy as np
 
 def gaussian(t,a,b,c):
-    """.. function ::
-    
-    This function computes a gaussian pulse given the parameters a,b,c 
+    """This function computes a gaussian pulse given the parameters a,b,c 
     and a time vector t
 
     :param t: 1D ``numpy`` array
     :param a: ``float``
     :param b: ``float``
     :param c: ``float``
+
     :rtype: 1D ``numpy`` array of the same size as t
 
 
@@ -20,7 +19,8 @@ def gaussian(t,a,b,c):
 
     .. math::
         
-        f(x)=ae^{-{\frac {(x-b)^{2}}{2c^{2}}}}
+        f(x)=ae^{-{\\frac {(x-b)^{2}}{2c^{2}}}}
+
 
     """
     
@@ -31,9 +31,7 @@ def gaussian(t,a,b,c):
 
 
 def ricker(t,t0,p0):
-    """.. function:: ricker(t,t0,p0)
-
-    This function computes the Ricker Wavelet given a dominant period p0,
+    """This function computes the Ricker Wavelet given a dominant period p0,
     time vector t and origin t0
 
     :param t: time vector
@@ -54,12 +52,8 @@ def ricker(t,t0,p0):
     return s
 
 
-def notrickerSEM(dt,pt):
-    """.. function:: rickerSEM(dt,pt)
-
-    Not the ricker wavelet, I don't know why they called it ricker wavelet...
-
-    Taken from seismolive
+def rickerSEM(dt,pt):
+    """Taken from seismolive
 
     """
 
@@ -75,20 +69,3 @@ def notrickerSEM(dt,pt):
         c[it] = -2 * a_ricker * t[it] * np.exp(-(a_ricker * t[it]) ** 2)
 
     return t+t[int(t0)],c
-
-def rickerSEM(f,length,dt):
-    """.. function:: Computing the ricker
-
-    :param f: dominant frequency
-    :param length: width of time 
-    :param dt: sampling time
-    :rtype: (t,y) tuple, where t is a time vector and y the wavelet 
-            vector
-
-    Computes ricker wavelet and corresponding time vector.
-    """
-
-    t = np.arange(-length/2, (length-dt)/2, dt)
-    y = (1.0 - 2.0*(np.pi**2)*(f**2)*(t**2)) * np.exp(-(np.pi**2)*(f**2)*(t**2))
-    
-    return t-t[0],y

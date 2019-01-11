@@ -1,3 +1,6 @@
+""" :noindex:
+Setup.py file with generic info
+"""
 import os
 from setuptools import setup
 
@@ -10,7 +13,7 @@ def read(fname):
 
 setup(
     name = "VERSEM",
-    version = "0.0.1",
+    version = "0.2",
     author = "Congyue Cui, Srijan Bharati Das, Lucas Sawade, Chao Song, Fan Wu",
     author_email = "lsawade@princeton.edu",
     description =("A versatile Spectral Element Method"),
