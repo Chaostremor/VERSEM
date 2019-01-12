@@ -4,10 +4,4 @@ docs/build
 *.npy
 *.zip
 *.rst
-*.dvi
-*.log
-*.aux
-*.out
-*.synctex.gz
-*.toc
 results/
