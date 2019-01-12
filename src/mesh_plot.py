@@ -1,4 +1,6 @@
-"""This is script contains functions to plot a mesh"""
+"""This is script contains functions to plot a mesh
+
+"""
 
 # Necessary for calculation and import of exodus file
 import numpy as np
@@ -24,21 +26,24 @@ def plot_elements(X,Y,connect,gll_coordinates,gll_connect,\
                     plot_axis="yes"):
     """This function plots the GLL points as well as control points in 2D
 
-    INPUT:
-    X,Y      = 1xN vectors with node coordinates
-    connect  = connectivity matrix depending on the number of GLL 
-                   points, ([total number of elements] X [GLL^2])
-    num_o_el = number of elements to be plotted, default is string 
-                   valued 'all', set to number small
-    plot_el_num = default is "no", change to "yes" if element numbers 
-                      should be plotted
-    plot_node_num = default is "no", change to "yes" if node numbers 
-                      should be plotted
-    plot_axis = default is "yes", if you want to omit axes 
-                    set to "no" 
+    :param X: 1xN vectors with node coordinates
+    
+    :param Y: 1xN vectors with node coordinates
+    
+    :param connect: connectivity matrix depending on the number of GLL 
+                    points, ([total number of elements] X [GLL^2])
 
-    OUTPUT:
-    A figure plotting the 'num_o_el' 2D elements
+    :param num_o_el: number of elements to be plotted, default is string 
+                     valued 'all', set to number small
+
+    :param plot_el_num: default is "no", change to "yes" if element numbers 
+                        should be plotted
+    :param plot_node_num: default is "no", change to "yes" if node numbers 
+                          should be plotted
+    :param plot_axis: default is "yes", if you want to omit axes 
+                      set to "no" 
+
+    :rtype: A figure plotting the 'num_o_el' 2D elements
 
 
     """
@@ -141,7 +146,8 @@ def plot_elements(X,Y,connect,gll_coordinates,gll_connect,\
 def test_interp():
     """test_interp()
     
-    Test the functions of this suite and plots them subsequently.
+    Running the example and plots them subsequently.
+
     """
     
     ngllx = 5
