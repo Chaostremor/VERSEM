@@ -4,6 +4,7 @@ import numpy as np
 
 class testGlobMassMat(unittest.TestCase):
     def test_el_mass_mat(self):
+        """ Testing the element Mass Matrix term"""
         a = np.array(range(10))
         b = np.array(range(10))
         c = np.array(range(10))

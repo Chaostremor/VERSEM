@@ -113,7 +113,7 @@ def assignSeismicProperties(velocity_model,gll_coordinates):
         index = np.argmin(dist)
         prop[i,:] = v[index,3::]
 
-    return prop
+    return prop[:,0],prop[:,1],prop[:,2]
 
 
 
