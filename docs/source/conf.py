@@ -57,7 +57,7 @@ extensions = [
 #]
 
 # AUTO GENERATE SUMMARY
-autosummary_generate = False
+autosummary_generate = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
