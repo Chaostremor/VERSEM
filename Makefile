@@ -26,6 +26,6 @@ clean:
 	rm -rf results/timesteps
 	rm -f results/gll_coordinates.npy
 	make clean -C docs
-	
+		
 
 .PHONY: init test
