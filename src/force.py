@@ -1,15 +1,85 @@
-"""implementation of the force-term"""
+"""Force term implementation script"""
 
 import numpy as np
 from scipy import interpolate
 import src.gll_library as gll
 import src.loc2glob as l2g
 
-#######################################################################
-###            Constructing Element Force Matrices                  ###
-#######################################################################
+# =================== Main Routine ====================================== #
+# Takes in all arguments and just uses function from this script to 
+# compute the complete necessary force vector for the time stepping.
+#
 
-def element_force_mat(f,J,W):
+def F(force_term,force_location,t,source_time_function,gll_coordinates,gll_connect,dN_local,W):
+    """Computes the whole force vector interpolator corresponding to a solution 
+    diplacement vector [ux1,uy1,ux2,uy2,ux3,.....]. Given a time argument within 
+    the range of ``t`` the interpolator returns a force vector.
+
+
+    :param force_term: 2 element ``numpy`` array including the force 
+                       direction in 2D
+
+    :param force_location: 2 element ``numpy`` array including the force
+                           location in 2D
+
+    :param t: ``nt`` element ``numpy`` array contaning the time steps of
+              the source time function.
+
+    :param source_time_function: ``nt`` element ``numpy`` array contaning 
+                                   the function values corresponding to t.
+
+    :param gll_coordinates: [ngll_tot]x[dim] ``numpy`` array containing
+                            GLL node coordinates.
+
+    :param dN_local: [dim]x[ngll_el] ``numpy`` array that contains the local
+                      derivative matrix
+
+    :param W: [ngll_el] ``numpy`` array containing the integration weights
+
+    
+    :rtype: Interpolator of the form F(t). It takes in one argument that is 
+            time and spits out a [2*ngll] ``numpy`` array corresponding to
+            a solution diplacement vector [ux1,uy1,ux2,uy2,ux3,.....].
+
+    """
+    # Number of total nodes
+    ngll_total = len(gll_coordinates)
+    
+    # Creating two vectors of the same length as GLL nodes containing the 
+    # force in x and y direction at the indeces corresponding to the closest
+    # GLL coordinates
+    # Uses the genforce function in the 
+    Fx_loc,Fy_loc = genforce(force_term,force_location,gll_coordinates)
+
+    # Computing the force vectors for x and y direction
+    Fx = global_force_vector(gll_coordinates,gll_connect,Fx_loc,dN_local,W)
+    Fy = global_force_vector(gll_coordinates,gll_connect,Fy_loc,dN_local,W)
+
+    # Assigning the vectors in the two directions such that they accommodate
+    # alternating displacements [ux1,uy1,ux2,uy2,ux3,.....]
+    F_tot = np.zeros(2*ngll_total)
+    F_tot[0:2*ngll_total-1:2] = Fx
+    F_tot[1:2*ngll_total:2]   = Fy
+
+    # Length of the function 
+    N = len(source_time_function)
+    
+    # Create repeat matrix
+    repF = np.repeat(F_tot.reshape([len(F_tot),1]),N,axis=1)
+
+    # repeat vector
+    fp = repF*source_time_function
+    
+    return interpolate.interp1d(t,fp)
+
+# ====================================================================#
+
+
+
+
+# -------- Constructing Element Force Matrices -----------------------#
+
+def element_force_matrix(f,J,W):
     """Computes the Force Vector for each element
 
     :param f:  [ngll_el] ``numpy`` array
@@ -37,8 +107,11 @@ def element_force_mat(f,J,W):
 
     return fe
 
+# -------- Constructing Global Force Vector ----------------------- #
+
 def global_force_vector(gll_coordinates,gll_connect,f,dN_local,W):
-    """ Computes the Global Force Vector
+    """Computes the Global Force Vector from a given GLL located 
+    force vector.
 
     :param gll_coordinates: ``numpy`` array of size [ngll_total]x[2] 
                             containing the coordinates of all the gll points
@@ -72,26 +145,33 @@ def global_force_vector(gll_coordinates,gll_connect,f,dN_local,W):
     	    J_el[j] = np.linalg.det(gll.Jacobian2D(dN_local[j,:,:],gll_coords_el))
 	
         #We are now ready to construct the element matrices
-        Fe = force_mat(f[gll_connect[i]],J_el,W)
+        Fe = element_force_matrix(f[gll_connect[i]],J_el,W)
         #Constructing global mass matrix
         Fg += l2g.local2global(Fe,Fg,gll_connect,[i])
 
     Fg_col = np.diag(Fg)
+
+
     return Fg_col
 
 
 
 
 def genforce(force_term,force_location,gll_coordinates):
-    """.. function :: force(source_time_function,force_term,
-                                        force_location,gll_coordinates):
-
-    This function implements the force term of a point source for the 
-    seismic wave equation.
+    """This function implements the force term of a point source for the 
+    seismic wave equation. It creates two vectors of the same length as 
+    GLL nodes containing the force in x and y direction at the indeces 
+    corresponding to the closest GLL coordinates
 
     :param force_term: 2 element ``numpy`` array with forces in 2D
+
     :param force_loc: 2 element ``numpy`` numpy array with force location 
-    :param gll_coordinates:
+
+    :param gll_coordinates: [ngll] ``numpy`` array containg the gll
+                            coordinates
+
+    :rtype: tuple of two [ngll] ``numpy`` array. One vector for the force
+            in x direction and one for y direction
 
     """
 
@@ -115,28 +195,6 @@ def genforce(force_term,force_location,gll_coordinates):
 
 
     return Fx,Fy
-
-
-
-def F(tp,source_time,Fx):
-    """dfnalskdnjflakjsdf lkjc fasdlkj
-
-    """
-    
-    # Length of the function 
-    N = len(source_time)
-    
-    # Create repeat matrix
-    repF = np.repeat(Fx.reshape([len(Fx),1]),N,axis=1)
-
-    # repeat vector
-    fp = repF*source_time
-    
-    return interpolate.interp1d(tp,fp)
-
-
-
-
 
 if __name__ == "__main__":
     pass

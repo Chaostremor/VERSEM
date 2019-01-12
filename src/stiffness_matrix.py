@@ -107,7 +107,7 @@ def global_stiffness_matrix(gll_coordinates,gll_connect,dN_local,W,comp,dim,lmd,
         lmd_el = lmd[gll_connect[i]]
 
         #Obtaining the local matrices
-        A,B,C = el_stiff(gll_coords_el,dim,ngll_el,dN_local,comp,W,lmd_el,mu_el)
+        A,B,C = element_stiffness_matrix(gll_coords_el,dim,ngll_el,dN_local,comp,W,lmd_el,mu_el)
 
         
         for j in range(dim):

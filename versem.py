@@ -141,12 +141,14 @@ if __name__ == '__main__':
     #We divide into three parts for ease of formulation and coding
 
     comp = 0
-    Kglob_A0,Kglob_B0,Kglob_C0 = timer(Stiffness.glob_el_stiff_mat,start_time,"computing 1st component of stiffness matrix",gll_coordinates,
-                                    gll_connect,dN_local,W,comp,dim,lmd,mu)
+    Kglob_A0,Kglob_B0,Kglob_C0 = timer(Stiffness.global_stiffness_matrix,start_time,
+                                        "computing 1st component of stiffness matrix",
+                                        gll_coordinates, gll_connect,dN_local,W,comp,dim,lmd,mu)
 
     comp = 1
-    Kglob_A1,Kglob_B1,Kglob_C1 = timer(Stiffness.glob_el_stiff_mat,start_time,"computing 2nd component of stiffness matrix",gll_coordinates,
-                                    gll_connect,dN_local,W,comp,dim,lmd,mu)
+    Kglob_A1,Kglob_B1,Kglob_C1 = timer(Stiffness.global_stiffness_matrix,start_time,
+                                        "computing 2nd component of stiffness matrix",
+                                        gll_coordinates, gll_connect,dN_local,W,comp,dim,lmd,mu)
 
 
     ## Reassign locations for the Stiffness components
@@ -163,27 +165,16 @@ if __name__ == '__main__':
 
     print(np.shape(K))
 
-    sys.exit()
+    #sys.exit()
 
 
     # ---------------- FORCE VECTOR ------------------------------------
     # Force term
-    Fx_loc,Fy_loc = src.force.genforce(force_term,force_location,gll_coordinates)
-
-    # Computing the force vectors for x and y direction
-    Fx = timer(src.force.glob_force_mat,start_time,"computing force vector X",gll_coordinates,gll_connect,Fx_loc,dN_local,W)
-    Fy = timer(src.force.glob_force_mat,start_time,"computing force vector Y",gll_coordinates,gll_connect,Fy_loc,dN_local,W)
+    F = timer(src.force.F,start_time,"computing the force vector",force_term,
+              force_location,t,source_time_function,gll_coordinates,
+              gll_connect,dN_local,W)
 
 
-    F_tot = np.zeros(2*ngll_total)
-    F_tot[0:2*ngll_total-1:2] = Fx
-    F_tot[1:2*ngll_total:2]   = Fy
-
-
-    # Force vector interpolators
-    print(np.shape(np.concatenate((Fx,Fy))))
-    #F = src.force.F(t,source_time_function,np.concatenate((Fx,Fy)))
-    F = src.force.F(t,source_time_function,F_tot)
     print(np.shape(F(0.2)))
 
     # Create random c
