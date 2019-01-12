@@ -5,9 +5,24 @@ Initial, empty README for the VERsatile Spectral Element Method.
 
 ## Installation
 
+To install all required packages and compile the documentation:
+
 ```bash
 bash$ make all
 ```
+
+Just installing the requirements:
+
+```bash
+make init
+```
+
+Just compiling the documentation
+
+```bash
+make docs
+```
+
 
 ## TODO
 
@@ -35,6 +50,7 @@ Places in the code that need to be modified to create a generic code:
 3. Stiffness 3D dimension
 
 4. Mass Matrix: extension to 3D?
+
 
 ### Independent of dimension
 * Time-Schemes only take in 2D matrices and the matrices are agnostic of dimensions
