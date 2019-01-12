@@ -1,10 +1,12 @@
 ## Requirements without version specifiers:
 numpy
 scipy
+numba
 
 # Documetation
 sphinx
 sphinx_rtd_theme
+sphinxcontrib-bibtex
 
 # Testing
 pytest

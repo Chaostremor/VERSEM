@@ -1,5 +1,7 @@
 """This is script contains functions used to get from a quadrilateral
-mesh to a Spectral-Element mesh. File for mesh object creation?"""
+mesh to a Spectral-Element mesh. File for mesh object creation?
+
+"""
 
 # Necessary for calculation and import of exodus file
 import numpy as np
@@ -12,12 +14,14 @@ from . import gll_library as gll
 
 
 def readUniformVelocity(input_mesh,outfilename):
-    """.. function testAssignPorperties()
+    """This function takes in an input mesh and assigns velocity to
+    the depths defined in the script below.
     
     Saves ``.npy`` array file with  
+
     ::
     
-        Columns:    X Y Z rho vp vs
+        Columns: X, Y, Z, rho, vp, vs
     
     """
     
@@ -58,24 +62,10 @@ def readUniformVelocity(input_mesh,outfilename):
     np.save(outfilename,prop)
 
 
-def assProp():
-    """testning the property assignment"""
-    
-    ngllx = 5
-    ngllz = 5
-    X,Y,Z,connect = readEx('input/RectMesh.e')
-    gll_coordinates, gll_connect = \
-                            mesh_interp2D(X,Y,Z,connect,ngllx,ngllz)
-    
-    v_mod = 'input/vel_mod.npy'
-
-    # assign properties
-    prop = assignSeismicProperties(v_mod,gll_coordinates)
-
 
 def assignSeismicProperties(velocity_model,gll_coordinates):
     """Reads an ``.npy`` file that contains a ``numpy`` array with velocity 
-    model of the format
+    model of the format.
     
     ::
     
@@ -90,12 +80,14 @@ def assignSeismicProperties(velocity_model,gll_coordinates):
     :param gll_coordinates: coordinate matrix of the interpolated GLL
                             points using the original matrix.
         
+
     :rtype: Nx3 ``numpy`` array with the seismic properties for each 
             node in gll_coordinates
 
+
     ::
         
-        Columns: rho,vp,vs
+        Columns: rho, vp, vs
     
 
     I think this should be correct.
@@ -126,108 +118,10 @@ def assignSeismicProperties(velocity_model,gll_coordinates):
 
 
 
-def readUniformVelocity(input_mesh,outfilename):
-    """.. function testAssignPorperties()
-    
-    Saves ``.npy`` array file with  
-    ::
-    
-        Columns:    X Y Z rho vp vs
-    
-    """
-    
-    # Get XYZ coordinates of the mesh
-    X,Y,Z,connect = readEx(input_mesh)
-
-    # Uniform material for test
-    rho = 2700  # kg/m^3
-    vp  = 6500  # m/s 
-    vs  = 3750  # m/s
-
-    # Initialize empty array
-    prop = np.zeros([len(X),6])
-
-    # Populate property matrix
-    prop[:,0] = X
-    prop[:,1] = Y
-    prop[:,2] = Z
-    prop[:,3] = rho
-    prop[:,4] = vp
-    prop[:,5] = vs
-    
-    # Save materials to .npy file
-    np.save(outfilename,prop)
-
-
-def assProp():
-    """testning the property assignment"""
-    
-    ngllx = 5
-    ngllz = 5
-    X,Y,Z,connect = readEx('../input/RectMesh.e')
-    gll_coordinates, gll_connect = \
-                            mesh_interp2D(X,Y,Z,connect,ngllx,ngllz)
-    
-    v_mod = '../input/vel_mod.npy'
-
-    # assign properties
-    prop = assignSeismicProperties(v_mod,gll_coordinates)
-
-
-def assignSeismicProperties(velocity_model,gll_coordinates):
-    """.. function:: assignSeismicProperties(name)
-    
-    Reads an ``.npy`` file that contains a ``numpy`` array with velocity 
-    model of the format
-    
-    ::
-    
-        Columns:    X Y Z rho vp vs
-
-    Then, it assigns the properties to the interpolated mesh using the 
-    nearest neighbour principle.
-
-    :param v_name: velocity model array specified as above.
-    :param gll_coordinates: coordinate matrix of the interpolated GLL
-                            points using the original matrix.
-        
-    :rtype: 3xN ``numpy`` array with the seismic properties for each 
-            node in gll_coordinates
-    ::
-        
-        Columns     rho vp vs
-    
-    Return type 3XN for easier assignment to [rho,vp,vs]
-
-
-    """
-    
-    # Load .npy file
-    v = np.load(velocity_model)
-
-    # Number of nodes
-    N = len(gll_coordinates[:,0])
-
-    # Initialize propertz matrix
-    prop = np.zeros([N,3])
-
-    # Check which coordinate is the closest to interpolated node in for 
-    # loop
-
-    for i in range(N):
-        # Here for now only 2D
-        dist = np.sqrt( (v[:,0]-gll_coordinates[i,0])**2  
-                        + (v[:,2]-gll_coordinates[i,1])**2)
-        index = np.argmin(dist)
-        prop[i,:] = v[index,3::]
-
-    return np.transpose(prop)
-
 
 
 def readEx(name):
-    """readEx(name)
-    Function reads Exodus file and outputs Coordinates, connection 
+    """ Function reads Exodus file and outputs Coordinates, connection 
     matrix, boundary coordinates and nodes.
     """
     
@@ -247,9 +141,7 @@ def readEx(name):
 
 
 def mesh_interp2D(X,Y,Z,connect,ngllx,nglly):
-    """.. function :: mesh_interp(X,Y,Z,connect,ngllx,nglly)
-    
-    Creates new gll point mesh from initial control point mesh for 
+    """ Creates new gll point mesh from initial control point mesh for 
     variable accuracy vs. efficiency. 
     
     :param X: x coordinates in Nx1 ``numpy`` array
