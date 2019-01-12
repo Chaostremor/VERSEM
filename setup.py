@@ -20,7 +20,7 @@ setup(
     license = "GNU",
     keywords = "SEM,Spectral Element Method, Wave Equation",
     url = "http://packages.python.org/rom2dectesttesttest",
-    packages=['src', 'unit_tests'],
+    packages=['input','src', 'tests'],
     long_description=read('README.md'),
     classifiers=[
         "Development Status :: Alpha",
