@@ -1,7 +1,9 @@
 # VERSEM
 VERsatile Spectral Element Method
 
-## Installation and Makefile
+The main documentation is found on [versem.readthedocs.io](http://versem.readthedocs.io).
+
+## Mini-Guide: Installation and Makefile
 
 
 The easiest way to test and install all required software, test everything 
