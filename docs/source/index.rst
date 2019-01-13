@@ -3,7 +3,7 @@ VERSEM Documentation
 
 
 .. toctree::
-    :maxdepth: 8
+    :maxdepth: 5
     
     chapterIntroduction/introduction.rst
     chapterTheory/theory.rst
