@@ -3,14 +3,35 @@ a certain time vector and parameters necessary."""
 
 import numpy as np
 
-def gaussian(t,a,b,c):
+
+def delta_function(t):
+    """ This function takes in the time stepping vector and outputs
+    a zero vector and the time step that is 1/100th of all time steps.
+
+    :param t: 1D ``numpy`` array
+
+    :rtype: delta source_time function vector
+
+    """
+
+    # Length of t
+    nt = len(t)
+
+    # initialize new array
+    s = np.zeros(nt)
+
+    # Find index where to :math:`t_i = t(n_t/100)
+    s[int(nt/100)] = 1 
+
+    return s
+
+
+def gaussian(t,f):
     """This function computes a gaussian pulse given the parameters a,b,c 
     and a time vector t
 
     :param t: 1D ``numpy`` array
-    :param a: ``float``
-    :param b: ``float``
-    :param c: ``float``
+    :param f: ``float`` peak frequency
 
     :rtype: 1D ``numpy`` array of the same size as t
 
@@ -23,49 +44,57 @@ def gaussian(t,a,b,c):
 
 
     """
+
+    # delta 
+    dt = t[1] - t[0]
     
+    # time shift ind
+    t0 = 4.5/f/dt
+
+    # Amplitude
+    a = 1
+
+    # Half-duration?
+    c = 1/f
+
     # General definition of the Gaussian Pulse
-    f = a*np.exp( - ( (t-b)**2) / (2*c**2) )
+    f = a*np.exp( - ( (t-t[int(t0)])**2) / (2*c**2) )
 
     return f
 
 
-def ricker(t,t0,p0):
-    """This function computes the Ricker Wavelet given a dominant period p0,
-    time vector t and origin t0
-
-    :param t: time vector
-    :param t0: origin of symmetry vector
-    :param p0: dominant period
-
-    :rtype: vector containing ricker function values
-
-    .. math::
-
-        s(t) = -8/p_0(t-t_0)e^{\\frac{(t-t0)^2}{(4/p_0)^2}}
-
+def ricker(t,f):
+    """Computes the Ricker Wavelet also known as the Mexican hat function
     """
 
-    # Computing the Gaussian
-    s = -8/p0*(t-t0)*np.exp( ((t-t0)**2) / ((4/p0)**2))
+    # delta 
+    dt = t[1] - t[0]
+
+    # Origin shift index
+    t0 = 1/f/dt
+
+    # Ricker factor
+    a_ricker = 4 * f
+
+    s = (1 - 2 * a_ricker * (t-t[int(t0)])**2) * np.exp(-(a_ricker * ((t-t[int(t0)]))) ** 2) 
 
     return s
 
 
-def rickerSEM(dt,pt):
-    """Taken from seismolive
-
+def rickerINT(t,f):
+    """Modified function from seismo-live.org. Computes the
+    Integral of the Ricker Wavelet
     """
 
-    nt = int(2 * pt / dt)
-    c = np.zeros(nt)
-    t0 = pt / dt
-    a_ricker = 4 / pt
+    # delta 
+    dt = t[1] - t[0]
 
-    t = np.zeros(nt)
+    # Origin shift index
+    t0 = 1/f / dt
 
-    for it in range(0, nt):
-        t[it] = ((it + 1) - t0) * dt
-        c[it] = -2 * a_ricker * t[it] * np.exp(-(a_ricker * t[it]) ** 2)
+    # Ricker factor
+    a_ricker = 4 * f
 
-    return t+t[int(t0)],c
+    s = -2 * a_ricker * (t-t[int(t0)]) * np.exp(-(a_ricker * ((t-t[int(t0)]))) ** 2) 
+
+    return s

@@ -20,9 +20,9 @@ if __name__ == '__main__':
 
     #In the final version, these should come from the input file.
     #-----------------------------------------------------------------
-    ngll_x = 5
+    ngll_x = 3
     ngll_y = 1
-    ngll_z = 5
+    ngll_z = 3
     velocity_model = 'input/vel_mod_new.npy'
     dim = 2
 
@@ -35,7 +35,7 @@ if __name__ == '__main__':
 
     # Obtain force make
     force_term = np.array([1,0])
-    force_location = np.array([10*125,-2*125])
+    force_location = np.array([10*1000,-1*1000])
 
 
     # reading the mesh
@@ -49,10 +49,11 @@ if __name__ == '__main__':
     start_time = time.time()
     print("Start Meshing...")
 
-    # Obtaining the gll_coordinates and gll indices
-    gll_coordinates, gll_connect = mesh.mesh_interp2D(X,Y,Z,connect,ngll_x,ngll_z)
-    gll_coordinates = gll_coordinates*125
-    ngll_total = len(gll_coordinates)
+    ########### Maybe part of the Meshobject as well ?????? #####################################
+    # Obtaining the gll_coordinates and gll indices                                             #
+    gll_coordinates, gll_connect = mesh.mesh_interp2D(X,Y,Z,connect,ngll_x,ngll_z)              #
+    gll_coordinates = gll_coordinates*1000                                                      #
+    ngll_total = len(gll_coordinates)                                                           #
 
 
     # takes in global flattened density matrix. 1D matrix of length = total
@@ -62,34 +63,35 @@ if __name__ == '__main__':
     rho_unit = 1.
     v_unit = 1.
 
-    rho = rho_real/rho_unit
-    vp = vp_real/v_unit
-    vs = vs_real/v_unit
-
-    gll_coordinates
+    rho = rho_real/rho_unit                                                                     #
+    vp = vp_real/v_unit                                                                         # 
+    vs = vs_real/v_unit                                                                         #
+                                                                                                #
+    #############################################################################################
 
     dxmin = gll_coordinates[1,0] - gll_coordinates[0,0]
     
 
     # Stability condition  
-    eps = 0.25           # Courant value
-    dt = eps*dxmin/2/np.amin(vp_real)
+    eps = 0.05           # Courant value
+    dt = eps*dxmin/2/np.amax(vp_real)
+    t = np.arange(0,nt,1)*dt
+
 
     # Source time function
     ## creating source time function
-    # Ricker
-    t0 = 0.005
-    p0 = 0.25
-    #t_source = t
-    #source_time_function = input.source_function.ricker(t,t0,p0)
-    t_source,source_time_function = input.source_function.rickerSEM(dt,p0)
-    source_time_function = np.concatenate((source_time_function,np.zeros(nt-len(source_time_function))))
-
-    t = np.arange(0,nt,1)*dt
+    # Peak frequency
+    f0 = 5
+    
+    source_time_function = input.source_function.gaussian(t,f0)
+    
 
     plt.plot(t,source_time_function)
     plt.show()
 
+    #t_source = t
+    #source_time_function = input.source_function.ricker(t,t0,p0)
+    #source_time_function = np.concatenate((source_time_function,np.zeros(nt-len(source_time_function))))
 
 
     # Create zero displacement vector 
