@@ -1,9 +1,8 @@
-VERSEM
-++++++
+# VERSEM
 VERsatile Spectral Element Method
 
-Installation and Makefile
-=========================
+## Installation and Makefile
+
 
 The easiest way to test and install all required software, test everything 
 and compile the documentation is to run
