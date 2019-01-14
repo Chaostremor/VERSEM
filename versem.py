@@ -6,6 +6,8 @@ import src.gll_library as gll
 import src.mass_matrix as Mass
 import src.stiffness_matrix as Stiffness
 import src.force as Force
+from src.config import Config
+from src.model import Model
 
 # Input Source Time Function
 import input
@@ -20,26 +22,32 @@ if __name__ == '__main__':
 
     # In the final version, these should come from the input file.
     #-------------------- INPUTS ------------------------
-    ngll_x = 3
-    ngll_y = 1
-    ngll_z = 3
-    velocity_model = 'input/2Layer1000.npy'
-    dim = 2
+    config = Config()
+    model = Model(config)
+    
+    source = config.sources[0]
+
+    ngll_x = config.ngll_x
+    ngll_y = config.ngll_y
+    ngll_z = config.ngll_z
+    velocity_model = config.material_file
+    dim = config.dim
 
     # Inputs
-    solver = 'newmark'
-    output_dir = 'results/timesteps/'
+    solver = config.solver
+    output_dir = config.output_dir
 
-    nt = 5000
+    nt = config.nt
 
     # Obtain force make
-    force_term = np.array([1,0])
-    force_location = np.array([9*1000,-4*1000])
+    force_term = np.array(source.term)
+    force_location = np.array(source.location)
 
 
     # reading the mesh
     ngll_el = ngll_x*ngll_y*ngll_z
-    X,Y,Z,connect = src.mesh_spec.readEx('input/RectMesh.e')
+    # X,Y,Z,connect = src.mesh_spec.readEx('input/RectMesh.e')
+    X,Y,Z,connect = model.X, model.Y, model.Z, model.connect
 
     #--------------------------------------------------------------------
 
@@ -90,7 +98,10 @@ if __name__ == '__main__':
     
     # Courant value
     eps = 0.025
-    dt = eps*dxmin/2/np.amax(vp)
+    if config.dt < 0:
+        dt = eps*dxmin/2/np.amax(vp)
+    else:
+        dt = config.dt
 
     # Time vector for the time stepping.
     t = np.arange(0,nt,1)*dt
@@ -101,8 +112,8 @@ if __name__ == '__main__':
 
     # ---------------- Source time function --------------------------
     # Peak frequency
-    f0 = 5
-    source_time_function = input.source_time_function.gaussian(t,f0)
+    source_time_function = source.stf(t, *source.stf_args)
+    # source_time_function = input.source_time_function.gaussian(t,5.0)
     # ----------------------------------------------------------------
 
     
