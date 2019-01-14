@@ -4,6 +4,22 @@ src package
 Submodules
 ----------
 
+src.config module
+-----------------
+
+.. automodule:: src.config
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+src.diagopr module
+------------------
+
+.. automodule:: src.diagopr
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 src.force module
 ----------------
 
@@ -48,6 +64,14 @@ src.mesh\_spec module
 ---------------------
 
 .. automodule:: src.mesh_spec
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+src.model module
+----------------
+
+.. automodule:: src.model
     :members:
     :undoc-members:
     :show-inheritance:

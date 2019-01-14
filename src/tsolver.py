@@ -19,8 +19,7 @@ def euler_explicit(xn, dt, f, t):
     :param f: force function f(x,t), given x and t return a vector.
     :param t: current time
 
-    :rtype: xn1 is the value of the vector at time t+dt;
-    fxn is value f(xn,t), the value will be stored is for multi-step method
+    :rtype: xn1 is the value of the vector at time t+dt; fxn is value f(xn,t), the value will be stored is for multi-step method
 
     """
 
@@ -38,8 +37,7 @@ def  rk2(xn, dt, f, t):
     :param f: force function f(x,t), given x and t return a vector.
     :param t: current time
 
-    :rtype: xn1 is the value of the vector at time t+dt;
-    fxn is value f(xn,t), the value will be stored is for multi-step method
+    :rtype: xn1 is the value of the vector at time t+dt; fxn is value f(xn,t), the value will be stored is for multi-step method
 
     """
     fxn = f(xn,t)
@@ -58,8 +56,7 @@ def rk4(xn, dt, f, t):
     :param f: force function f(x,t), given x and t return a vector.
     :param t: current time
 
-    :rtype: xn1 is the value of the vector at time t+dt;
-    fxn is value f(xn,t), the value will be stored is for multi-step method
+    :rtype: xn1 is the value of the vector at time t+dt; fxn is value f(xn,t), the value will be stored is for multi-step method
 
     """
     k1 = f(xn,t)
@@ -83,8 +80,7 @@ def ab2(xn, dt, f, t, cache):
     :param t: current time
     :param cache: the value of f(x,t) at previous steps
 
-    :rtype: xn1 is the value of the vector at time t+dt;
-    fxn is value f(xn,t), the value will be stored is for multi-step method
+    :rtype: xn1 is the value of the vector at time t+dt; fxn is value f(xn,t), the value will be stored is for multi-step method
 
     """
     fxn = f(xn,t)
