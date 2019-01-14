@@ -65,6 +65,11 @@ def gaussian(t,f):
 
 def ricker(t,f):
     """Computes the Ricker Wavelet also known as the Mexican hat function
+
+    .. math::
+
+        s(t) (1 - 2 * a_ricker * (t-t0))**2) * np.exp(-(a_ricker * ((t-t[int(t0)]))) ** 2) 
+
     """
 
     # delta 

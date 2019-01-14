@@ -4,7 +4,7 @@ from scipy import interpolate
 import os
 
 
-def main():
+def main(frames):
     # loading coordinates
     gll_coordinates = np.load("results/gll_coordinates.npy")
 
@@ -21,7 +21,7 @@ def main():
     ux = np.zeros([len(gll_coordinates),N])
     uy = np.zeros([len(gll_coordinates),N])
 
-    for i in range(N):
+    for i in range(0,N):
             u = np.load(file_list[i])
             ux[:,i] = u[::2]
             uy[:,i] = u[1::2]
@@ -42,13 +42,17 @@ def main():
     YY = np.linspace(ymin,ymax,500)
 
     x,y = np.meshgrid(XX,YY,indexing='xy')
-
+    
     plt.ion()
     plt.axis('equal')
 
+    
+    
     ke = np.array([])
 
-    for i in range(100,N,10):
+    
+
+    for i in range(0,N,int(N/frames)):
         plt.clf()
         # print(file_list[i])
         

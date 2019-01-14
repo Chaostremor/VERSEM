@@ -12,9 +12,7 @@ import numpy as np
 #######################################################################
 
 def lagrange(i, x, xi):
-    """.. function:: lagrange(i, x, xi)
-
-    The algorithm follows the definition of the Lagrange Polynomial
+    """The algorithm follows the definition of the Lagrange Polynomial
     strictly.
 
     :param i: Polynomial number.
@@ -44,9 +42,8 @@ def lagrange(i, x, xi):
 
 
 def lagrange2D(i,x,xi,j,y,eta):
-    """.. function:: lagrange2D(i,x,xi,j,y,eta)
-     
-    Computes the lagrange polynomial in two dimensions 
+    """Computes the lagrange polynomial in two dimensions 
+    
     :param i: polynomial number 0-th dimension
     :param x: location of evalutation 0-th dimension
     :param xi: collocation points 0-th dimension
@@ -68,9 +65,7 @@ def lagrange2D(i,x,xi,j,y,eta):
 
 
 def lagrange1st(i,x,xi):
-    """.. function:: lagrange1st(i,x,xi)
-    
-    Computes the 1st derivative of the lagrange polynomial in 1D.
+    """Computes the 1st derivative of the lagrange polynomial in 1D.
 
     :param i: polynomial number
     :param x: location of evalutation
@@ -116,9 +111,7 @@ def lagrange1st(i,x,xi):
     
             
 def lagrange1st2D(i,x,xi,j,y,eta,d):
-    """.. function:: lagrange1st2D(x,xi,y,eta,d)
-    
-    Computes the 1st derivative of the 2D Lagrange polynomial.
+    """Computes the 1st derivative of the 2D Lagrange polynomial.
 
     :param i: polynomial number in 0-th dimension
     :param x: location of evalutation in 0-th dimension
@@ -151,9 +144,7 @@ def lagrange1st2D(i,x,xi,j,y,eta,d):
 
 
 def lagrangeDerMat2D(x,xi,y,eta):
-    """.. function:: lagrangeDerMat2D(x,xi,y,eta)
-    
-    This function computes the 2D dervative matrix of the lagrange 
+    """This function computes the 2D dervative matrix of the lagrange 
     polynomial in the form
         
     ::
@@ -199,9 +190,7 @@ def lagrangeDerMat2D(x,xi,y,eta):
 
 
 def Jacobian(dN,x):
-    """.. function:: Jacobian(dN,x)
-
-    Computes the Jacobian Matrix [dx/dxi] between the global and the 
+    """Computes the Jacobian Matrix [dx/dxi] between the global and the 
     local element coordinates
 
     :param dN: shape function derivative matrix (``numpy``)
@@ -218,9 +207,7 @@ def Jacobian(dN,x):
     pass
 
 def Jacobian2D(dN,x):
-    """.. function:: Jacobian2D(dN,x)
-
-    Computes the Jacobian Matrix [dx/dxi] between the global and the 
+    """Computes the Jacobian Matrix [dx/dxi] between the global and the 
     local element coordinates
 
     :param dN: shape function derivative matrix (``numpy``)
@@ -238,9 +225,7 @@ def Jacobian2D(dN,x):
 
 
 def dN_local_2D(xi,eta):
-    """.. function:: dN_local(xi,eta)
-
-    Computes the flattened Jacobian for each GLL point. Numbering as 
+    """Computes the flattened Jacobian for each GLL point. Numbering as 
     described in the documentation.
 
     :param xi: ``numpy`` 1D array of collocation points in xi direction
@@ -275,9 +260,7 @@ def dN_local_2D(xi,eta):
 #######################################################################
 
 def global_derivative(jacob,dNdxi):
-    """.. function:: global_derivative(jacob, dN)
-
-    This function computes the global derivatives from the local shape
+    """This function computes the global derivatives from the local shape
     function derivates.
 
     :param jacob: the [dim]x[dim] ``numpy`` array containing the 
@@ -310,9 +293,7 @@ def global_derivative(jacob,dNdxi):
 #######################################################################
 
 def legendre(i,x,xi):
-    """.. function:: legendre(i,x,xi)
-
-    Computes the legendre polynomial.
+    """Computes the legendre polynomial.
     
     :param i: number of polynomial
     :param x: location of evalutation
@@ -341,7 +322,8 @@ def legendre(i,x,xi):
 #######################################################################
 
 def gll_pw(N):
-    """.. function :: gll_pw(N)
+    """Outputs the Gauss-Lobatto-Legendre integration weights as a
+    function of polynomial degree.
     
     :param N: Polynomial degree
     
@@ -439,9 +421,7 @@ def gll_pw(N):
     return np.array(xi), np.array(weights)
 
 def flattened_weights2D(w_xi,w_eta):
-    """..function:: flattened_Weights(xi,eta)
-    
-    This function flattens the weights into a 1D array.
+    """This function flattens the weights into a 1D array.
 
     :param xi: ``numpy`` 1D array of weights corresponding to 
                collocation points in xi direction

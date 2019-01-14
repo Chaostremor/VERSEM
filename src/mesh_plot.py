@@ -5,7 +5,7 @@
 # Necessary for calculation and import of exodus file
 import numpy as np
 
-# imports from mesh_spec.py
+# imports from mesh_spec
 from src.mesh_spec import *
 
 
@@ -17,7 +17,7 @@ import matplotlib
 
 # Import GLL library to get the lagrange polynomials for interpolation
 # of the grid
-from src import gll_library as gll
+import src.gll_library as gll
 
 
 

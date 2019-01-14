@@ -6,7 +6,7 @@ import src.stiffness_matrix as Stiffness
 import src.loc2glob as l2g
 import src.model_parameters as mp
 import src.force
-import input.source_function
+import input.source_time_function
 import matplotlib.pyplot as plt
 plt.ion()
 import src.tscheme
@@ -23,19 +23,19 @@ if __name__ == '__main__':
     ngll_x = 3
     ngll_y = 1
     ngll_z = 3
-    velocity_model = 'input/vel_mod_new.npy'
+    velocity_model = 'input/2Layer1000.npy'
     dim = 2
 
     # Inputs
     solver = 'newmark'
     output_dir = 'results/timesteps/'
 
-    nt = 1000
+    nt = 5000
 
 
     # Obtain force make
     force_term = np.array([1,0])
-    force_location = np.array([10*1000,-1*1000])
+    force_location = np.array([9*1000,-4*1000])
 
 
     # reading the mesh
@@ -73,7 +73,7 @@ if __name__ == '__main__':
     
 
     # Stability condition  
-    eps = 0.05           # Courant value
+    eps = 0.025           # Courant value
     dt = eps*dxmin/2/np.amax(vp_real)
     t = np.arange(0,nt,1)*dt
 
@@ -83,7 +83,7 @@ if __name__ == '__main__':
     # Peak frequency
     f0 = 5
     
-    source_time_function = input.source_function.gaussian(t,f0)
+    source_time_function = input.source_time_function.gaussian(t,f0)
     
 
     plt.plot(t,source_time_function)
@@ -113,11 +113,9 @@ if __name__ == '__main__':
     dN_local = gll.dN_local_2D(xi,eta)
 
 
-
     # Print Time Needed for Meshing 
     print("Finished Meshing.")
     print("Time: %s sec" % (time.time() - start_time))
-
 
 
     # ---------------- MASS MATRIX ------------------------------------
@@ -163,7 +161,7 @@ if __name__ == '__main__':
 
     np.save("results/gll_coordinates.npy",gll_coordinates)
     np.save("results/force_term.npy",force_term)
-    np.save("results/force_term.npy",force_location)
+    np.save("results/force_location.npy",force_location)
 
 
     print('Done.')
