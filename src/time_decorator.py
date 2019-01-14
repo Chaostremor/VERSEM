@@ -2,11 +2,17 @@ import time
 
 # def timer(start_time,str="Function"):
 def timer(func,start_time,str,*args,**kwargs):
-    """.. function:: timer(str="Function",func,start_time)
-
-    This function is running the main functiob func and times it's process.
+    """This function is running the main function ``func`` and times its process.
     
-    Note that func.__name__ returns the name of func as a string
+    :param func: any function
+    :param start_time: starting time of the main program as given by main program
+    :param \*args: arguments for func function
+    :param \*\*kwargs: keyword arguments for func function
+
+    :rtype: return of func if func returns anything, else nothing
+
+    
+    Note to myself: that func.__name__ returns the name of func as a string
     This could be useful later
 
     """

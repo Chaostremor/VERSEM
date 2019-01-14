@@ -9,7 +9,7 @@ import netCDF4
 
 # Import GLL library to get the lagrange polynomials for interpolation
 # of the grid
-from . import gll_library as gll
+import src.gll_library as gll
 
 
 
@@ -40,15 +40,13 @@ def readUniformVelocity(input_mesh,outfilename):
     # Initialize empty array
     prop = np.zeros([len(X),6])
 
-    # Populate property matrix
-    prop[:,0] = X*125
-    prop[:,1] = Y*125
-    prop[:,2] = Z*125
+    # Populate property matrix 
+    prop[:,0] = X*1000
+    prop[:,1] = Y*1000
+    prop[:,2] = Z*1000
 
-    index1 = np.where(prop[:,2]>=-5*125)
-    print(index1)
-    index2 = np.where(prop[:,2]<-5*125)
-    print(index2)
+    index1 = np.where(prop[:,2]>=-5*1000)
+    index2 = np.where(prop[:,2]<-5*1000)
 
     prop[index1,3] = rho1
     prop[index1,4] = vp1

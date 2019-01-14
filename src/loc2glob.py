@@ -5,9 +5,7 @@ import numpy as np
 #######################################################################
 
 def local2global(Me,Mg,gll_connect,el_no):
-    """.. function:: local2global(Me,Mg,gll_connect,el_no)
-
-    Takes in an element matrix and global matrix as input and returns the modified global matrix.
+    """Takes in an element matrix and global matrix as input and returns the modified global matrix.
 
     :param Me: Element ``numpy`` matrix of shape [ngll_el]x[ngll_el].
     
