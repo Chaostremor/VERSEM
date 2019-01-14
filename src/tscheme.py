@@ -8,6 +8,7 @@ import numpy as np
 from src import tsolver
 from src import diagopr
 import os
+import time
 
 class Tscheme:
     """.. class:: Tscheme
@@ -274,17 +275,23 @@ class Tscheme:
         self._preprocess()
         if os.path.exists(self.outdir) == False:
             os.makedirs(self.outdir)
+
+        start_time = time.time()
+
         for i in range(self.allstep):
                 if self.nstep == 0:
-                    pass
-                    # np.save(self.outdir+'u'+str(self.t[0]),self.u0)
+                    np.save(self.outdir+'u'+str(self.t[0]),self.u0)
                 un = self.step()
                 self.un = un
                 if self.nstep % self.interval == 0:
-                    pass
-                    # np.save(self.outdir+'u'+str(self.t[self.nstep]),un)
-                if self.nstep % 1 == 0:
-                    print("nsteps: %d, value: %e" %(self.nstep,np.max(np.abs(un))))
+                    np.save(self.outdir+'u'+str(self.t[self.nstep]),un)
+                if self.nstep % 50 == 1:
+                    #     Printing Time statement ,
+                    #       Printing Timestep,
+                    #           Printing max displacement
+                    print("Time: {:10.2f} sec -- ".format(time.time() - start_time),
+                            "Timestep: {0:>6} of {1:} -- ".format(i,self.allstep),
+                                "Max. Displ.: {0:e} ".format(np.max(np.abs(un))))
 
 
 
