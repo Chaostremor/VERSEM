@@ -274,7 +274,7 @@ class TestTscheme(unittest.TestCase):
         tstep = src.tscheme.Tscheme(M=M, K=K, x0=xn, t=t, f=f, outdir=outdir,solver=solver)
         tstep._preprocess()
         xn1_exp, _ = src.tsolver.euler_explicit(xn, dt, f1, t[0])
-        xn1_out = tstep.step()
+        xn1_out = tstep._step()
 
         np.testing.assert_array_almost_equal(xn1_exp, xn1_out)
 
@@ -291,7 +291,7 @@ class TestTscheme(unittest.TestCase):
 
         tstep = src.tscheme.Tscheme(M=M, K=K, x0=xn, t=t, f=f, outdir=outdir,solver=solver)
         tstep._preprocess()
-        xn1_out = tstep.step()
+        xn1_out = tstep._step()
         xn1_exp, _ = src.tsolver.rk4(xn, dt, f1, t[0])
 
         np.testing.assert_array_almost_equal(xn1_exp, xn1_out)
@@ -312,7 +312,7 @@ class TestTscheme(unittest.TestCase):
         tstep._preprocess()
         tstep.cache = cache
         tstep.nstep = 5
-        xn1_out = tstep.step()
+        xn1_out = tstep._step()
         xn1_exp, _ = src.tsolver.ab2(xn, dt, f1, t[5],cache)
 
         np.testing.assert_array_almost_equal(xn1_exp, xn1_out)
@@ -333,7 +333,7 @@ class TestTscheme(unittest.TestCase):
         tstep._preprocess()
         tstep.cache = cache
         tstep.nstep = 5
-        xn1_out = tstep.step()
+        xn1_out = tstep._step()
         xn1_exp, _ = src.tsolver.ab3(xn, dt, f1, t[5],cache)
 
         np.testing.assert_array_almost_equal(xn1_exp, xn1_out)
@@ -354,7 +354,7 @@ class TestTscheme(unittest.TestCase):
         tstep._preprocess()
         tstep.cache = cache
         tstep.nstep = 5
-        xn1_out = tstep.step()
+        xn1_out = tstep._step()
         xn1_exp, _ = src.tsolver.ab4(xn, dt, f1, t[5],cache)
 
         np.testing.assert_array_almost_equal(xn1_exp, xn1_out)
@@ -374,7 +374,7 @@ class TestTscheme(unittest.TestCase):
         tstep = src.tscheme.Tscheme(M=M, K=K, x0=xn, t=t, f=f, outdir=outdir,solver=solver)
         tstep._preprocess()
         xn1_exp, _ = src.tsolver.newmark(K,f,t[0],dt,un,0,cache,0.5)
-        xn1_out = tstep.step()
+        xn1_out = tstep._step()
 
         np.testing.assert_array_almost_equal(xn1_exp, xn1_out)
 
@@ -396,7 +396,7 @@ class TestTscheme(unittest.TestCase):
         tstep.xn = np.array([1,3])
         tstep.cache = cache
         xn1_exp, _ = src.tsolver.newmark(K,f,t[5],dt,un,5,cache,0.5)
-        xn1_out = tstep.step()
+        xn1_out = tstep._step()
 
         np.testing.assert_array_almost_equal(xn1_exp, xn1_out)
 

@@ -16,6 +16,17 @@ class Tscheme:
     Class Tscheme solve the 1st order or 2nd order ODEs with different explicit solvers. This scheme only deals with
     constant coeffcient ODEs, the mass matrix has to be diagonal.
 
+    :param M: mass matrix
+    :param C: absorbing matrix, default None
+    :param K: stiffness matrix
+    :param f: force term f(t), given t return the force vector.
+    :param t: time vector for stepping, t[0] should be the start time
+    :param outdir: result output directory
+    :param gamma: parameter for Newmark scheme, default 0.5
+    :param solver: name of the main solver, default euler_explicit
+    :param solver2: solver for the first few steps of the multistep method, default rk4
+    :param interval: interval for output the result, should be an integer, default 1
+
     """
 
     def __init__(self, M, K, f, x0, t,outdir, C=None, gamma=0.5, solver='euler_explicit',solver2='rk4',interval=1):
@@ -24,16 +35,7 @@ class Tscheme:
 
         Initialize the class
 
-        :param M: mass matrix
-        :param C: absorbing matrix, default None
-        :param K: stiffness matrix
-        :param f: force term f(t), given t return the force vector.
-        :param t: time vector for stepping, t[0] should be the start time
-        :param outdir: result output directory
-        :param gamma: parameter for Newmark scheme, default 0.5
-        :param solver: name of the main solver, default euler_explicit
-        :param solver2: solver for the first few steps of the multistep method, default rk4
-        :param interval: interval for output the result, should be an integer, default 1
+
 
         """
         self.solver = solver
@@ -176,13 +178,12 @@ class Tscheme:
 
         self.xn = self.x0
 
-    def step(self):
+    def _step(self):
 
-        """.. function:: step(self)
+        """
 
         do one time step using different methods, and return the vector at the new step
 
-        :rtype un is the vector at the new step
 
 
         """
@@ -266,7 +267,7 @@ class Tscheme:
 
     def process(self):
 
-        """.. function:: process(self)
+        """
 
         solving the ODEs and save the data
 
@@ -281,7 +282,7 @@ class Tscheme:
         for i in range(self.allstep):
                 if self.nstep == 0:
                     np.save(self.outdir+'u'+str(self.t[0]),self.u0)
-                un = self.step()
+                un = self._step()
                 self.un = un
                 if self.nstep % self.interval == 0:
                     np.save(self.outdir+'u'+str(self.t[self.nstep]),un)
