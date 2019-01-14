@@ -4,10 +4,10 @@ input package
 Submodules
 ----------
 
-input.source\_function module
------------------------------
+input.source\_time\_function module
+-----------------------------------
 
-.. automodule:: input.source_function
+.. automodule:: input.source_time_function
     :members:
     :undoc-members:
     :show-inheritance:

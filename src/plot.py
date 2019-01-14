@@ -2,9 +2,27 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import interpolate
 import os
+import sys
 
 
-def main(frames):
+def main(frames,dim='X'):
+    """Function plots quickly the results in the directory
+    results.
+
+    :param dim: diplacement dimension to be plotted. 'X' or 'Y'
+    :param frames: total number of frames to be plotted over the 
+                total number of time steps time
+
+    Can be run directly from command line with
+
+    ::
+
+        python -m src.plot 50 "X"
+
+    for 50 frames total and displacement in x direction.
+
+    """
+
     # loading coordinates
     gll_coordinates = np.load("results/gll_coordinates.npy")
 
@@ -15,19 +33,31 @@ def main(frames):
         if file.startswith("u"):
             file_list.append(os.path.join("results/timesteps", file))
 
+    # number of characters to delete
+    nc = len("results/timesteps")+2
+
     file_list.sort()
     N = len(file_list)
 
-    ux = np.zeros([len(gll_coordinates),N])
-    uy = np.zeros([len(gll_coordinates),N])
+    # Empty matrices
+    ux = np.zeros([len(gll_coordinates),int(frames)])
+    uy = np.zeros([len(gll_coordinates),int(frames)])
+    new_file_list = []
 
-    for i in range(0,N):
-            u = np.load(file_list[i])
-            ux[:,i] = u[::2]
-            uy[:,i] = u[1::2]
+    counter = 0
+    for i in range(0,N,int(N/frames)):
+
+        # Get new,shorter file list
+        new_file_list.append(file_list[i])
+
+        # Load and assign values
+        u = np.load(file_list[i])
+        ux[:,counter] = u[::2]
+        uy[:,counter] = u[1::2]
+
+        counter += 1
             
-            # ux[:,i] = u[:len(gll_coordinates)]
-            # uy[:,i] = u[len(gll_coordinates):]
+
     # scaling factor
     c = 0.15        
     uymin,uymax  = np.amin(uy)*c,np.amax(uy)*c
@@ -48,36 +78,35 @@ def main(frames):
 
     
     
-    ke = np.array([])
+    #ke = np.array([])
 
     
 
-    for i in range(0,N,int(N/frames)):
+    for i in range(frames):
         plt.clf()
-        # print(file_list[i])
         
-        # X
-        U = interpolate.griddata(gll_coordinates,ux[:,i],(x,y),fill_value=9999)
-        plt.pcolormesh(x,y,U,vmin=uxmin,vmax=uxmax)
+        if dim=="X":
+            # X
+            U = interpolate.griddata(gll_coordinates,ux[:,i],(x,y),fill_value=9999)
+            plt.pcolormesh(x,y,U,vmin=uxmin,vmax=uxmax)
+            plt.axis('equal')
+            plt.axis('off')
+            plt.title("Time: %10.8s sec" % new_file_list[i][nc:-4])
+            plt.pause(0.01) 
+            continue
+
+        if dim=="Y":
+            # Y
+            U = interpolate.griddata(gll_coordinates,uy[:,i],(x,y),fill_value=9999)
+            plt.pcolormesh(x,y,U,vmin=uymin,vmax=uymax)
+            plt.axis('equal')
+            plt.axis('off')
+            plt.title("Time: %10.8s sec" % new_file_list[i][nc:-4])
+            plt.pause(0.01) 
+            continue
+
         
-        # Y
-        #U = interpolate.griddata(gll_coordinates,uy[:,i],(x,y),fill_value=9999)
-        #plt.pcolormesh(x,y,U,vmin=uxmin,vmax=uxmax)
-
-        # Total displacement:
-        #U = interpolate.griddata(gll_coordinates,np.sqrt(ux[:,i]**2+uy[:,i]**2),(x,y),fill_value=9999)
-        #plt.pcolormesh(x,y,U,vmin=0,vmax=umax)
-        plt.axis('equal')
-        plt.axis('off')
-        plt.title("%d" % i)
-        plt.pause(0.01)
-
-        ke = np.append(ke,np.sum(np.ndarray.flatten(U)))
-
-
-    plt.plot(ke)
-
-
 
 if __name__ == "__main__":
-    main()
+    print(sys.argv[1],sys.argv[2])
+    main(int(sys.argv[1]),sys.argv[2])

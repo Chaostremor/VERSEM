@@ -1,5 +1,8 @@
 # TODO
 
+
+## Parallelization
+
 ## 2D --> 3D
 
 Places in the code that need to be modified to create a generic code:
@@ -28,10 +31,7 @@ Places in the code that need to be modified to create a generic code:
 
 ## Independent of dimension
 * Time-Schemes only take in 2D matrices and the matrices are agnostic of dimensions
-* Computation of stiffness matrix and mass matrix is independent of dimension
+* Computation of stiffness matrix and mass matrix is (more or less) independent of dimension
 
 
-## Lucas
-- Document mesh_spec numerically
-- Put Stiffness Matrix into loop
-- Try parallelizing the element loops, collecting without 
+
