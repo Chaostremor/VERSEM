@@ -64,5 +64,5 @@
 	
 	"snap_xnpt": 500,
 	"snap_type": "u",
-	"snap_comp": "xdim"
+	"snap_comp": "x"
 }

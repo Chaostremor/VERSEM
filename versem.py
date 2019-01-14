@@ -20,7 +20,6 @@ from src.time_decorator import timer
 if __name__ == '__main__':
     pass
 
-    # In the final version, these should come from the input file.
     #-------------------- INPUTS ------------------------
     config = Config()
     model = Model(config)

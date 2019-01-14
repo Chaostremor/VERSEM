@@ -3,6 +3,21 @@ import numpy as np
 
 class Model():
 	def __init__(self, config):
+		"""
+		X / Y / Z: netCDF array that contains the x/y/z location of each point
+		connect: numpy array that contains the defination of each node
+		elem_map: map from the index of connect to node_id
+
+		boundary_surface: dictionary that saves each free surface boundary
+			key: boundary name specified in Exodus file
+			value: numpy array of node_id of boundary nodes
+		boundary_internal: dictionary that saves each internal boundary
+			key: boundary name specified in Exodus file
+			value: numpy array of node_id of boundary nodes
+		distance_to_boundary: dictionary that saves the distance from each point to each boundary
+			key: boundary name specified in Exodus file
+			value: numpy array of the distance from each point to corresponding boundary
+		"""
 		mesh = netCDF4.Dataset(config.mesh_file)
 		variables = mesh.variables
 		elem_map = list(variables['elem_map'])
