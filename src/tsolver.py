@@ -99,8 +99,7 @@ def ab3(xn, dt, f, t, cache):
     :param t: current time
     :param cache: the value of f(x,t) at previous steps
 
-    :rtype: xn1 is the value of the vector at time t+dt;
-    fxn is value f(xn,t), the value will be stored is for multi-step method
+    :rtype: xn1 is the value of the vector at time t+dt; fxn is value f(xn,t), the value will be stored is for multi-step method
 
     """
     fxn = f(xn,t)
@@ -120,8 +119,7 @@ def ab4(xn, dt, f, t, cache):
     :param t: current time
     :param cache: the value of f(x,t) at previous steps
 
-    :rtype: xn1 is the value of the vector at time t+dt;
-    fxn is value f(xn,t), the value will be stored is for multi-step method
+    :rtype: xn1 is the value of the vector at time t+dt; fxn is value f(xn,t), the value will be stored is for multi-step method
 
     """
     fxn = f(xn,t)
@@ -147,8 +145,7 @@ def newmark(K, f, t, dt, un, nstep, cache, gamma):
     :param gamma: parameter \gamma of newmark scheme
 
 
-    :rtype: un1 is the value of the displacement vector at time t+dt;
-    cache stored velocity and acceleration vector un1 and an1
+    :rtype: un1 is the value of the displacement vector at time t+dt; cache stored velocity and acceleration vector un1 and an1
 
     """
     if nstep == 0:
