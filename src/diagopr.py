@@ -10,14 +10,13 @@ def reshape(M, C, K, dim):
     """The function reorganize mass matrix and stiff matrix for 
     second order ODEs which uses first order solver
 
-    :param M: original mass matrix.
-    :param C: original absorbing matrix.
-    :param K: original stiffness matrix.
-    :param dim: dimension of the matrix.
+    :param M: original mass matrix, ``numpy`` [dim]x[dim] array.
+    :param C: original absorbing matrix, ``numpy`` [dim]x[dim] array.
+    :param K: original stiffness matrix, ``numpy`` [dim]x[dim] array.
+    :param dim: dimension of the matrix, ``int``.
 
-    :rtype: M_out is the reorganized mass matrix and K_out is the 
-            reorganized stiffness matrix, since we turn a second order 
-            ODEs into first order, there is no absorbing matrix.
+    :rtype: first term is the reshaped mass matrix, ``numpy`` [2xdim]x[2xdim] array.
+            second term is the reshaped stiffness matrix, ``numpy`` [2xdim]x[2xdim] array.
 
     """
     if dim == 1:
@@ -44,10 +43,10 @@ def reshape_f(fn, dim):
     """The function reorganize force vector for second order 
     ODEs which uses first order solver
 
-    :param fn: original force vector.
+    :param fn: original force vector, ``numpy`` [dim] array.
     :param dim: dimension of the vector.
 
-    :rtype: fn_out is the reorganized force vector.
+    :rtype: reshaped force vector, ``numpy`` [2xdim] array.
 
     """
     if dim == 1:
@@ -59,14 +58,13 @@ def reshape_f(fn, dim):
 
 
 def normalize(M, K, dim):
-    """The function do the calculation M^(-1)*K with diagonal 
-    mass matrix m and stiffness matrix K.
+    """The function do the calculation M^(-1)*K with diagonal mass matrix m and stiffness matrix K.
 
     :param M: mass matrix.
     :param K: stiffness matrix.
     :param dim: dimension of the matrix.
 
-    :rtype: kk is M^(-1)*K
+    :rtype: M^(-1)*K, ``numpy`` [dim]x[dim] array.
 
     """
 
@@ -85,7 +83,7 @@ def normalize2(M,K,dim):
     :param K: stiffness matrix.
     :param dim: dimension of the matrix.
 
-    :rtype: kk is K*M^(-1)
+    :rtype: K*M^(-1), ``numpy`` [dim]x[dim] array.
 
     """
 
@@ -105,7 +103,7 @@ def normalize_f(M, fn, dim):
     :param fn: force vector.
     :param dim: dimension of the matrix.
 
-    :rtype: p is M^(-1)*fn
+    :rtype: M^(-1)*fn, ``numpy`` [dim] array.
 
     """
     p = np.zeros(dim)
@@ -124,7 +122,7 @@ def diagmul_f(M,f,dim):
     :param f: force vector.
     :param dim: dimension of the matrix.
 
-    :rtype: p is M*f
+    :rtype: M*f, ``numpy`` [dim] array.
 
     """
     p = np.zeros(dim)

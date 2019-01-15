@@ -4,9 +4,10 @@
 
 # Necessary for calculation 
 import numpy as np
-
+import matplotlib
 # Necessary for Plotting
 import matplotlib.pyplot as plt
+matplotlib.use('TkAgg')
 
 # Necessary for interpolation
 from scipy import interpolate
