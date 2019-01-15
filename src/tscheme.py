@@ -11,10 +11,9 @@ import os
 import time
 
 class Tscheme:
-    """.. class:: Tscheme
-
-    Class Tscheme solve the 1st order or 2nd order ODEs with different explicit solvers. This scheme only deals with
-    constant coeffcient ODEs, the mass matrix has to be diagonal.
+    """Class Tscheme solve the 1st order or 2nd order ODEs with different 
+    explicit solvers. This scheme only deals with constant coeffcient ODEs, 
+    the mass matrix has to be diagonal.
 
     :param M: mass matrix
     :param C: absorbing matrix, default None
@@ -24,19 +23,15 @@ class Tscheme:
     :param outdir: result output directory
     :param gamma: parameter for Newmark scheme, default 0.5
     :param solver: name of the main solver, default euler_explicit
-    :param solver2: solver for the first few steps of the multistep method, default rk4
-    :param interval: interval for output the result, should be an integer, default 1
+    :param solver2: solver for the first few steps of the multistep method, 
+                    default rk4
+    :param interval: interval for output the result, should be an integer, 
+                     default 1
 
     """
 
     def __init__(self, M, K, f, x0, t,outdir, C=None, gamma=0.5, solver='euler_explicit',solver2='rk4',interval=1):
-        """.. function:: __init__(self, M, K, f, x0, t,outdir, C=None, gamma=0.5,
-        solver='euler_explicit',solver2='rk4',interval=1)
-
-        Initialize the class
-
-
-
+        """Initialize the class
         """
         self.solver = solver
         self.solver2 = solver2
@@ -56,19 +51,14 @@ class Tscheme:
         ## self.cache (multiple steps) ; self.x(store result at certain time
 
     def _getorder_(self):
-        """.. function:: _getorder_(self)
-
-        get the order of the ODEs
-
+        """Get the order of the ODEs
         """
         self.order = round(np.size(self.x0)/len(self.M))
 
     def _getsolverorder_(self):
 
-        """.. function:: _getsolverorder_(self)
-
-        get the information(multi-step or not; solving 1st order ODEs or second order) of the solvers
-
+        """Get the information(multi-step or not; solving 1st order ODEs or 
+        second order) of the solvers
         """
 
         if self.solver == 'euler_explicit' or self.solver == 'rk4' or self.solver == 'rk2':
@@ -90,10 +80,7 @@ class Tscheme:
 
     def _getinitial(self):
 
-        """.. function:: _getinitial(self)
-
-        get initial value of the displacement vector
-
+        """Get initial value of the displacement vector
         """
 
         if self.order == 1:
@@ -104,9 +91,8 @@ class Tscheme:
 
     def _reshape_f(self,t):
 
-        """.. function:: _reshape_f(self,t)
-
-        reshape the force function for second order ODEs if use a first order scheme
+        """Reshapes the force function for second order ODEs if use a 
+        first order scheme.
 
         :param t: time t
 
@@ -118,9 +104,8 @@ class Tscheme:
 
     def _f(self,x,t):
 
-        """.. function:: _f(self,t)
-
-        turn equation x' + Mx == f(t) into x' = f(t) - Mx, _f is the right term with unknowns x and t
+        """Turn equation x' + Mx == f(t) into x' = f(t) - Mx, _f is the 
+        right term with unknowns x and t
 
         :param x: vector x
         :param t: time t
@@ -133,15 +118,14 @@ class Tscheme:
 
     def _preprocess(self):
 
-        """.. function:: _preprocess(self)
+        """Preprocess the equations, it has the following procedure:
 
-        preprocess the equations, it has the following procedure:
-
-        1. get the order of equations and solvers
-        2. normalize the vector, turn the mass matrix into unit
-        3. if equation order is 2 and solver order is 1, the reorganize the matrix and force term to make it first
-        order ODEs
-        4. turn the equation x' + Mx == f(t) into x' = f(t) - Mx if it is first order ODEs
+        1. Get the order of equations and solvers
+        2. Normalize the vector, turn the mass matrix into unit
+        3. If equation order is 2 and solver order is 1, the reorganize the 
+           matrix and force term to make it first order ODEs
+        4. Turn the equation x' + Mx == f(t) into x' = f(t) - Mx if it 
+           is first order ODEs
 
         """
 
@@ -180,11 +164,8 @@ class Tscheme:
 
     def _step(self):
 
-        """
-
-        do one time step using different methods, and return the vector at the new step
-
-
+        """Do one time step using different methods, and return the 
+        vector at the new step.
 
         """
 
@@ -267,10 +248,7 @@ class Tscheme:
 
     def process(self):
 
-        """
-
-        solving the ODEs and save the data
-
+        """Solving the ODEs and save the data.
         """
 
         self._preprocess()
