@@ -48,7 +48,9 @@ in detail in the theory chapter.
 
 Usage:
 
-.. code::
+``bash$ python versem.py``
+
+**Step-by-Step Walk through**
 
 As the first step, ``versem.py`` reads the inputs located in ``src/inputs/config.json``. 
 
@@ -94,8 +96,3 @@ Visualisation
 There are two main formats to display the computed data. Wavefield snapshots and seismograms.
 Each of them can be created using the output put from. A detailed description on how to use 
 the functions can be found in the output section.
-
-
-
-
-~
