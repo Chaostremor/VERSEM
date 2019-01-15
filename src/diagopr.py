@@ -60,8 +60,8 @@ def reshape_f(fn, dim):
 def normalize(M, K, dim):
     """The function do the calculation M^(-1)*K with diagonal mass matrix m and stiffness matrix K.
 
-    :param M: mass matrix.
-    :param K: stiffness matrix.
+    :param M: mass matrix, ``numpy`` [dim]x[dim] array.
+    :param K: stiffness matrix, ``numpy`` [dim]x[dim] array.
     :param dim: dimension of the matrix.
 
     :rtype: M^(-1)*K, ``numpy`` [dim]x[dim] array.
@@ -79,8 +79,8 @@ def normalize2(M,K,dim):
     """The function do the calculation K*M^(-1) with 
     diagonal mass matrix m and stiffness matrix K.
 
-    :param M: mass matrix.
-    :param K: stiffness matrix.
+    :param M: mass matrix, ``numpy`` [dim]x[dim] array.
+    :param K: stiffness matrix, ``numpy`` [dim]x[dim] array.
     :param dim: dimension of the matrix.
 
     :rtype: K*M^(-1), ``numpy`` [dim]x[dim] array.
@@ -99,8 +99,8 @@ def normalize_f(M, fn, dim):
     """The function do the calculation M^(-1)*f with diagonal 
     mass matrix m and force vector fn.
 
-    :param M: mass matrix.
-    :param fn: force vector.
+    :param M: mass matrix, ``numpy`` [dim]x[dim] array.
+    :param fn: force vector, ``numpy`` [dim] array.
     :param dim: dimension of the matrix.
 
     :rtype: M^(-1)*fn, ``numpy`` [dim] array.
@@ -118,8 +118,8 @@ def diagmul_f(M,f,dim):
     """The function do the calculation M*f with diagonal 
     ass matrix m and force vector fn.
 
-    :param M: mass matrix.
-    :param f: force vector.
+    :param M: mass matrix, ``numpy`` [dim]x[dim] array.
+    :param f: force vector, ``numpy`` [dim] array.
     :param dim: dimension of the matrix.
 
     :rtype: M*f, ``numpy`` [dim] array.
