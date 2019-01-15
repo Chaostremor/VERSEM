@@ -4,5 +4,6 @@ clean:
 	rm -f input/*
 	rm -f src/*
 	rm -f tests/*
+	rm -f scripts/*
 
 

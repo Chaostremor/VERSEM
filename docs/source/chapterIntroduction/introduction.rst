@@ -312,26 +312,52 @@ Output
 Seismograms
 ^^^^^^^^^^^
 
-Seismograms records the velocity or displacement as a function of time.
-For each station, a binary array of velocity or displacement will be
-stored. The input station file will be copied to the output directory so
-that the output directory contains the complete seismogram information.
+Seismograms record the displacement, velocity or acceleration as a function
+of time. The results are stored originally in ``.npy`` files. Each file
+contains a :math:`Ndim*N\times 1` array which represents the disp/vel/acc of
+all dimensions at each gll point at one time (:math:`N` is the number of 
+points, and :math:`Ndim` is the number of dimensions. The file name could be, 
+for example, ``u0.2869035948169.npy``, where ``u`` denotes ``displacement``,
+and ``0.2869035948169`` denotes ``t=0.2869035948169 s``. The corresponding
+function reads the desired data type and interpolate properly to get a 
+smooth seismogram against time at each user-specified location point. All 
+traces are normalized and sorted by trace index. User can also specify the
+start and end time for a zoomed-in inspection. Each dimension is arranged as
+one column in the resulting figure. The resulting figure is stored defaultly
+as a ``.pdf`` file named such as ``u_4.32-4.38s_seismo.pdf``, where
+``4.32-4.38s`` denotes the start and end time. Of course user can specify
+the file name of the output figure. The resulting seismogram at each point is
+stored in a seperate file named like ``u_x30_y30.npy``, where ``u`` denotes
+``displacement``, ``x30`` denotes coordinate in 1st dimension and ``y30`` 
+denotes coordinate in 2nd dimension. This file actually contains a 
+:math:`Nt\times 2` array, where :math:`Nt` is the number of points after
+intepolation in time. 
 
 Wavefield Snapshots
 ^^^^^^^^^^^^^^^^^^^
 
-Snapshots of the wavefield (either velocity or displacement) can be
-configured as an output. The snapshots will be stored as a
-:math:`1\times N` binary arrays. The Exodus file of the model will be
-copied to the output directory, as well, so that the output contains all
-necessary information.
+Snapshots of the wavefield (displacement, velocity or acceleration) can be
+configured as an output as well. The cooresponding function will read the
+desired data file at all gll points and do a dense spatial interpolation
+in a rectangle region defined by the gll locations. Then the function
+would make an animation integrating snapshots at all time steps.
+Interpolation is meant to make the snapshot seem smooth. User need to 
+specify the final number of points along the 1st dimension after
+interpolation. User should also specify the preferred data type to read 
+and prefered dimension type to show. As default, the animation would be
+saved as a ``.mp4`` file named such as ``u_xdim_xnpt500.mp4``, where
+``xdim`` denotes the prefered dimension type to show and ``xnpt500`` means
+the final number of points along the 1st dimension after interpolation. 
+User can specify the file name of the output animation as well.
 
 Post-Processing
 ---------------
 
 The post-processing software could be Paraview, Matlab or Matplotlib in
-Python, which will be the default. The post-processing may not be of
-priority in this project.
+Python, which will be the default. Since the post-processing part may not
+be of first priority in this project, all the resulting files or figures
+are currently compatiable to Python. As a future improvement, this
+post-processing section would integrate more environment.
 
 Unit Testing
 ------------

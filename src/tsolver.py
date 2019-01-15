@@ -10,16 +10,16 @@ import numba as nb
 
 
 def euler_explicit(xn, dt, f, t):
-    """.. function:: euler_explicit(xn, dt, f, t)
-
-    The function do the time stepping of ODEs with explicit Euler method.
+    """The function do the time stepping of ODEs with explicit 
+    Euler method.
 
     :param xn: value of the vector at t.
     :param dt: time interval between step.
     :param f: force function f(x,t), given x and t return a vector.
     :param t: current time
 
-    :rtype: xn1 is the value of the vector at time t+dt; fxn is value f(xn,t), the value will be stored is for multi-step method
+    :rtype: xn1 is the value of the vector at time t+dt; fxn is value 
+            f(xn,t), the value will be stored is for multi-step method
 
     """
 
@@ -28,16 +28,16 @@ def euler_explicit(xn, dt, f, t):
     return xn1,fxn
 
 def  rk2(xn, dt, f, t):
-    """.. function:: rk2(xn, dt, f, t)
-
-    The function do the time stepping of ODEs with second order Runge-Kutta.
+    """The function do the time stepping of ODEs with second order 
+    Runge-Kutta.
 
     :param xn: value of the vector at t.
     :param dt: time interval between step.
     :param f: force function f(x,t), given x and t return a vector.
     :param t: current time
 
-    :rtype: xn1 is the value of the vector at time t+dt; fxn is value f(xn,t), the value will be stored is for multi-step method
+    :rtype: xn1 is the value of the vector at time t+dt; fxn is value 
+            f(xn,t), the value will be stored is for multi-step method
 
     """
     fxn = f(xn,t)
@@ -47,16 +47,15 @@ def  rk2(xn, dt, f, t):
     return xn1,fxn
 
 def rk4(xn, dt, f, t):
-    """.. function:: rk4(xn, dt, f, t)
-
-    The function do the time stepping of ODEs with fourth order Runge-Kutta.
+    """The function do the time stepping of ODEs with fourth order Runge-Kutta.
 
     :param xn: value of the vector at t.
     :param dt: time interval between step.
     :param f: force function f(x,t), given x and t return a vector.
     :param t: current time
 
-    :rtype: xn1 is the value of the vector at time t+dt; fxn is value f(xn,t), the value will be stored is for multi-step method
+    :rtype: xn1 is the value of the vector at time t+dt; fxn is value f(xn,t), 
+            the value will be stored is for multi-step method
 
     """
     k1 = f(xn,t)
@@ -70,9 +69,8 @@ def rk4(xn, dt, f, t):
     return xn1,k1
 
 def ab2(xn, dt, f, t, cache):
-    """.. function:: ab2(xn, dt, f, t, cache)
-
-    The function do the time stepping of ODEs with second order Adams-Bashforth method.
+    """The function do the time stepping of ODEs with second order 
+    Adams-Bashforth method.
 
     :param xn: value of the vector at t.
     :param dt: time interval between step.
@@ -80,7 +78,8 @@ def ab2(xn, dt, f, t, cache):
     :param t: current time
     :param cache: the value of f(x,t) at previous steps
 
-    :rtype: xn1 is the value of the vector at time t+dt; fxn is value f(xn,t), the value will be stored is for multi-step method
+    :rtype: xn1 is the value of the vector at time t+dt; fxn is value f(xn,t), 
+            the value will be stored is for multi-step method
 
     """
     fxn = f(xn,t)
@@ -89,9 +88,8 @@ def ab2(xn, dt, f, t, cache):
     return xn1, fxn
 
 def ab3(xn, dt, f, t, cache):
-    """.. function:: ab3(xn, dt, f, t, cache)
-
-    The function do the time stepping of ODEs with third order Adams-Bashforth method.
+    """The function do the time stepping of ODEs with third order 
+    Adams-Bashforth method.
 
     :param xn: value of the vector at t.
     :param dt: time interval between step.
@@ -99,7 +97,8 @@ def ab3(xn, dt, f, t, cache):
     :param t: current time
     :param cache: the value of f(x,t) at previous steps
 
-    :rtype: xn1 is the value of the vector at time t+dt; fxn is value f(xn,t), the value will be stored is for multi-step method
+    :rtype: xn1 is the value of the vector at time t+dt; fxn is value f(xn,t), 
+            the value will be stored is for multi-step method
 
     """
     fxn = f(xn,t)
@@ -109,9 +108,8 @@ def ab3(xn, dt, f, t, cache):
     return xn1, fxn
 
 def ab4(xn, dt, f, t, cache):
-    """.. function:: ab4(xn, dt, f, t, cache)
-
-    The function do the time stepping of ODEs with fourth order Adams-Bashforth method.
+    """The function do the time stepping of ODEs with fourth order 
+    Adams-Bashforth method.
 
     :param xn: value of the vector at t.
     :param dt: time interval between step.
@@ -119,7 +117,8 @@ def ab4(xn, dt, f, t, cache):
     :param t: current time
     :param cache: the value of f(x,t) at previous steps
 
-    :rtype: xn1 is the value of the vector at time t+dt; fxn is value f(xn,t), the value will be stored is for multi-step method
+    :rtype: xn1 is the value of the vector at time t+dt; fxn is value 
+            f(xn,t), the value will be stored is for multi-step method
 
     """
     fxn = f(xn,t)
@@ -130,10 +129,10 @@ def ab4(xn, dt, f, t, cache):
     return xn1, fxn
 
 def newmark(K, f, t, dt, un, nstep, cache, gamma):
-    """.. function:: newmark(K, f, t, dt, un, nstep, cache, gamma)
-
-    The function do the time stepping of ODEs with Newmark method, here we our vector have been normalized
-    and the mass matrix is unit. Because we only deal with explicit scheme, we don't have the absorbing matrix.
+    """The function do the time stepping of ODEs with Newmark method, 
+    here we our vector have been normalized and the mass matrix is unit. 
+    Because we only deal with explicit scheme, we don't have the absorbing 
+    matrix.
 
     :param K: stiffness matrix
     :param f: force term f(t), given t return the force .
@@ -141,11 +140,13 @@ def newmark(K, f, t, dt, un, nstep, cache, gamma):
     :param dt: interval between time
     :param un: current displacement vector
     :param nstep: current number of steps
-    :param cache: stored current velocity vector vn and acceleration vector an from previous step
+    :param cache: stored current velocity vector vn and acceleration 
+                  vector an from previous step
     :param gamma: parameter \gamma of newmark scheme
 
 
-    :rtype: un1 is the value of the displacement vector at time t+dt; cache stored velocity and acceleration vector un1 and an1
+    :rtype: un1 is the value of the displacement vector at time t+dt; 
+            cache stored velocity and acceleration vector un1 and an1
 
     """
     if nstep == 0:
