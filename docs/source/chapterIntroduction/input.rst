@@ -8,7 +8,7 @@ type, Gauss - Lobatto - Legendre Points (GLL points), post-processing
 software and possibly more. The mesh will be created externally.
 
 Configuration File
-^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
 
 A JSON parameter file will be given to provide necessary settings.
 Location of the configuration file can be specified in the command line arguments. Default location is input/config.json
@@ -67,7 +67,7 @@ project, we will use Cubit. Cubit outputs an Exodus file (``.e``) which
 will be used to create a model object.
 
 Material File
-^^^^^^^^^
+^^^^^^^^^^^^^
 
 The material file is a numpy array of defination of materials provided in the mesh file.
 

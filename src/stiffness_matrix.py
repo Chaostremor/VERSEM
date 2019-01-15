@@ -97,7 +97,7 @@ def global_stiffness_matrix(gll_coordinates,gll_connect,dN_local,W,dim,lmd,mu):
     :rtype: Ag and Bg are ``numpy`` [dim]x[ngll_total]x[ngll_total] array and C is ``numpy`` [ngll_total]x[ngll_total] array
 
     """
-
+    
     #Retrieving the number of elements in the domain and the number of gll points per element
     ngll_total = len(gll_coordinates)
     el_no = len(gll_connect)

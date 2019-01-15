@@ -125,34 +125,43 @@ use the quadrature to further simplifiy the integral into:
 .. math::
 
    \begin{aligned}
-   A &=& -\int_{-1}^{1} \partial_i N_l(\xi,\eta) \lambda(\xi,\eta) \sum_m (\partial_r N_m(\xi,\eta))u_r^m \mathcal{J}^{-1}(\xi,\eta) d\eta d\xi \\
-   &=& -\sum_{k=1}^{nip} \partial_i N_l(\xi_k,\eta_k) \lambda(\xi_k,\eta_k) \sum_m (\partial_r N_m(\xi_k,\eta_k))u_r^m \mathcal{J}^{-1}(\xi_k,\eta_k) W_k \nonumber \\ \\
-   &=& -\sum_{m=1}^{nip} u_{\mathbf{r}}^m \sum_{k=1}^{nip} \partial_i N_l(\xi_k,\eta_k) \lambda(\xi_k,\eta_k) \partial_{\mathbf{r}} N_m(\xi_k,\eta_k) \mathcal{J}^{-1}(\xi_k,\eta_k) W_k \nonumber \\\end{aligned}
+   A &= -\int_{-1}^{1} \partial_i N_l(\xi,\eta) \left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi,\eta} \lambda(\xi,\eta) \sum_m \partial_r N_m(\xi,\eta) \left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi,\eta} u_r^m \left| \mathcal{J}(\xi,\eta) \right|  d\eta d\xi \\
+   &= -\sum_{k=1}^{nip} \partial_i N_l(\xi_k,\eta_k)\left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi_k,\eta_k} \lambda(\xi_k,\eta_k) \sum_m \partial_r N_m(\xi_k,\eta_k)\left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi_k,\eta_k} u_r^m \left| \mathcal{J} (\xi_k,\eta_k)\right| W_k \nonumber \\
+   &= -\sum_{m=1}^{nip} u_{\mathbf{r}}^m \sum_{k=1}^{nip} \lambda(\xi_k,\eta_k) \partial_i N_l(\xi_k,\eta_k)\left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi_k,\eta_k}  \partial_{\mathbf{r}} N_m(\xi_k,\eta_k) \left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi_k,\eta_k}  \left| \mathcal{J}(\xi_k,\eta_k) \right| W_k \nonumber\\
+   \end{aligned}
 
-The bold subscript is to remind ourselves that the index needs to be
+The bars around the :math:`\mathcal{J}` denote the determinant. The 
+bold subscript is to remind ourselves that the index needs to be
 summed over for all the components (:math:`x` and :math:`y` in 2D and
 :math:`x,y` and :math:`z` in 3D). Similarly,
 
 .. math::
 
    \begin{aligned}
-   B &=& - \int_{-1}^{1} \partial_j N_l(\xi,\eta) \mu(\xi,\eta) \sum_m \partial_i N_m(\xi,\eta) u_j^m \mathcal{J}^{-1}(\xi,\eta) d\xi d\eta \\
-   &=& -\sum_{k=1}^{nip} \partial_j N_l(\xi_k,\eta_k) \mu(\xi_k,\eta_k) \sum_m \partial_i N_m(\xi_k,\eta_k) u_j^m \mathcal{J}^{-1}(\xi_k,\eta_k) W_k \nonumber \\ \\
-   &=& -\sum_{m=1}^{nip} u_{\mathbf{j}}^m \sum_{k=1}^{nip} \partial_{\mathbf{j}} N_l(\xi_k,\eta_k) \mu(\xi_k,\eta_k) \partial_i N_m(\xi_k,\eta_k) \mathcal{J}^{-1}(\xi_k,\eta_k) W_k \nonumber \\\end{aligned}
+   B &= - \int_{-1}^{1} \partial_j N_l(\xi,\eta) \left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi,\eta} \mu(\xi,\eta) \sum_m \partial_i N_m(\xi,\eta)\left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi,\eta} u_j^m \left| \mathcal{J}(\xi_k,\eta_k) \right| d\xi d\eta \\
+   &= -\sum_{k=1}^{nip} \partial_j N_l(\xi_k,\eta_k) \left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi_k,\eta_k} \mu(\xi_k,\eta_k) \sum_m \partial_i N_m(\xi_k,\eta_k)\left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi_k,\eta_k} u_j^m \left| \mathcal{J}(\xi_k,\eta_k) \right| W_k \nonumber \\ \\
+   &= -\sum_{m=1}^{nip} u_{\mathbf{j}}^m \sum_{k=1}^{nip} \mu(\xi_k,\eta_k) \partial_{\mathbf{j}} N_l(\xi_k,\eta_k) \left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi_k,\eta_k} \partial_i N_m(\xi_k,\eta_k) \left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi_k,\eta_k}  \left| \mathcal{J}(\xi_k,\eta_k) \right| W_k \nonumber \\
+   \end{aligned}
 
 Finally,
 
 .. math::
 
    \begin{aligned}
-   C &=& -\int_{-1}^{1} \partial_j N_l(\xi,\eta) \mu(\xi,\eta) \sum_m \partial_j N_m(\xi,\eta) u_i^m \mathcal{J}^{-1}(\xi,\eta) d\xi d\eta \\
-   &=& -\sum_{k=1}^{nip} \partial_j N_l(\xi_k,\eta_k) \mu(\xi_k,\eta_k) \sum_m \partial_j N_m(\xi_k,\eta_k) u_i^m \mathcal{J}^{-1}(\xi_k,\eta_k) W_k \nonumber\\ \\
-   &=& -\sum_{m=1}^{nip} u_i^m \sum_{k=1}^{nip} \partial_{\mathbf{j}} N_l(\xi_k,\eta_k) \mu(\xi_k,\eta_k) \partial_{\mathbf{j}} N_m(\xi_k,\eta_k) \mathcal{J}^{-1}(\xi_k,\eta_k) W_k \nonumber\\ \end{aligned}
+   C &= -\int_{-1}^{1} \partial_j N_l(\xi,\eta) \left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi,\eta} \mu(\xi,\eta) \sum_m \partial_j N_m(\xi,\eta)\left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi,\eta} u_i^m \left| \mathcal{J}(\xi_k,\eta_k) \right|(\xi,\eta) d\xi d\eta \\
+   &= -\sum_{k=1}^{nip} \partial_j N_l(\xi_k,\eta_k)\left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi_k,\eta_k} \mu(\xi_k,\eta_k) \sum_m \partial_j N_m(\xi_k,\eta_k)\left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi_k,\eta_k} u_i^m \left| \mathcal{J}(\xi_k,\eta_k) \right|(\xi_k,\eta_k) W_k \nonumber\\ \\
+   &= -\sum_{m=1}^{nip} u_i^m \sum_{k=1}^{nip} \mu(\xi_k,\eta_k) \partial_{\mathbf{j}} N_l(\xi_k,\eta_k)\left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi_k,\eta_k} \partial_{\mathbf{j}} N_m(\xi_k,\eta_k)\left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi_k,\eta_k} \left| \mathcal{J}(\xi_k,\eta_k) \right|(\xi_k,\eta_k) W_k \nonumber\\ 
+   \end{aligned}
+
 
 If we notice, the expression of A, B and C have free indices as
 :math:`l` and :math:`i`. Here, :math:`i` denotes the component of
 :math:`\vec{u}` that we are solving for and :math:`l` denotes the row
 number of the column vector :math:`u_i`.
+
+As of know this algorith is followed strictly when computing the element
+matrices.
+
 
 Finding the total number of nodes to be computed:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -210,7 +219,7 @@ governed by the following equation
 
 where :math:`N` are the basis functions, also called the shape function, 
 namely, the Lagrange Polynomials. This step is applied within the module and 
-function ``src.mesh_spec.mesh_interp2D()``. 
+function ``src.mesh_spec.mesh_interp2D()``.
 
 Lagrange Polynomials
 ~~~~~~~~~~~~~~~~~~~~
@@ -226,16 +235,28 @@ polynomials between certain points and defined in the following manner.
 
 where :math:`\xi_i` are the collocation points, :math:`i` is the number
 of the polynomial with respect to collocation points and :math:`n` is
-the degree of the polynomial :cite:`Komatitsch1999`. The
-implemented algorithm follows this formulation strictly. In multiple
+the degree of the polynomial :cite:`Komatitsch1999`. 
+I.e., the elaborate expression would look like this:
+The SEM’s signature shape functions are the Lagrange Polynomials
+:math:`l^{n_l}_\alpha`:
+
+.. math:: 
+
+       \ell _ { \alpha } ^ { n _ { \ell } } ( \xi ) = \frac { \left( \xi - \xi _ { 0 } \right) \cdots \left( \xi - \xi _ { \alpha - 1 } \right) \left( \xi - \xi _ { \alpha + 1 } \right) \cdots \left( \xi - \xi _ { n _ { \ell } } \right) } { \left( \xi _ { \alpha } - \xi _ { 0 } \right) \cdots \left( \xi _ { \alpha } - \xi _ { \alpha - 1 } \right) \left( \xi _ { \alpha } - \xi _ { \alpha + 1 } \right) \cdots \left( \xi _ { \alpha } - \xi _ { n _ { \ell } } \right) }
+
+where :math:`\alpha = 0,...,n_l`, and :math:`n_l` will be 5 to 10 (in
+our case).
+The implemented algorithm follows this formulation strictly. In multiple
 dimensions, the shapefunctions :math:`N`, are defined as the product of
 the polynomials in each dimension., i.e.
 :math:`N_{kl}(\xi,\eta) = \ell^n_k(\xi)\ell^n_l(\eta).`
 
+
+
 Derivative of the Lagrange Polynomials
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-As seen in the section [sec:theory], the spectral element method also
+As seen in the formulation section, the spectral element method also
 requires the derivative of the shape functions. The derivative of the
 Lagrange polynomials are defined as the original Lagrange polynomial
 multiplied by the Legendre polynomial. The Legendre polynomial
@@ -275,35 +296,125 @@ The Jacobian
 
 The Jacobian between local and global coordinates can be defined as
 
-.. math:: \frac { \partial \mathbf { x } } { \partial \xi } = \sum _ { a = 1 } ^ { n _ { a } } \frac { \partial N _ { a } } { \partial \xi } \mathbf { x } _ { a }
+.. math:: 
 
-Time Stepping
+       \frac { \partial \mathbf { x } } { \partial \xi } = \sum _ { a = 1 } ^ { n _ { a } } \frac { \partial N _ { a } } { \partial \xi } \mathbf { x } _ { a }
+
+In practice we use the inverse Jacobian matrix for each node to 
+compute the global derivative at its location using 
+``src.gll_library.dN_local_2D`` and ``src.gll_library.global_derivative``.
+``dN_local_2D()`` computes the local derivative matrix containing derivatives
+in each dimension of each shape function and ``global_derivative``, then takes in 
+the Jacobian computes its inverse and multiplies it with the local derivative 
+matrix to compute the global derivative matrix.
+
+
+Global Matrix Assembly
+^^^^^^^^^^^^^^^^^^^^^^
+
+Since all elements are interconnected and dependent on each other, they
+need to be assembled in a linear system of equations.
+
+-  diagonal Mass matrix, simplifies things...
+
+-  this, that
+
+Then, we end up with following system of equations:
+
+.. math:: \mathbf{M} \ddot { \mathbf{u} } + \mathbf{K} \mathbf{u} = \mathbf{f}
+
+However, :math:`\mathbf{u}` is still dependent on time. To solve this a
+simple finite difference scheme can be applied or other time marching
+methods.
+
+
+
+Time Marching
 -------------
 
-After reduction, we get the following ordinary differential equations we
-are going to solve
+Timestep is done by ``class`` Tscheme which is written in `src/tscheme.py`. It can solve ODEs
+with the following type:
 
-.. math:: M\ddot{ U } +KU=F(t)
+`First order ODEs`
 
-where M is the global mass matrix and it is time invarient, the K is the
-global stiff matrix and it is also time invarient. In our case, the mass
-matrix M is diagonal.
 
-Generally, there are two approaches. One way is to transform the second
-order equations into first order equations by :math:`P=\dot { U }`,
-then we need to solve the following equations
+First order ODEs with constant mass matrix :math:`M` and constant stiffness matrix :math:`K`
+and time varient force term :math:`F(t)` can be solved. Equation then has the form
+:math:`M\dot{X}+KX=F(t)`.
 
-.. math:: \begin{pmatrix} I & O \\ O & M \end{pmatrix}\left( \begin{array}{c} \dot { U }  \\ \dot { P }  \end{array} \right) +\begin{pmatrix} O & -I \\ K & O \end{pmatrix}\left( \begin{array}{c} U \\ P \end{array} \right) =\left( \begin{array}{c} O \\ F \end{array} \right)
 
-using. The new global matrix is still diagonal. So we can use some
-explicit time schemes like explicit Euler, fourth order Runge-Kutta to
-solve the equations.
+`Second order ODEs`
 
-The other way is to solve the second order equations directly. There are
-schemes like Newmark-\ :math:`\beta` and HHT-\ :math:`\alpha`. In order
-to fully exploit the advantage of diagonal matrix, we only use a special
-case of Newmark-\ :math:`\beta` scheme, where :math:`\beta=0`. The
-algorithm is as follows:
+
+First order ODEs with constant mass matrix :math:`M` ,
+constant absorbing matrix :math:`C`and constant stiffness matrix :math:`K`
+and time varient force term :math:`F(t)` can be solved. Equation then has the form
+:math:`M\ddot{X}+C\dot{X}+KX=F(t)`. If you are using schemes for first order equations like
+`euler_explicit`, `rk4`, the equations will be turned into the following first order ODEs.
+
+
+
+
+.. math:: \begin{pmatrix} I & O \\ O & M \end{pmatrix}\left( \begin{array}{c} \dot { X }  \\ \dot { P }  \end{array} \right) +\begin{pmatrix} O & -I \\ K & C \end{pmatrix}\left( \begin{array}{c} X \\ P \end{array} \right) =\left( \begin{array}{c} O \\ F \end{array} \right)
+
+
+If you are using newmark, then the absorbing matrix :math:`C` has to be zero, please set `C=None` when
+you use the solver.
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+`Usage`
+
+First Specify the following arguments
+
+- ``M:`` mass matrix, ``numpy`` [N]x[N] array
+
+- ``C:`` absorbing matrix, default None
+
+- ``K:`` stiffness matrix, ``numpy`` [N]x[N] array
+
+- ``f:`` force term f(t), given t return the force vector of type ``numpy`` [N] array.
+
+- ``t:`` time vector for stepping, t[0] should be the start time
+
+- ``outdir:`` result output directory
+
+- ``gamma:`` parameter for Newmark scheme, default 0.5
+
+- ``solver:`` name of the main solver, default euler_explicit
+
+- ``solver2:`` solver for the first few steps of the multistep method,
+                    default rk4
+
+- ``interval:`` interval for output the result, should be an integer,
+                     default 1
+
+
+Then create a `Tscheme` object by
+
+
+``tstep=tscheme.Tscheme(M=M,K=K,f=f,t=t,outdir=outdir,solver=solver)``
+
+Then run the solver by
+
+``tstep.process()``
+
+
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+`Details of implementation`
+
+For all the kinds of solvers, the Tscheme will automatically turn the equations into
+standard form. That is using transformation :math:`U=MX` to make mass matrix :math:`M`
+unit. The `src/tsolver.py` contains all the solver thant can solve equations with
+unit mass matrix.
+
+For first order solvers, like `euler_explicit`, `rk4`, the solvers in `src/tsolver.py` can
+solve equations with form :math:`\dot{U}=F(U,t)`, the equation we are going to solve is
+:math:`\dot{U}+K{ M }^{ -1 }U=F(t)`, here our :math:`F(U,t)=F(t)-K{ M }^{ -1 }U`.
+
+For second order solvers newmark, the algorithm is as follows:
 
 +----+--------------------------------------------------------+
 | **Algorithm 1**                                             |
@@ -312,19 +423,16 @@ algorithm is as follows:
 +----+--------------------------------------------------------+
 | 2: | :math:`U_{n+1}=U_n+V_ndt+0.5A_ndt^2`                   |
 +----+--------------------------------------------------------+
-| 3: | :math:`A_{n+1}=M^{-1}F_{n+1}-M^{-1}KU_{n+1}`           |
+| 3: | :math:`A_{n+1}=F_{n+1}-KM^{-1}U_{n+1}`                 |
 +----+--------------------------------------------------------+
 | 4: | :math:`V_{n+1}=(1-\gamma)A_{n}dt+\gamma A_{n+1}dt`     |
 +----+--------------------------------------------------------+
 | 5: | **return** :math:`U_{n+1},V_{n+1},A_{n+1}`             |
 +----+--------------------------------------------------------+
 
+After solving :math:`U`, use transformation :math:`X={M}^{-1}U` to get :math:`X`
 
 
-where :math:`V=\dot { U } ,A=\ddot { U }`. Typically, since the
-dimensions of the matrix in Newmark scheme is smaller, the computation
-is faster than indirect schemes. This is one reason why Newmark scheme
-is popular in waveform modelling in seismology. So in our simulations,
-we will mainly use Newmark scheme.
+
 
 
