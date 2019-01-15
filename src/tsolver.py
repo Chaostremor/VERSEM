@@ -13,10 +13,10 @@ def euler_explicit(xn, dt, f, t):
     """The function do the time stepping of ODEs with explicit 
     Euler method.
 
-    :param xn: value of the vector at t.
+    :param xn: value of the vector at t, ``numpy`` [N] array.
     :param dt: time interval between step.
-    :param f: force function f(x,t), given x and t return a vector.
-    :param t: current time
+    :param f: force function f(x,t), given x and t return a ``numpy`` [N] array.
+    :param t: current time.
 
     :rtype: first term is the vector at time t+dt; second term is f(xn,t) which will be stored for future use
 
@@ -30,9 +30,9 @@ def  rk2(xn, dt, f, t):
     """The function do the time stepping of ODEs with second order 
     Runge-Kutta.
 
-    :param xn: value of the vector at t.
+    :param xn: value of the vector at t, ``numpy`` [N] array.
     :param dt: time interval between step.
-    :param f: force function f(x,t), given x and t return a vector.
+    :param f: force function f(x,t), given x and t return a ``numpy`` [N] array.
     :param t: current time
 
     :rtype: first term is the vector at time t+dt; second term is f(xn,t) which will be stored for future use
@@ -47,9 +47,9 @@ def  rk2(xn, dt, f, t):
 def rk4(xn, dt, f, t):
     """The function do the time stepping of ODEs with fourth order Runge-Kutta.
 
-    :param xn: value of the vector at t.
+    :param xn: value of the vector at t, ``numpy`` [N] array.
     :param dt: time interval between step.
-    :param f: force function f(x,t), given x and t return a vector.
+    :param f: force function f(x,t), given x and t return a ``numpy`` [N] array.
     :param t: current time
 
     :rtype: first term is the vector at time t+dt; second term is f(xn,t) which will be stored for future use
@@ -69,9 +69,9 @@ def ab2(xn, dt, f, t, cache):
     """The function do the time stepping of ODEs with second order 
     Adams-Bashforth method.
 
-    :param xn: value of the vector at t.
+    :param xn: value of the vector at t, ``numpy`` [N] array.
     :param dt: time interval between step.
-    :param f: force function f(x,t), given x and t return a vector.
+    :param f: force function f(x,t), given x and t return a ``numpy`` [N] array.
     :param t: current time
     :param cache: the value of f(x,t) at previous steps
 
@@ -87,9 +87,9 @@ def ab3(xn, dt, f, t, cache):
     """The function do the time stepping of ODEs with third order 
     Adams-Bashforth method.
 
-    :param xn: value of the vector at t.
+    :param xn: value of the vector at t, ``numpy`` [N] array.
     :param dt: time interval between step.
-    :param f: force function f(x,t), given x and t return a vector.
+    :param f: force function f(x,t), given x and t return a ``numpy`` [N] array.
     :param t: current time
     :param cache: the value of f(x,t) at previous steps
 
@@ -106,9 +106,9 @@ def ab4(xn, dt, f, t, cache):
     """The function do the time stepping of ODEs with fourth order 
     Adams-Bashforth method.
 
-    :param xn: value of the vector at t.
+    :param xn: value of the vector at t, ``numpy`` [N] array.
     :param dt: time interval between step.
-    :param f: force function f(x,t), given x and t return a vector.
+    :param f: force function f(x,t), given x and t return a ``numpy`` [N] array.
     :param t: current time
     :param cache: the value of f(x,t) at previous steps
 
@@ -128,14 +128,15 @@ def newmark(K, f, t, dt, un, nstep, cache, gamma):
     Because we only deal with explicit scheme, we don't have the absorbing 
     matrix.
 
-    :param K: stiffness matrix
-    :param f: force term f(t), given t return the force .
+    :param K: stiffness matrix, ``numpy`` [N]x[N] array
+    :param f: force term f(t), given t return the force vector of type ``numpy`` [N] array.
     :param t: current time
-    :param dt: interval between time
-    :param un: current displacement vector
+    :param dt: interval between time,
+    :param un: current displacement vector, ``numpy`` [N] array.
     :param nstep: current number of steps
     :param cache: stored current velocity vector vn and acceleration 
-                  vector an from previous step
+                  vector an from previous step, if step = 0, should be a ``numpy`` [N] array
+                  else, it should be a ``numpy`` [2][N] array
     :param gamma: parameter \gamma of newmark scheme
 
 
