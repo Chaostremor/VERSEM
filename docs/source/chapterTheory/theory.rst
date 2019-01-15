@@ -125,34 +125,43 @@ use the quadrature to further simplifiy the integral into:
 .. math::
 
    \begin{aligned}
-   A &=& -\int_{-1}^{1} \partial_i N_l(\xi,\eta) \lambda(\xi,\eta) \sum_m (\partial_r N_m(\xi,\eta))u_r^m \mathcal{J}^{-1}(\xi,\eta) d\eta d\xi \\
-   &=& -\sum_{k=1}^{nip} \partial_i N_l(\xi_k,\eta_k) \lambda(\xi_k,\eta_k) \sum_m (\partial_r N_m(\xi_k,\eta_k))u_r^m \mathcal{J}^{-1}(\xi_k,\eta_k) W_k \nonumber \\ \\
-   &=& -\sum_{m=1}^{nip} u_{\mathbf{r}}^m \sum_{k=1}^{nip} \partial_i N_l(\xi_k,\eta_k) \lambda(\xi_k,\eta_k) \partial_{\mathbf{r}} N_m(\xi_k,\eta_k) \mathcal{J}^{-1}(\xi_k,\eta_k) W_k \nonumber \\\end{aligned}
+   A &= -\int_{-1}^{1} \partial_i N_l(\xi,\eta) \left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi,\eta} \lambda(\xi,\eta) \sum_m \partial_r N_m(\xi,\eta) \left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi,\eta} u_r^m \left| \mathcal{J}(\xi,\eta) \right|  d\eta d\xi \\
+   &= -\sum_{k=1}^{nip} \partial_i N_l(\xi_k,\eta_k)\left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi_k,\eta_k} \lambda(\xi_k,\eta_k) \sum_m \partial_r N_m(\xi_k,\eta_k)\left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi_k,\eta_k} u_r^m \left| \mathcal{J} (\xi_k,\eta_k)\right| W_k \nonumber \\
+   &= -\sum_{m=1}^{nip} u_{\mathbf{r}}^m \sum_{k=1}^{nip} \lambda(\xi_k,\eta_k) \partial_i N_l(\xi_k,\eta_k)\left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi_k,\eta_k}  \partial_{\mathbf{r}} N_m(\xi_k,\eta_k) \left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi_k,\eta_k}  \left| \mathcal{J}(\xi_k,\eta_k) \right| W_k \nonumber\\
+   \end{aligned}
 
-The bold subscript is to remind ourselves that the index needs to be
+The bars around the :math:`\mathcal{J}` denote the determinant. The 
+bold subscript is to remind ourselves that the index needs to be
 summed over for all the components (:math:`x` and :math:`y` in 2D and
 :math:`x,y` and :math:`z` in 3D). Similarly,
 
 .. math::
 
    \begin{aligned}
-   B &=& - \int_{-1}^{1} \partial_j N_l(\xi,\eta) \mu(\xi,\eta) \sum_m \partial_i N_m(\xi,\eta) u_j^m \mathcal{J}^{-1}(\xi,\eta) d\xi d\eta \\
-   &=& -\sum_{k=1}^{nip} \partial_j N_l(\xi_k,\eta_k) \mu(\xi_k,\eta_k) \sum_m \partial_i N_m(\xi_k,\eta_k) u_j^m \mathcal{J}^{-1}(\xi_k,\eta_k) W_k \nonumber \\ \\
-   &=& -\sum_{m=1}^{nip} u_{\mathbf{j}}^m \sum_{k=1}^{nip} \partial_{\mathbf{j}} N_l(\xi_k,\eta_k) \mu(\xi_k,\eta_k) \partial_i N_m(\xi_k,\eta_k) \mathcal{J}^{-1}(\xi_k,\eta_k) W_k \nonumber \\\end{aligned}
+   B &= - \int_{-1}^{1} \partial_j N_l(\xi,\eta) \left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi,\eta} \mu(\xi,\eta) \sum_m \partial_i N_m(\xi,\eta)\left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi,\eta} u_j^m \left| \mathcal{J}(\xi_k,\eta_k) \right| d\xi d\eta \\
+   &= -\sum_{k=1}^{nip} \partial_j N_l(\xi_k,\eta_k) \left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi_k,\eta_k} \mu(\xi_k,\eta_k) \sum_m \partial_i N_m(\xi_k,\eta_k)\left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi_k,\eta_k} u_j^m \left| \mathcal{J}(\xi_k,\eta_k) \right| W_k \nonumber \\ \\
+   &= -\sum_{m=1}^{nip} u_{\mathbf{j}}^m \sum_{k=1}^{nip} \mu(\xi_k,\eta_k) \partial_{\mathbf{j}} N_l(\xi_k,\eta_k) \left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi_k,\eta_k} \partial_i N_m(\xi_k,\eta_k) \left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi_k,\eta_k}  \left| \mathcal{J}(\xi_k,\eta_k) \right| W_k \nonumber \\
+   \end{aligned}
 
 Finally,
 
 .. math::
 
    \begin{aligned}
-   C &=& -\int_{-1}^{1} \partial_j N_l(\xi,\eta) \mu(\xi,\eta) \sum_m \partial_j N_m(\xi,\eta) u_i^m \mathcal{J}^{-1}(\xi,\eta) d\xi d\eta \\
-   &=& -\sum_{k=1}^{nip} \partial_j N_l(\xi_k,\eta_k) \mu(\xi_k,\eta_k) \sum_m \partial_j N_m(\xi_k,\eta_k) u_i^m \mathcal{J}^{-1}(\xi_k,\eta_k) W_k \nonumber\\ \\
-   &=& -\sum_{m=1}^{nip} u_i^m \sum_{k=1}^{nip} \partial_{\mathbf{j}} N_l(\xi_k,\eta_k) \mu(\xi_k,\eta_k) \partial_{\mathbf{j}} N_m(\xi_k,\eta_k) \mathcal{J}^{-1}(\xi_k,\eta_k) W_k \nonumber\\ \end{aligned}
+   C &= -\int_{-1}^{1} \partial_j N_l(\xi,\eta) \left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi,\eta} \mu(\xi,\eta) \sum_m \partial_j N_m(\xi,\eta)\left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi,\eta} u_i^m \left| \mathcal{J}(\xi_k,\eta_k) \right|(\xi,\eta) d\xi d\eta \\
+   &= -\sum_{k=1}^{nip} \partial_j N_l(\xi_k,\eta_k)\left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi_k,\eta_k} \mu(\xi_k,\eta_k) \sum_m \partial_j N_m(\xi_k,\eta_k)\left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi_k,\eta_k} u_i^m \left| \mathcal{J}(\xi_k,\eta_k) \right|(\xi_k,\eta_k) W_k \nonumber\\ \\
+   &= -\sum_{m=1}^{nip} u_i^m \sum_{k=1}^{nip} \mu(\xi_k,\eta_k) \partial_{\mathbf{j}} N_l(\xi_k,\eta_k)\left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi_k,\eta_k} \partial_{\mathbf{j}} N_m(\xi_k,\eta_k)\left. \frac{\partial \mathbf{\xi}}{\partial \mathbf{x}} \right|_{\xi_k,\eta_k} \left| \mathcal{J}(\xi_k,\eta_k) \right|(\xi_k,\eta_k) W_k \nonumber\\ 
+   \end{aligned}
+
 
 If we notice, the expression of A, B and C have free indices as
 :math:`l` and :math:`i`. Here, :math:`i` denotes the component of
 :math:`\vec{u}` that we are solving for and :math:`l` denotes the row
 number of the column vector :math:`u_i`.
+
+As of know this algorith is followed strictly when computing the element
+matrices.
+
 
 Finding the total number of nodes to be computed:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -210,7 +219,7 @@ governed by the following equation
 
 where :math:`N` are the basis functions, also called the shape function, 
 namely, the Lagrange Polynomials. This step is applied within the module and 
-function ``src.mesh_spec.mesh_interp2D()``. 
+function ``src.mesh_spec.mesh_interp2D()``.
 
 Lagrange Polynomials
 ~~~~~~~~~~~~~~~~~~~~
@@ -226,16 +235,28 @@ polynomials between certain points and defined in the following manner.
 
 where :math:`\xi_i` are the collocation points, :math:`i` is the number
 of the polynomial with respect to collocation points and :math:`n` is
-the degree of the polynomial :cite:`Komatitsch1999`. The
-implemented algorithm follows this formulation strictly. In multiple
+the degree of the polynomial :cite:`Komatitsch1999`. 
+I.e., the elaborate expression would look like this:
+The SEM’s signature shape functions are the Lagrange Polynomials
+:math:`l^{n_l}_\alpha`:
+
+.. math:: 
+
+       \ell _ { \alpha } ^ { n _ { \ell } } ( \xi ) = \frac { \left( \xi - \xi _ { 0 } \right) \cdots \left( \xi - \xi _ { \alpha - 1 } \right) \left( \xi - \xi _ { \alpha + 1 } \right) \cdots \left( \xi - \xi _ { n _ { \ell } } \right) } { \left( \xi _ { \alpha } - \xi _ { 0 } \right) \cdots \left( \xi _ { \alpha } - \xi _ { \alpha - 1 } \right) \left( \xi _ { \alpha } - \xi _ { \alpha + 1 } \right) \cdots \left( \xi _ { \alpha } - \xi _ { n _ { \ell } } \right) }
+
+where :math:`\alpha = 0,...,n_l`, and :math:`n_l` will be 5 to 10 (in
+our case).
+The implemented algorithm follows this formulation strictly. In multiple
 dimensions, the shapefunctions :math:`N`, are defined as the product of
 the polynomials in each dimension., i.e.
 :math:`N_{kl}(\xi,\eta) = \ell^n_k(\xi)\ell^n_l(\eta).`
 
+
+
 Derivative of the Lagrange Polynomials
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-As seen in the section [sec:theory], the spectral element method also
+As seen in the formulation section, the spectral element method also
 requires the derivative of the shape functions. The derivative of the
 Lagrange polynomials are defined as the original Lagrange polynomial
 multiplied by the Legendre polynomial. The Legendre polynomial
@@ -275,7 +296,39 @@ The Jacobian
 
 The Jacobian between local and global coordinates can be defined as
 
-.. math:: \frac { \partial \mathbf { x } } { \partial \xi } = \sum _ { a = 1 } ^ { n _ { a } } \frac { \partial N _ { a } } { \partial \xi } \mathbf { x } _ { a }
+.. math:: 
+
+       \frac { \partial \mathbf { x } } { \partial \xi } = \sum _ { a = 1 } ^ { n _ { a } } \frac { \partial N _ { a } } { \partial \xi } \mathbf { x } _ { a }
+
+In practice we use the inverse Jacobian matrix for each node to 
+compute the global derivative at its location using 
+``src.gll_library.dN_local_2D`` and ``src.gll_library.global_derivative``.
+``dN_local_2D()`` computes the local derivative matrix containing derivatives
+in each dimension of each shape function and ``global_derivative``, then takes in 
+the Jacobian computes its inverse and multiplies it with the local derivative 
+matrix to compute the global derivative matrix.
+
+
+Global Matrix Assembly
+^^^^^^^^^^^^^^^^^^^^^^
+
+Since all elements are interconnected and dependent on each other, they
+need to be assembled in a linear system of equations.
+
+-  diagonal Mass matrix, simplifies things...
+
+-  this, that
+
+Then, we end up with following system of equations:
+
+.. math:: \mathbf{M} \ddot { \mathbf{u} } + \mathbf{K} \mathbf{u} = \mathbf{f}
+
+However, :math:`\mathbf{u}` is still dependent on time. To solve this a
+simple finite difference scheme can be applied or other time marching
+methods.
+
+
+
 
 Time Stepping
 -------------
