@@ -14,4 +14,7 @@ from . import time_decorator
 from . import tscheme
 from . import tsolver
 from . import diagopr 
+from . import tscheme
+from . import tsolver
+from . import diagopr 
 from . import config
