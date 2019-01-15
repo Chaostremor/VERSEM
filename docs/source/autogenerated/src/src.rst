@@ -84,14 +84,6 @@ src.model\_parameters module
     :undoc-members:
     :show-inheritance:
 
-src.plot module
----------------
-
-.. automodule:: src.plot
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 src.stiffness\_matrix module
 ----------------------------
 

@@ -11,9 +11,10 @@ from . import stiffness_matrix
 from . import force
 from . import loc2glob
 from . import time_decorator
-from . import plot
 from . import tscheme
 from . import tsolver
 from . import diagopr 
-
+from . import tscheme
+from . import tsolver
+from . import diagopr 
 from . import config
