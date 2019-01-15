@@ -1,14 +1,47 @@
+"""This is a class that intake inputs of mass matrix, stiffness matrix, solver name and so on to do the time marching
+
+Author: Fan Wu
+
+"""
+
 import numpy as np
-from . import tsolver
+from src import tsolver
+from src import diagopr
 import os
 import time
 
 class Tscheme:
+    """.. class:: Tscheme
+
+    Class Tscheme solve the 1st order or 2nd order ODEs with different explicit solvers. This scheme only deals with
+    constant coeffcient ODEs, the mass matrix has to be diagonal.
+
+    :param M: mass matrix
+    :param C: absorbing matrix, default None
+    :param K: stiffness matrix
+    :param f: force term f(t), given t return the force vector.
+    :param t: time vector for stepping, t[0] should be the start time
+    :param outdir: result output directory
+    :param gamma: parameter for Newmark scheme, default 0.5
+    :param solver: name of the main solver, default euler_explicit
+    :param solver2: solver for the first few steps of the multistep method, default rk4
+    :param interval: interval for output the result, should be an integer, default 1
+
+    """
+
     def __init__(self, M, K, f, x0, t,outdir, C=None, gamma=0.5, solver='euler_explicit',solver2='rk4',interval=1):
+        """.. function:: __init__(self, M, K, f, x0, t,outdir, C=None, gamma=0.5,
+        solver='euler_explicit',solver2='rk4',interval=1)
+
+        Initialize the class
+
+
+
+        """
         self.solver = solver
         self.solver2 = solver2
         self.M = M  ## no time dependence
-        self.C = C  ## no time dependence
+        self.C = C
         self.K = K  ## no time dependence
         self.f = f  ## time dependent, should be a function
         self.x0 = x0 ## first column is x, second column is x'
@@ -20,89 +53,142 @@ class Tscheme:
         self.outdir = outdir
         self.interval = interval
 
-        self.K = tsolver.normalize2(self.M,self.K,self.dim)
-        self.M0 = self.M
-        self.x0[0,:] = tsolver.diagmul_M(self.M0,self.x0[0,:],self.dim)
-        self.x0[1,:] = tsolver.diagmul_M(self.M0,self.x0[1,:],self.dim)
+        ## self.cache (multiple steps) ; self.x(store result at certain time
 
-        self.M = np.eye(self.dim)
+    def _getorder_(self):
+        """.. function:: _getorder_(self)
 
+        get the order of the ODEs
 
-        ## self.cache (multiple steps) ; self.x(store result at certain time)
+        """
+        self.order = round(np.size(self.x0)/len(self.M))
 
-    def process(self):
-        self._preprocess()
-        if os.path.exists(self.outdir) == False:
-            os.makedirs(self.outdir)
-        
-        # Start timer
-        start_time = time.time()
+    def _getsolverorder_(self):
 
-        for i in range(self.allstep):
-            if self.order == 1:
-                if self.nstep == 0:
-                    pass
-                un,vn = self.step()
-                if self.nstep % self.interval == 0:
-                    pass
-                # print(un,vn)
-            elif self.order == 2:
-                if self.nstep == 0:
-                    #pass
-                    np.save(self.outdir+'u'+str(self.t[0]),self.u0)
-                    #np.save(self.outdir + 'v' + str(self.t[0]), self.v0)
-                    #np.save(self.outdir + 'a' + str(self.t[0]), self.a0)
-                un,vn,an = self.step()
-                if self.nstep % self.interval == 0:
-                    #pass
-                    np.save(self.outdir+'u'+str(self.t[self.nstep]),un)
-                    #np.save(self.outdir + 'v' + str(self.t[self.nstep]), vn)
-                    #np.save(self.outdir + 'a' + str(self.t[self.nstep]), an)
-                if self.nstep % 50 == 1:
-                    #     Printing Time statement ,
-                    #       Printing Timestep,
-                    #           Printing max displacement  
-                    print("Time: {:10.2f} sec -- ".format(time.time() - start_time), 
-                            "Timestep: {0:>6} of {1:} -- ".format(i,self.allstep), 
-                                "Max. Displ.: {0:e} ".format(np.max(np.abs(un))))
+        """.. function:: _getsolverorder_(self)
+
+        get the information(multi-step or not; solving 1st order ODEs or second order) of the solvers
+
+        """
+
+        if self.solver == 'euler_explicit' or self.solver == 'rk4' or self.solver == 'rk2':
+            self.solverorder = 1
+            self.steporder = 1
+        elif self.solver == 'ab2':
+            self.solverorder = 1
+            self.steporder = 2
+        elif self.solver == 'ab3':
+            self.solverorder = 1
+            self.steporder = 3
+        elif self.solver == 'ab4':
+            self.solverorder = 1
+            self.steporder = 4
+        elif self.solver == 'newmark':
+            self.solverorder = 2
+        else:
+            raise Exception('There is no solver named "%s."' %self.solver)
+
+    def _getinitial(self):
+
+        """.. function:: _getinitial(self)
+
+        get initial value of the displacement vector
+
+        """
+
+        if self.order == 1:
+            self.u0 = self.x0
+        elif self.order == 2:
+            self.u0 = self.x0[0,:]
+        print("nsteps: %d, value: %e" % (self.nstep, np.max(np.abs(self.u0))))
+
+    def _reshape_f(self,t):
+
+        """.. function:: _reshape_f(self,t)
+
+        reshape the force function for second order ODEs if use a first order scheme
+
+        :param t: time t
+
+        """
+
+        ff = self.f0(t)
+        fn = diagopr.reshape_f(ff, len(ff))
+        return fn
+
+    def _f(self,x,t):
+
+        """.. function:: _f(self,t)
+
+        turn equation x' + Mx == f(t) into x' = f(t) - Mx, _f is the right term with unknowns x and t
+
+        :param x: vector x
+        :param t: time t
+
+        """
+
+        fxn = self.f1(t) - np.dot(self.K,x)
+        return fxn
 
 
     def _preprocess(self):
+
+        """.. function:: _preprocess(self)
+
+        preprocess the equations, it has the following procedure:
+
+        1. get the order of equations and solvers
+        2. normalize the vector, turn the mass matrix into unit
+        3. if equation order is 2 and solver order is 1, the reorganize the matrix and force term to make it first
+        order ODEs
+        4. turn the equation x' + Mx == f(t) into x' = f(t) - Mx if it is first order ODEs
+
+        """
+
+
         self._getorder_()
         self._getsolverorder_()
         self._getinitial()
-
-
         if self.solverorder > self.order:
             raise Exception('Higher order scheme cannot solve lower order equations')
+
+        self.K = diagopr.normalize2(self.M, self.K, self.dim)
+        if self.C is not None:
+            self.C = diagopr.normalize2(self.M,self.C,self.dim)
+        self.M0 = self.M
+        self.M = np.eye(self.dim)
+
+
+        if self.order == 1:
+            self.x0 = diagopr.diagmul_f(self.M0, self.x0, self.dim)
+        elif self.order == 2:
+            self.x0[0, :] = diagopr.diagmul_f(self.M0, self.x0[0, :], self.dim)
+            self.x0[1, :] = diagopr.diagmul_f(self.M0, self.x0[1, :], self.dim)
+
         if self.order == 2 and self.solverorder == 1:
-            self.M,self.K = tsolver.reshape(self.M,self.C,self.K,len(self.M))
+            self.M,self.K = diagopr.reshape(self.M, self.C, self.K, len(self.M))
             self.C = None
             self.dim *=2
             self.x0 = np.reshape(self.x0,[self.dim])
             self.f0 = self.f
             self.f = self._reshape_f
         if self.solverorder == 1:
-            self._MK = tsolver.normalize(self.M,self.K,len(self.K))
             self.f1 = self.f
             self.f = self._f
 
         self.xn = self.x0
 
-    def _getinitial(self):
-        if self.order == 1:
-            self.u0 = self.x0
-            f0 = self.f(self.t[0])
-            self.v0 = tsolver.normalize_f(self.M,f0-np.dot(self.K,self.u0),len(f0))
-        elif self.order == 2:
-            self.u0 = self.x0[0,:]
-            self.v0 = self.x0[1,:]
-            f0 = self.f(self.t[0])
-            self.a0 = tsolver.normalize_f(self.M,f0-np.dot(self.K,self.u0)-np.dot(self.C,self.v0),len(f0))
-            print(self.nstep,self.u0,self.v0,self.a0)
+    def _step(self):
+
+        """
+
+        do one time step using different methods, and return the vector at the new step
 
 
-    def step(self):
+
+        """
+
+
         ## initialize at the beginning of a step
         dt = self.t[self.nstep+1] - self.t[self.nstep]
         tn = self.t[self.nstep]
@@ -127,8 +213,6 @@ class Tscheme:
                     self.xn = result
                     self.cache = fxn
 
-
-
             ## multiple step method
             else:
                 if self.nstep < self.steporder - 1:
@@ -150,8 +234,10 @@ class Tscheme:
 
         ## newmark family
         elif self.solverorder == 2:
+            if self.C is not None:
+                raise Exception('There is no explicit newmark scheme for general absorbing matrix')
             #(M, C, K, f, t, dt, xn, nstep, cache, gamma)
-            paralist = '(self.M,self.K,self.f,tn,dt,self.xn,self.nstep,self.cache,self.gamma)'
+            paralist = '(self.K,self.f,tn,dt,self.xn,self.nstep,self.cache,self.gamma)'
             if self.nstep == 0:
                 self.cache = self.xn[1,:]
                 self.xn = self.xn[0,:]
@@ -168,63 +254,45 @@ class Tscheme:
         ## reorganize the result
         if self.order == 1:
             un = result
-            vn = self.f(un,tn+dt)
-
-            un = tsolver.normalize_f(self.M0, un, self.dim)
-            vn = tsolver.normalize_f(self.M0, vn, self.dim)
-
-            return un,vn
 
         elif self.order ==2:
             if self.solverorder == 1:
                 un = result[0:int(len(result)/2)]
-                vn = result[int(len(result)/2):]
-                an_0 = self.f(result,tn+dt)
-                an = an_0[int(len(result)/2):]
 
             elif self.solverorder == 2:
                 un = result
-                vn = cache[0,:]
-                an = cache[1,:]
 
-            un = tsolver.normalize_f(self.M0,un,len(un))
-            vn = tsolver.normalize_f(self.M0, vn, len(vn))
-            an = tsolver.normalize_f(self.M0, an, len(an))
-            return un,vn,an
+        return diagopr.normalize_f(self.M0, un, len(un))
 
-    def _getorder_(self):
-        if self.C is None:
-            self.order = 1
-        else:
-            self.order = 2
 
-    def _getsolverorder_(self):
-        if self.solver == 'euler_explicit' or self.solver == 'rk4' or self.solver == 'euler_adjust':
-            self.solverorder = 1
-            self.steporder = 1
-        elif self.solver == 'ab2':
-            self.solverorder = 1
-            self.steporder = 2
-        elif self.solver == 'ab3':
-            self.solverorder = 1
-            self.steporder = 3
-        elif self.solver == 'ab4':
-            self.solverorder = 1
-            self.steporder = 4
-        elif self.solver == 'newmark':
-            self.solverorder = 2
-        else:
-            raise Exception('There is no solver named "%s."' %self.solver)
+    def process(self):
 
-    def _reshape_f(self,t):
-        fn = self.f0(t)
-        fn = tsolver.reshape_f(fn,len(fn))
-        return fn
+        """
 
-    def _f(self,x,t):
-        fn = self.f1(t)
-        fxn = tsolver.normalize_f(self.M,fn,len(fn)) - np.dot(self._MK,x)
-        return fxn
+        solving the ODEs and save the data
+
+        """
+
+        self._preprocess()
+        if os.path.exists(self.outdir) == False:
+            os.makedirs(self.outdir)
+
+        start_time = time.time()
+
+        for i in range(self.allstep):
+                if self.nstep == 0:
+                    np.save(self.outdir+'u'+str(self.t[0]),self.u0)
+                un = self._step()
+                self.un = un
+                if self.nstep % self.interval == 0:
+                    np.save(self.outdir+'u'+str(self.t[self.nstep]),un)
+                if self.nstep % 50 == 1:
+                    #     Printing Time statement ,
+                    #       Printing Timestep,
+                    #           Printing max displacement
+                    print("Time: {:10.2f} sec -- ".format(time.time() - start_time),
+                            "Timestep: {0:>6} of {1:} -- ".format(i,self.allstep),
+                                "Max. Displ.: {0:e} ".format(np.max(np.abs(un))))
 
 
 
