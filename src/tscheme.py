@@ -15,10 +15,10 @@ class Tscheme:
     explicit solvers. This scheme only deals with constant coeffcient ODEs, 
     the mass matrix has to be diagonal.
 
-    :param M: mass matrix
+    :param M: mass matrix, ``numpy`` [N]x[N] array
     :param C: absorbing matrix, default None
-    :param K: stiffness matrix
-    :param f: force term f(t), given t return the force vector.
+    :param K: stiffness matrix, ``numpy`` [N]x[N] array
+    :param f: force term f(t), given t return the force vector of type ``numpy`` [N] array.
     :param t: time vector for stepping, t[0] should be the start time
     :param outdir: result output directory
     :param gamma: parameter for Newmark scheme, default 0.5
