@@ -46,16 +46,20 @@ The main driver ``versem.py``
 ``versem.py`` is the function that controls all computations. Each step is described 
 in detail in the theory chapter.
 
+Usage:
+
+.. code::
+
 As the first step, ``versem.py`` reads the inputs located in ``src/inputs/config.json``. 
 
-1. A new mesh is created using, an input Finite Element Mesh, an input velocity 
+#. A new mesh is created using, an input Finite Element Mesh, an input velocity 
    model and the GLL setup. 
     
-2. Following the meshing,
+#. Following the meshing,
 
-      1. the mass matrix (``src.mass_matrix``),
-      2. stiffness matrix (``src.stiffness_matrix``) and
-      3. the force vector (``src.force``)
+      #. the mass matrix (``src.mass_matrix``),
+      #. stiffness matrix (``src.stiffness_matrix``) and
+      #. the force vector (``src.force``)
 
    are constructed. All of the above take in inputs from the input file or rather the 
    in step 1 created mesh, i.e., the mass matrix needs input in form of density 
@@ -65,7 +69,7 @@ As the first step, ``versem.py`` reads the inputs located in ``src/inputs/config
    of the stiffness matrix is the most computationally expensive part in the program 
    especially for large meshes (at the moment).
 
-3. The nect step is actually solving the PDE in time. For this, different time schemes
+#. The nect step is actually solving the PDE in time. For this, different time schemes
    can be used as of now the default one is the Newmark time scheme, because of its 
    efficiency. More detail can be found in the time marching section in the theory 
    chapter.
@@ -79,10 +83,18 @@ files with the displacement at each timestep. The file format is ``u<actual_simu
 Each timestep file contains a vector ``u`` with displacement of the format 
 :math:`[u_{x_1},u_{y_1},u_{x_2},u_{y_2},u_{x_3},\dots]`. 
 
+Before rerunning ``versem.py`` again, make cleanresults has to be run. Since the results will be 
+saved in the same folder, previous results will not be overwritten(!). I.e., save your results to 
+a new location if you want to keep them.
+
 
 Visualisation
 +++++++++++++
 
-There are two main formats to display the
+There are two main formats to display the computed data. Wavefield snapshots and seismograms.
+Each of them can be created using the output put from. A detailed description on how to use 
+the functions can be found in the output section.
+
+
 
 
