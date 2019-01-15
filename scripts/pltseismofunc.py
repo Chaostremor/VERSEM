@@ -4,19 +4,17 @@
 
 # Necessary for calculation 
 import numpy as np
-import matplotlib
+
 # Necessary for Plotting
-import matplotlib.pyplot as plt
+import matplotlib
 matplotlib.use('TkAgg')
+import matplotlib.pyplot as plt
 
 # Necessary for interpolation
 from scipy import interpolate
 
 # Necessary for retrieving the result file
 import os
-
-# config = src.config
-# config = Config()
 
 def plt_seismo(xnew, ynew, stime, etime, times, dtype='u', fname=None):
     """.. function:: plt_seismo(xnew, ynew, stime, etime, times, dtype='u',

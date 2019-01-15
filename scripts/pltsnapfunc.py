@@ -7,12 +7,10 @@
 # Necessary for calculation 
 import numpy as np
 
+# Necessary for Plotting
 import matplotlib
 matplotlib.use('TkAgg')
-# Necessary for Plotting
 import matplotlib.pyplot as plt
-#from matplotlib.colors import BoundaryNorm
-#from matplotlib.ticker import MaxNLocator
 import matplotlib.animation as animation
 
 # Necessary for interpolation
