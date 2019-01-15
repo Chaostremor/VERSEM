@@ -14,11 +14,12 @@ def main(frames,dim='X'):
     :param dim: diplacement dimension to be plotted. 'X' or 'Y'
     :param frames: total number of frames to be plotted over the 
                 total number of time steps time
-                
+
     Can be run directly from command line with
 
     ::
-        python -m src.plot 50 "X"
+
+        python scripts/plot.py 50 "X"
 
     for 50 frames total and displacement in x direction.
 
