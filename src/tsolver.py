@@ -18,8 +18,7 @@ def euler_explicit(xn, dt, f, t):
     :param f: force function f(x,t), given x and t return a vector.
     :param t: current time
 
-    :rtype: xn1 is the value of the vector at time t+dt; fxn is value 
-            f(xn,t), the value will be stored is for multi-step method
+    :rtype: first term is the vector at time t+dt; second term is f(xn,t) which will be stored for future use
 
     """
 
@@ -36,8 +35,7 @@ def  rk2(xn, dt, f, t):
     :param f: force function f(x,t), given x and t return a vector.
     :param t: current time
 
-    :rtype: xn1 is the value of the vector at time t+dt; fxn is value 
-            f(xn,t), the value will be stored is for multi-step method
+    :rtype: first term is the vector at time t+dt; second term is f(xn,t) which will be stored for future use
 
     """
     fxn = f(xn,t)
@@ -54,8 +52,7 @@ def rk4(xn, dt, f, t):
     :param f: force function f(x,t), given x and t return a vector.
     :param t: current time
 
-    :rtype: xn1 is the value of the vector at time t+dt; fxn is value f(xn,t), 
-            the value will be stored is for multi-step method
+    :rtype: first term is the vector at time t+dt; second term is f(xn,t) which will be stored for future use
 
     """
     k1 = f(xn,t)
@@ -78,8 +75,7 @@ def ab2(xn, dt, f, t, cache):
     :param t: current time
     :param cache: the value of f(x,t) at previous steps
 
-    :rtype: xn1 is the value of the vector at time t+dt; fxn is value f(xn,t), 
-            the value will be stored is for multi-step method
+    :rtype: first term is the vector at time t+dt; second term is f(xn,t) which will be stored for future use
 
     """
     fxn = f(xn,t)
@@ -97,8 +93,7 @@ def ab3(xn, dt, f, t, cache):
     :param t: current time
     :param cache: the value of f(x,t) at previous steps
 
-    :rtype: xn1 is the value of the vector at time t+dt; fxn is value f(xn,t), 
-            the value will be stored is for multi-step method
+    :rtype: first term is the vector at time t+dt; second term is f(xn,t) which will be stored for future use
 
     """
     fxn = f(xn,t)
@@ -117,8 +112,7 @@ def ab4(xn, dt, f, t, cache):
     :param t: current time
     :param cache: the value of f(x,t) at previous steps
 
-    :rtype: xn1 is the value of the vector at time t+dt; fxn is value 
-            f(xn,t), the value will be stored is for multi-step method
+    :rtype: first term is the vector at time t+dt; second term is f(xn,t) which will be stored for future use
 
     """
     fxn = f(xn,t)
@@ -145,8 +139,7 @@ def newmark(K, f, t, dt, un, nstep, cache, gamma):
     :param gamma: parameter \gamma of newmark scheme
 
 
-    :rtype: un1 is the value of the displacement vector at time t+dt; 
-            cache stored velocity and acceleration vector un1 and an1
+    :rtype: displacement vector at time t+dt; cache stored velocity and acceleration vector
 
     """
     if nstep == 0:

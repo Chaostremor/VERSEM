@@ -7,6 +7,8 @@
 # Necessary for calculation 
 import numpy as np
 
+import matplotlib
+matplotlib.use('TkAgg')
 # Necessary for Plotting
 import matplotlib.pyplot as plt
 #from matplotlib.colors import BoundaryNorm
