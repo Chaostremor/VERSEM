@@ -149,7 +149,7 @@ Finally,
    &=& -\sum_{k=1}^{nip} \partial_j N_l(\xi_k,\eta_k) \mu(\xi_k,\eta_k) \sum_m \partial_j N_m(\xi_k,\eta_k) u_i^m \mathcal{J}^{-1}(\xi_k,\eta_k) W_k \nonumber\\ \\
    &=& -\sum_{m=1}^{nip} u_i^m \sum_{k=1}^{nip} \partial_{\mathbf{j}} N_l(\xi_k,\eta_k) \mu(\xi_k,\eta_k) \partial_{\mathbf{j}} N_m(\xi_k,\eta_k) \mathcal{J}^{-1}(\xi_k,\eta_k) W_k \nonumber\\ \end{aligned}
 
-If we notice, the expression of A,B and C have free indices as
+If we notice, the expression of A, B and C have free indices as
 :math:`l` and :math:`i`. Here, :math:`i` denotes the component of
 :math:`\vec{u}` that we are solving for and :math:`l` denotes the row
 number of the column vector :math:`u_i`.
