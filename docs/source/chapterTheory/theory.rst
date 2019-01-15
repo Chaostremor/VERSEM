@@ -203,6 +203,15 @@ GLL points lie on the edges as well as the interior of each element. The
 locations of the GLL points contribute to the simplification of the mass
 matrix, which becomes diagonal, because of the GLL quadrature used.
 
+The interpolation of the GLL points on the Mesh of quadrilaterals is 
+governed by the following equation
+
+.. math:: \mathbf { x } ( \xi , \eta ) = \sum _ { a = 1 } ^ { n _ { a } } N _ { a } ( \xi , \eta ) \mathbf { x } _ { a }.
+
+where :math:`N` are the basis functions, also called the shape function, 
+namely, the Lagrange Polynomials. This step is applied within the module and 
+function ``src.mesh_spec.mesh_interp2D()``. 
+
 Lagrange Polynomials
 ~~~~~~~~~~~~~~~~~~~~
 
