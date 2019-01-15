@@ -159,11 +159,9 @@ if __name__ == '__main__':
     # Create zero displacement vector (Last two time steps)
     u = np.zeros([2,2*len(gll_coordinates)])
 
-    # Create random C
-    C = np.zeros([len(F(0.2)),len(F(0.2))])
 
     # Time Stepping with tscheme 
-    tstep = src.tscheme.Tscheme(solver=solver,M=M,K=-K,x0=u,t=t,f=F,C=C,outdir=output_dir)
+    tstep = src.tscheme.Tscheme(solver=solver,M=M,K=-K,x0=u,t=t,f=F,outdir=output_dir)
     timer(tstep.process,start_time,"Time Marching")
 
 
