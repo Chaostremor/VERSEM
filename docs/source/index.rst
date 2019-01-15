@@ -8,7 +8,7 @@ VERSEM Documentation
     chapterIntroduction/introduction.rst
     chapterTheory/theory.rst
     chapterModules/modules.rst
-    
+    chapterOriginalSetup/remarks.rst
 
 Bibliography
 ++++++++++++
