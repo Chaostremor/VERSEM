@@ -7,17 +7,17 @@ Author: Fan Wu
 import numpy as np
 
 def reshape(M, C, K, dim):
-    """.. function:: reshape(M, C, K, dim)
-
-    The function reorganize mass matrix and stiff matrix for second order ODEs which uses first order solver
+    """The function reorganize mass matrix and stiff matrix for 
+    second order ODEs which uses first order solver
 
     :param M: original mass matrix.
     :param C: original absorbing matrix.
     :param K: original stiffness matrix.
     :param dim: dimension of the matrix.
 
-    :rtype: M_out is the reorganized mass matrix and K_out is the reorganized stiffness matrix, since we turn a
-            second order ODEs into first order, there is no absorbing matrix.
+    :rtype: M_out is the reorganized mass matrix and K_out is the 
+            reorganized stiffness matrix, since we turn a second order 
+            ODEs into first order, there is no absorbing matrix.
 
     """
     if dim == 1:
@@ -41,9 +41,8 @@ def reshape(M, C, K, dim):
     return M_out, K_out
 
 def reshape_f(fn, dim):
-    """.. function:: reshape_f(fn, dim)
-
-    The function reorganize force vector for second order ODEs which uses first order solver
+    """The function reorganize force vector for second order 
+    ODEs which uses first order solver
 
     :param fn: original force vector.
     :param dim: dimension of the vector.
@@ -60,9 +59,8 @@ def reshape_f(fn, dim):
 
 
 def normalize(M, K, dim):
-    """.. function:: normalize(M, K, dim)
-
-    The function do the calculation M^(-1)*K with diagonal mass matrix m and stiffness matrix K.
+    """The function do the calculation M^(-1)*K with diagonal 
+    mass matrix m and stiffness matrix K.
 
     :param M: mass matrix.
     :param K: stiffness matrix.
@@ -80,9 +78,8 @@ def normalize(M, K, dim):
     return kk
 
 def normalize2(M,K,dim):
-    """.. function:: normalize2(M, K, dim)
-
-    The function do the calculation K*M^(-1) with diagonal mass matrix m and stiffness matrix K.
+    """The function do the calculation K*M^(-1) with 
+    diagonal mass matrix m and stiffness matrix K.
 
     :param M: mass matrix.
     :param K: stiffness matrix.
@@ -101,9 +98,8 @@ def normalize2(M,K,dim):
 
 
 def normalize_f(M, fn, dim):
-    """.. function:: normalize_f(M, fn, dim)
-
-    The function do the calculation M^(-1)*f with diagonal mass matrix m and force vector fn.
+    """The function do the calculation M^(-1)*f with diagonal 
+    mass matrix m and force vector fn.
 
     :param M: mass matrix.
     :param fn: force vector.
@@ -121,9 +117,8 @@ def normalize_f(M, fn, dim):
 
 
 def diagmul_f(M,f,dim):
-    """.. function:: diagmul_f(M, f, dim)
-
-    The function do the calculation M*f with diagonal mass matrix m and force vector fn.
+    """The function do the calculation M*f with diagonal 
+    ass matrix m and force vector fn.
 
     :param M: mass matrix.
     :param f: force vector.

@@ -1,3 +1,13 @@
+"""This file contains the stiffness matrix constructors for elemental and 
+global matrices. It uses two function libraries. One is the GLL library
+which contains the necessary shape function functions and the other one 
+is the loc2glob function library which assigns the elemental matrices 
+to the global matrix.
+
+Author: Srijan Bharati Das (edited by Lucas Sawade)
+
+"""
+
 import numpy as np
 import src.gll_library as gll
 import src.loc2glob as l2g
