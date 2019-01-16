@@ -7,6 +7,13 @@ import json
 
 class Source():
 	def __init__(self, src, config_dir):
+		"""
+		Class for source information
+		stf_file: python file that defines source time function
+		stf_args: arguments that are passed to stf_file
+		location: location of the source
+		term: force direction in 2D
+		"""
 		stf_file = src['stf_file']
 		stf_name = re.sub('.py$', '', path.basename(stf_file))
 		stf = load_source(stf_name, path.join(config_dir, stf_file))
@@ -19,6 +26,9 @@ class Source():
 
 class Config():
 	def __init__(self):
+		"""
+		Class for configurations
+		"""
 		parser = argparse.ArgumentParser()
 		parser.add_argument('--config-file', nargs='?', default='./input/config.json')
 		config_file = parser.parse_args().config_file

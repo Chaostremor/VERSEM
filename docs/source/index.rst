@@ -3,12 +3,12 @@ VERSEM Documentation
 
 
 .. toctree::
-    :maxdepth: 5
+    :maxdepth: 2
     
     chapterIntroduction/introduction.rst
     chapterTheory/theory.rst
     chapterModules/modules.rst
-    
+    chapterOriginalSetup/remarks.rst
 
 Bibliography
 ++++++++++++

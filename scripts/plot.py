@@ -1,4 +1,6 @@
 import numpy as np
+import matplotlib
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 from scipy import interpolate
 import os
@@ -17,7 +19,7 @@ def main(frames,dim='X'):
 
     ::
 
-        python -m src.plot 50 "X"
+        python scripts/plot.py 50 "X"
 
     for 50 frames total and displacement in x direction.
 

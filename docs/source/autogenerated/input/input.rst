@@ -4,10 +4,34 @@ input package
 Submodules
 ----------
 
-input.source\_time\_function module
------------------------------------
+input.stf\_delta\_function module
+---------------------------------
 
-.. automodule:: input.source_time_function
+.. automodule:: input.stf_delta_function
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+input.stf\_gaussian module
+--------------------------
+
+.. automodule:: input.stf_gaussian
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+input.stf\_ricker module
+------------------------
+
+.. automodule:: input.stf_ricker
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+input.stf\_ricker\_int module
+-----------------------------
+
+.. automodule:: input.stf_ricker_int
     :members:
     :undoc-members:
     :show-inheritance:

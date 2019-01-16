@@ -12,6 +12,14 @@ tests.context module
     :undoc-members:
     :show-inheritance:
 
+tests.test\_diagopr module
+--------------------------
+
+.. automodule:: tests.test_diagopr
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 tests.test\_force module
 ------------------------
 
@@ -56,6 +64,22 @@ tests.test\_stiffness module
 ----------------------------
 
 .. automodule:: tests.test_stiffness
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tests.test\_tscheme module
+--------------------------
+
+.. automodule:: tests.test_tscheme
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tests.test\_tsolver module
+--------------------------
+
+.. automodule:: tests.test_tsolver
     :members:
     :undoc-members:
     :show-inheritance:

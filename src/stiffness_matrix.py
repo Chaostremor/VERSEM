@@ -1,3 +1,13 @@
+"""This file contains the stiffness matrix constructors for elemental and 
+global matrices. It uses two function libraries. One is the GLL library
+which contains the necessary shape function functions and the other one 
+is the loc2glob function library which assigns the elemental matrices 
+to the global matrix.
+
+Author: Srijan Bharati Das (edited by Lucas Sawade)
+
+"""
+
 import numpy as np
 import src.gll_library as gll
 import src.loc2glob as l2g
@@ -87,7 +97,7 @@ def global_stiffness_matrix(gll_coordinates,gll_connect,dN_local,W,dim,lmd,mu):
     :rtype: Ag and Bg are ``numpy`` [dim]x[ngll_total]x[ngll_total] array and C is ``numpy`` [ngll_total]x[ngll_total] array
 
     """
-
+    
     #Retrieving the number of elements in the domain and the number of gll points per element
     ngll_total = len(gll_coordinates)
     el_no = len(gll_connect)

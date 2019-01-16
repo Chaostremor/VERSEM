@@ -35,4 +35,3 @@ There are a couple of other options using the ``Makefile``.
 - ``make cleanresults`` cleans the results folder
 
 - ``make clean`` cleans both results and documents.
-
