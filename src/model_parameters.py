@@ -2,7 +2,7 @@
 
 
 def velocity_conversion(rho,vp,vs):
-    """.. function:: velocity_conversion(rho,vp,vs)
+    """
 
     Converts the density, vp and vs velocity to the Lame parameters
 
@@ -15,12 +15,13 @@ def velocity_conversion(rho,vp,vs):
 
 
     Mathematical solution
+
     .. math::
 
-        \\begin{align}
-            \\mu &= \\rho \\cdot V s ^ { 2 }\\\\
-            \\lambda &= ( V p ) ^ { 2 } \\cdot \\rho - 2 \\mu
-        \\end{align}
+
+        \\mu &= \\rho \\cdot V_s ^ { 2 }
+
+        \\lambda &=  V_p  ^ { 2 } \\cdot \\rho - 2 \\mu
 
     """
     
