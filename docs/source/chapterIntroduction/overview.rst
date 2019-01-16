@@ -95,4 +95,4 @@ Visualisation
 
 There are two main formats to display the computed data. Wavefield snapshots and seismograms.
 Each of them can be created using the output put from. A detailed description on how to use 
-the functions can be found in the output section.
+the functions can be found in the output section. See output for the plotting functions!
