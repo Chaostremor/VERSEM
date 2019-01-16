@@ -181,45 +181,6 @@ coordinate. Therefore, if we have a mesh with :math:`n_x` = :math:`n_y`
 = 5 and :math:`N_x` = 20 and :math:`N_y` = 10, then :math:`N_{total}` =
 3321.
 
-Element and Node Numbering
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The method developed here relies on a FEM mesh created by an external
-meshing software, which creates a ``.e`` Exodus file. The Exodus file
-provides all the necessary information for a mesh: (a) the coordinates
-of the nodes defining the control points, (b) connectivity of the
-elements, as well as (c) the boundary nodes. This information is used to
-create an arbitrary number of interpolation points on each element with
-a new set of connectivity and numbers. This ensures that increasing
-computational power can be harnessed for higher accuracy. The input mesh
-therefore contains only quadrilaterals defined by four nodes (as of now;
-will be extended to higher number of nodes in the future). The functions
-used to read and redefine the mesh are located within the
-``src/mesh_spec.py`` script. The numbering itself is performed using the
-following algorithm shown in figure [fig:element\_numbering].
-
-.. figure:: figures/element_fig_edit.pdf
-   :alt: Control points of initial mesh vs GLL collocation points
-
-   Example of GLL node and element numbering algorithm using 5x5 GLL
-   points and two elements. The numbers in the red, rounded boxes denote
-   the element number. The circles and white boxed numbers show the
-   control point locations and numbers, respectively. the small crosses
-   and numbers show the GLL point locations and numbers, respectively.
-
-In the figure, we show the GLL points in each direction, and also the
-GLL points lie on the edges as well as the interior of each element. The
-locations of the GLL points contribute to the simplification of the mass
-matrix, which becomes diagonal, because of the GLL quadrature used.
-
-The interpolation of the GLL points on the Mesh of quadrilaterals is 
-governed by the following equation
-
-.. math:: \mathbf { x } ( \xi , \eta ) = \sum _ { a = 1 } ^ { n _ { a } } N _ { a } ( \xi , \eta ) \mathbf { x } _ { a }.
-
-where :math:`N` are the basis functions, also called the shape function, 
-namely, the Lagrange Polynomials. This step is applied within the module and 
-function ``src.mesh_spec.mesh_interp2D()``.
 
 Lagrange Polynomials
 ~~~~~~~~~~~~~~~~~~~~
@@ -308,16 +269,119 @@ in each dimension of each shape function and ``global_derivative``, then takes i
 the Jacobian computes its inverse and multiplies it with the local derivative 
 matrix to compute the global derivative matrix.
 
+Element and Node Numbering
+--------------------------
+
+The method developed here relies on a FEM mesh created by an external
+meshing software, which creates a ``.e`` Exodus file. The Exodus file
+provides all the necessary information for a mesh: (a) the coordinates
+of the nodes defining the control points, (b) connectivity of the
+elements, as well as (c) the boundary nodes. This information is used to
+create an arbitrary number of interpolation points on each element with
+a new set of connectivity and numbers. This ensures that increasing
+computational power can be harnessed for higher accuracy. The input mesh
+therefore contains only quadrilaterals defined by four nodes (as of now;
+will be extended to higher number of nodes in the future). The functions
+used to read and redefine the mesh are located within the
+``src/mesh_spec.py`` script. The numbering itself is performed using the
+following algorithm shown in figure [fig:element\_numbering].
+
+.. figure:: figures/element_fig_edit.pdf
+   :alt: Control points of initial mesh vs GLL collocation points
+
+   Example of GLL node and element numbering algorithm using 5x5 GLL
+   points and two elements. The numbers in the red, rounded boxes denote
+   the element number. The circles and white boxed numbers show the
+   control point locations and numbers, respectively. the small crosses
+   and numbers show the GLL point locations and numbers, respectively.
+
+In the figure, we show the GLL points in each direction, and also the
+GLL points lie on the edges as well as the interior of each element. The
+locations of the GLL points contribute to the simplification of the mass
+matrix, which becomes diagonal, because of the GLL quadrature used.
+
+The interpolation of the GLL points on the Mesh of quadrilaterals is 
+governed by the following equation
+
+.. math:: \mathbf { x } ( \xi , \eta ) = \sum _ { a = 1 } ^ { n _ { a } } N _ { a } ( \xi , \eta ) \mathbf { x } _ { a }.
+
+where :math:`N` are the basis functions, also called the shape function, 
+namely, the Lagrange Polynomials. This step is applied within the module and 
+function ``src.mesh_spec.mesh_interp2D()``.
 
 Global Matrix Assembly
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
-Since all elements are interconnected and dependent on each other, they
-need to be assembled in a linear system of equations.
 
--  diagonal Mass matrix, simplifies things...
+.. figure:: figures/element_fig.pdf
+       :alt: Control points of initial mesh vs GLL collocation points
 
--  this, that
+       Same figure as above. Just to demonstrate that the nodes on the
+       right edge of element and left edge of element one coincide.
+
+Since the nodes :math:`[1,6,11,16,21]` are on the edge of both elements,
+the contributions of both elements have to be considered. To achieve this
+a global set of linear equations is set up. The local numbering within the 
+element is the same for every element since the collocation points of the 
+shape function depend on it. Therefore, there needs to be a mapping from 
+local to global coordinates. This transformation is done by 
+``src.loc2glob.local2global()``. 
+
+The algorithm works using the following setup.
+
+.. figure:: figures/localglobalnumbering.pdf
+       :alt: local2global
+
+       Small two element four GLL points per node setup. (a) shows the 
+       local numberig for each element and (b) shows the global set of 
+       nodes.
+
+This setup will result in a 6x6 mass and stiffness matrix.
+
+The connectivity setup is then:
+
+.. math:: 
+
+       \begin{equation}
+              \text{Connnectivity} = \left[ 
+                \begin{array} { c c c c } 
+                    { 1 } & { 2 } & { 3 } & { 4 } \\ 
+                    { 5 } & { 1 } & { 6 } & { 3 } \\ 
+                  \end{array} \right]
+       \end{equation}
+
+The element matrices look like this for each stiffness matrix:
+
+.. math::
+       \begin{equation}
+       \mathbf { K } ^ { e } = \left[ \begin{array} { c c c c } 
+              { K _ { 11 } ^ { e } } & { K _ { 12 } ^ { e } } & { K _ { 13 } ^ { e } } & { K _ { 14 } ^ { e } } \\ 
+              { K _ { 21 } ^ { e } } & { K _ { 22 } ^ { e } } & { K _ { 23 } ^ { e } } & { K _ { 24 } ^ { e } } \\ 
+              { K _ { 31 } ^ { e } } & { K _ { 32 } ^ { e } } & { K _ { 33 } ^ { e } } & { K _ { 34 } ^ { e } } \\ 
+              { K _ { 41 } ^ { e } } & { K _ { 42 } ^ { e } } & { K _ { 43 } ^ { e } } & { K _ { 44 } ^ { e } } 
+              \end{array} \right]
+       \end{equation}
+
+The total range of :math:`e`, which denotes the element number, is :math:`[1,2]`. 
+Using the new stiffness matrix we can then assemble the global stiffness matrix.
+As an example, consider the term :math:`K^2_{13}`. Since the term is from element 1, 
+row 1 of Connnectivity has to be checked where we see that the local nodes 1 and 3 
+(i.e., the first and third column) map to the global indices 5 and 6 respectively.
+That means, the :math:`K^1_{13}` has to be mapped into the global matrix in row 5
+and column 6.
+
+.. math:: 
+
+       \mathbf{ K } _ { global } = \left[ \begin{array} { c c c c c c } 
+       { K _ { 11 } ^ { 1 } } + { K _ { 22 } ^ { 2 } } & { K _ { 12 } ^ { 1 } } & { K _ { 13 } ^ { 1 } } + { K _ { 24 } ^ { 2 } } & { K _ { 14 } ^ { 1 } } & { K _ { 21 } ^ { 2 } } & { K _ { 23 } ^ { 2 }} \\ 
+       { K _ { 21 } ^ { 1 } } & { K _ { 22 } ^ { 1 } } & { K _ { 23 } ^ { 1 } } & { K _ { 24 } ^ { 1 } } & 0 & 0 \\ 
+       { K _ { 31 } ^ { 1 } }+ { K _ { 42 } ^ { 2 } } & { K _ { 32 } ^ { 1 } } & { K _ { 33 } ^ { 1 } } + { K _ { 44 } ^ { 2 } } & { K _ { 34 } ^ { 1 } } & { K _ { 41 } ^ { 2 } } & { K _ { 43 } ^ { 2 } }\\  
+       { K _ { 41 } ^ { 1 } } & { K _ { 42 } ^ { 1 } } & { K _ { 43 } ^ { 1 } } & { K _ { 44 } ^ { 1 } } & 0 & 0\\
+       { K _ { 12 } ^ { 2 } } & 0 & { K _ { 14 } ^ { 2 } } & 0 & { K _ { 11 } ^ { 2 } } & { K _ { 13 } ^ { 2 } }\\ 
+       { K _ { 32 } ^ { 2 } }& 0 & { K _ { 34 } ^ { 2 } } & 0 & { K _ { 31 } ^ { 2 } } & { K _ { 33 } ^ { 2 } }\end{array} \right]
+
+This can be done for both the stiffness and the mass matrix, as well as the 
+force vector.
 
 Then, we end up with following system of equations:
 

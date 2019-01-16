@@ -69,9 +69,20 @@ will be used to create a model object.
 Material File
 ^^^^^^^^^^^^^
 
-The material file is a numpy array of defination of materials provided in the mesh file.
+The material file is a ``numpy`` array of definition of materials provided 
+in the mesh file. The ``numpy`` array has 6 columns. The first three columns 
+are the `X`, `Y` and `Z` coordinates, the 4-th column is the density :math:`\rho`,
+the 5-th column is the P-velocity :math:`V_p` and the third column is the S-velocity
+:math:`V_s`.
 
-Source time function file
+.. math::
+    
+    \text{Materials} = [ \vec{X}, \vec{Y}, \vec{Z}, \vec{\rho}, \vec{v_P}, \vec{v_S} ]
 
-The source time function file is a python file which contains the function that computes the force of source over time.
-Parameters that are passed to this function can be specified in the configuration file.
+
+Source-Time-Function File
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The source time function file is a python file which contains the function that computes 
+the force of source over time. Parameters that are passed to this function can be specified 
+in the configuration file. It takes in a time vector and a peak frequency.
