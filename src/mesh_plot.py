@@ -13,7 +13,6 @@ from src.mesh_spec import *
 
 # Plotting
 import matplotlib
-matplotlib.use('TkAgg')
 from matplotlib.patches import Polygon
 from  matplotlib.collections import PatchCollection
 import matplotlib.pyplot as plt
