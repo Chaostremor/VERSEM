@@ -29,7 +29,7 @@ Places in the code that need to be modified to create a generic code:
 4. Mass Matrix: extension to 3D?
 
 
-## Independent of dimension
+### Independent of dimension
 * Time-Schemes only take in 2D matrices and the matrices are agnostic of dimensions
 * Computation of stiffness matrix and mass matrix is (more or less) independent of dimension
 

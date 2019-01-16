@@ -17,8 +17,7 @@ import time
 from src.time_decorator import timer
 
 
-if __name__ == '__main__':
-    pass
+def main():
 
     #-------------------- INPUTS ------------------------
     config = Config()
@@ -172,3 +171,8 @@ if __name__ == '__main__':
 
 
     print('Done.')
+
+
+
+if __name__ == '__main__':
+    main()
