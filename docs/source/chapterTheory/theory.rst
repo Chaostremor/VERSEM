@@ -270,7 +270,7 @@ the Jacobian computes its inverse and multiplies it with the local derivative
 matrix to compute the global derivative matrix.
 
 Element and Node Numbering
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------
 
 The method developed here relies on a FEM mesh created by an external
 meshing software, which creates a ``.e`` Exodus file. The Exodus file
@@ -310,7 +310,7 @@ namely, the Lagrange Polynomials. This step is applied within the module and
 function ``src.mesh_spec.mesh_interp2D()``.
 
 Global Matrix Assembly
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
 
 .. figure:: figures/element_fig.pdf
@@ -332,7 +332,9 @@ The algorithm works using the following setup.
 .. figure:: figures/localglobalnumbering.pdf
        :alt: local2global
 
-       Small two element four GLL points per node setup.
+       Small two element four GLL points per node setup. (a) shows the 
+       local numberig for each element and (b) shows the global set of 
+       nodes.
 
 This setup will result in a 6x6 mass and stiffness matrix.
 
@@ -348,7 +350,7 @@ The connectivity setup is then:
                   \end{array} \right]
        \end{equation}
 
-The element matrix looks like this for each stiffness matrix:
+The element matrices look like this for each stiffness matrix:
 
 .. math::
        \begin{equation}
