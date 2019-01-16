@@ -1,5 +1,7 @@
 """This is script contains functions to plot a mesh
 
+Author: Lucas Sawade
+
 """
 
 # Necessary for calculation and import of exodus file

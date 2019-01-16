@@ -1,3 +1,9 @@
+""" Creates ``model_object``
+
+Author: Congyue Cui
+
+"""
+
 import netCDF4
 import numpy as np
 
@@ -17,6 +23,7 @@ class Model():
 		distance_to_boundary: dictionary that saves the distance from each point to each boundary
 			key: boundary name specified in Exodus file
 			value: numpy array of the distance from each point to corresponding boundary
+
 		"""
 		mesh = netCDF4.Dataset(config.mesh_file)
 		variables = mesh.variables
