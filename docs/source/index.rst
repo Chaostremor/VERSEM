@@ -23,11 +23,6 @@ Table Of Contents
     chapterModules/modules.rst
     chapterOriginalSetup/remarks.rst
 
-Bibliography
-++++++++++++
-
-.. bibliography:: Bibliography/bibliography.bib
-
 
 Indices and tables
 ++++++++++++++++++

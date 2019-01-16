@@ -4,7 +4,7 @@ Motivation
 Over the last 20 years, the seismology division of the Geoscience
 Department at Princeton University has been developing a software suite
 to solve the elastic wave equation using the Spectral Element method
-:cite:`Komatitsch1999`. Since the spectral element method
+[Komatitsch,1999]. Since the spectral element method
 cannot only be used to solve the wave equation, but partial differential
 equations in general, the group has started to develop solvers for other
 equations as well, e.g. Maxwell’s equation for magnetic anomalies. Since
@@ -28,3 +28,9 @@ readable as well as modular, we will write the entire code from scratch.
 That does not mean that we want to replace the existing code, but that 
 we will use it a reference for a new version. 
 
+
+
+Bibliography
+============
+
+ * Komatitsch, Dimitri and Tromp, Jeroen. Introduction to the Spectral Element Method for Three-Dimensional Seismic Wave Propagation (1999). Geophysical Journal International,Vol. 139, Issue 3, p. 806-822, DOI: 10.1046/j.1365-246x.1999.00967. https://onlinelibrary.wiley.com/doi/abs/10.1046/j.1365-246x.1999.00967.x.

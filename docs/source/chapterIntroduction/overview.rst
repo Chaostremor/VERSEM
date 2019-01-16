@@ -89,7 +89,7 @@ Before rerunning ``versem.py`` again, make cleanresults has to be run. Since the
 saved in the same folder, previous results will not be overwritten(!). I.e., save your results to 
 a new location if you want to keep them.
 
-.. figure:: figures/VERSEM.pdf
+.. figure:: figures/VERSEM.png
       :alt: versemOverview
 
       A simple overview over the algorithm setup

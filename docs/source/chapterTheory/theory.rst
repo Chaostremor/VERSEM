@@ -196,7 +196,7 @@ polynomials between certain points and defined in the following manner.
 
 where :math:`\xi_i` are the collocation points, :math:`i` is the number
 of the polynomial with respect to collocation points and :math:`n` is
-the degree of the polynomial :cite:`Komatitsch1999`. 
+the degree of the polynomial [Komatitsch, 1999].
 I.e., the elaborate expression would look like this:
 The SEM’s signature shape functions are the Lagrange Polynomials
 :math:`l^{n_l}_\alpha`:
