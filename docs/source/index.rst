@@ -12,8 +12,6 @@ Official documenation on ReadTheDocs_: `https://versem.readthedocs.io/`
 .. _ReadTheDocs: https://versem.readthedocs.io/
 
 
-Table Of Contents
-+++++++++++++++++
 
 .. toctree::
     :maxdepth: 2
