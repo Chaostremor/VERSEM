@@ -1,5 +1,7 @@
 """This is script contains functions used to get from a quadrilateral
-mesh to a Spectral-Element mesh. File for mesh object creation?
+mesh to a Spectral-Element mesh.
+
+Author: Lucas Sawade
 
 """
 

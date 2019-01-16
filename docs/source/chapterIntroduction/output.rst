@@ -100,12 +100,3 @@ codes with the form like:
 The detailed description to input parameters should be found in ``Modules``
 section.
 
-Post-Processing
----------------
-
-The post-processing software could be Paraview, Matlab or Matplotlib in
-Python, which will be the default. Since the post-processing part may not
-be of first priority in this project, all the resulting files or figures
-are currently compatiable to Python. As a future improvement, this
-post-processing section would integrate more environment.
-

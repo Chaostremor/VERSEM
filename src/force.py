@@ -1,4 +1,8 @@
-"""Force term implementation script"""
+"""Force term computation 
+
+Author: Srijan Bharati Das & Lucas Sawade
+
+"""
 
 import numpy as np
 from scipy import interpolate

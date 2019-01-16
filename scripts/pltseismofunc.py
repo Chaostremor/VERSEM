@@ -1,5 +1,9 @@
 """ This contains the function for ploting the seismograms at specified
-    stations at preferred time period with different data type
+    stations at preferred time period with different data type.
+
+Author: Chao Song
+
+
 """
 
 # Necessary for calculation 
@@ -17,10 +21,7 @@ from scipy import interpolate
 import os
 
 def plt_seismo(xnew, ynew, stime, etime, times, dtype='u', fname=None):
-    """.. function:: plt_seismo(xnew, ynew, stime, etime, times, dtype='u',
-                                fname=None)
-    
-    This function is used to read the selected data and plot the seismogram at
+    """This function is used to read the selected data and plot the seismogram at
     each given station point at preferred time period
     
     :param xnew: 1D ``numpy`` array of 1st dimension corrdinates of desired
