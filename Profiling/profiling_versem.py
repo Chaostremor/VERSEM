@@ -38,5 +38,5 @@ s = io.StringIO()
 sortby = SortKey.CUMULATIVE
 ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
 #ps.print_stats()
-ps.dump_stats('Profiling/psstat')
+ps.dump_stats('profiling/psstat')
 print(s.getvalue())

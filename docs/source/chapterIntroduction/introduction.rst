@@ -8,6 +8,7 @@ Overview
     overview.rst
     input.rst
     output.rst
+    profiling.rst
     sphinx.rst
 
 
