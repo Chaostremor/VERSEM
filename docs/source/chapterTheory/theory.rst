@@ -342,25 +342,23 @@ The connectivity setup is then:
 
 .. math:: 
 
-       \begin{equation}
-              \text{Connnectivity} = \left[ 
-                \begin{array} { c c c c } 
-                    { 1 } & { 2 } & { 3 } & { 4 } \\ 
-                    { 5 } & { 1 } & { 6 } & { 3 } \\ 
-                  \end{array} \right]
-       \end{equation}
+       \text{Connnectivity} = \left[ 
+       \begin{array} { c c c c } 
+       { 1 } & { 2 } & { 3 } & { 4 } \\ 
+       { 5 } & { 1 } & { 6 } & { 3 } \\ 
+       \end{array} \right]
 
 The element matrices look like this for each stiffness matrix:
 
 .. math::
-       \begin{equation}
+
        \mathbf { K } ^ { e } = \left[ \begin{array} { c c c c } 
-              { K _ { 11 } ^ { e } } & { K _ { 12 } ^ { e } } & { K _ { 13 } ^ { e } } & { K _ { 14 } ^ { e } } \\ 
-              { K _ { 21 } ^ { e } } & { K _ { 22 } ^ { e } } & { K _ { 23 } ^ { e } } & { K _ { 24 } ^ { e } } \\ 
-              { K _ { 31 } ^ { e } } & { K _ { 32 } ^ { e } } & { K _ { 33 } ^ { e } } & { K _ { 34 } ^ { e } } \\ 
-              { K _ { 41 } ^ { e } } & { K _ { 42 } ^ { e } } & { K _ { 43 } ^ { e } } & { K _ { 44 } ^ { e } } 
-              \end{array} \right]
-       \end{equation}
+       { K _ { 11 } ^ { e } } & { K _ { 12 } ^ { e } } & { K _ { 13 } ^ { e } } & { K _ { 14 } ^ { e } } \\ 
+       { K _ { 21 } ^ { e } } & { K _ { 22 } ^ { e } } & { K _ { 23 } ^ { e } } & { K _ { 24 } ^ { e } } \\ 
+       { K _ { 31 } ^ { e } } & { K _ { 32 } ^ { e } } & { K _ { 33 } ^ { e } } & { K _ { 34 } ^ { e } } \\ 
+       { K _ { 41 } ^ { e } } & { K _ { 42 } ^ { e } } & { K _ { 43 } ^ { e } } & { K _ { 44 } ^ { e } } 
+       \end{array} \right]
+
 
 The total range of :math:`e`, which denotes the element number, is :math:`[1,2]`. 
 Using the new stiffness matrix we can then assemble the global stiffness matrix.
