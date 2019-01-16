@@ -12,7 +12,7 @@ After the program is done, a vector file called ``profiled_graph.svg``
 will be output in the ``profiling/`` directory.
 
 
-.. figure:: figures/profiled_graph.svg
+.. figure:: figures/profiled_graph.png
         :alt: profiled_graph
 
         A sample profiling graph output from 
