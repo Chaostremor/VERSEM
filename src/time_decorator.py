@@ -1,3 +1,11 @@
+"""This is a simple time decorator that counts 
+computes time require for the input func.
+
+Author: Lucas Sawade
+
+"""
+
+
 import time
 
 # def timer(start_time,str="Function"):

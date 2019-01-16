@@ -1,3 +1,10 @@
+"""This contains the algorithm that move local matrices into a global
+on using the connectivity matrix.
+
+Author: Srijan Bahrati Das
+
+"""
+
 import numpy as np
 
 #######################################################################

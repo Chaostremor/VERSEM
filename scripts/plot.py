@@ -1,3 +1,9 @@
+"""Overly simple plotting function to quickly image results.
+
+Author: Lucas Sawade
+
+"""
+
 import numpy as np
 import matplotlib
 matplotlib.use('TkAgg')

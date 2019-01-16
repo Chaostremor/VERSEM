@@ -1,4 +1,8 @@
-"""Function set to define Model parameters"""
+"""Function set to define Model parameters
+
+Author: Lucas Sawade
+
+"""
 
 
 def velocity_conversion(rho,vp,vs):

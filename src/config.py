@@ -1,3 +1,10 @@
+"""This reads the input filue and source info.
+
+Author: Congyue Cui
+
+
+"""
+
 import argparse
 import re
 import os.path as path

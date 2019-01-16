@@ -1,6 +1,6 @@
 """ This contains the functions for ploting the wavefield snapshot
     
-    Author: Chao Song
+Author: Chao Song
     
 """
  
@@ -21,9 +21,7 @@ import os
 
 # Function for plotting 
 def plt_snap(xnpt, dtype='u', stype='xdim', fname=None):
-    """.. function:: plt_snap(xnpt, dtype='u', stype='xdim', fname=None)
-    
-    This function is used to read the selected data and plot the snapshot on
+    """This function is used to read the selected data and plot the snapshot on
     preferred dimension.
     
     :param xnpt: integer number of points along 1st dimension after 
