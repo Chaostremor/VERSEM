@@ -8,7 +8,7 @@ It has to be run from the main directory (``VERSEM/``) as
 
     bash$ ./profiling/profiling_versem.sh
 
-After the program is done, a vector filed called ``profiled_graph.svg`` 
+After the program is done, a vector file called ``profiled_graph.svg`` 
 will be output in the ``profiling/`` directory.
 
 

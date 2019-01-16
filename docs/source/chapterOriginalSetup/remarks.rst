@@ -29,12 +29,14 @@ Division of Labor
 - **ALL:** Skeleton design; unit test; documentation
 
 
-Problems
-========
+Known Issues
+============
 
-* A lot of the parsed inputs are not tested, meaning that if one 
+* A lot of the parsed inputs are not tested, meaning that if one, e.g., 
   puts a string as the ngll_points there is no test of that is an 
-  integer which it has to be.
+  integer which it has to be. All inputs are assumed to be correct.
+
+* The included mesh is in kilometers, whereas the code runs in meters
 
 * Stability is also still an issue.
 
